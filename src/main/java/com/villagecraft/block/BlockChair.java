@@ -1,0 +1,61 @@
+package com.villagecraft.block;
+
+import net.minecraft.block.SoundType;
+
+import javax.annotation.Nullable;
+
+import net.minecraft.block.AbstractBlock.Properties;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.Pose;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.world.World;
+
+public class BlockChair extends Block {
+	
+	public static Properties properties = Properties.create(Material.WOOD).hardnessAndResistance(3.5F).sound(SoundType.SCAFFOLDING);
+	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ItemGroup.DECORATIONS).maxStackSize(64);
+	
+	public BlockChair(Properties properties) {
+		super(properties);
+		
+	}
+	
+	// Defines the properties needed for the blockstate
+	@Override
+	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) { 
+//		builder.add(BlockStateProperties.FACING);
+	}
+	
+//	@Nullable
+//    @Override
+//    public BlockState getStateForPlacement(BlockItemUseContext context) {
+//        return getDefaultState().with(BlockStateProperties.FACING, context.getNearestLookingDirection().getOpposite());
+//    }
+	
+	// When activated we will have the player sit
+	// @TODO: learn how to do this
+	@Override
+	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult blockRayTraceResult) { 
+		
+		if (player.isCrouching()) { 
+			player.setPose(Pose.STANDING);
+		} else {
+			player.setPose(Pose.CROUCHING);	
+		}
+		
+		return ActionResultType.SUCCESS;
+	}
+	
+}

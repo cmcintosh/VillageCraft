@@ -1,0 +1,25 @@
+modLoader="javafml" 
+loaderVersion="[32,)" 
+issueTrackerURL="http://github.com/cmcintosh/VillageCraft" #optional
+[[mods]] #mandatory
+modId="vcm"
+version="${file.jarVersion}" #mandatory
+displayName="VillageCraft" #mandatory
+displayURL="https://wembassy.com/" #optional
+authors="Chris McIntosh<cmcintosh@wembassy.com>" #optional
+description='''
+VillageCraft is an attempt to bring much of the management functionality from games like
+DwarfFortress into minecraft in order to make villages come more alive and become a larger
+part of your play through.
+'''
+[[dependencies.villagecraft]] #optional
+    # the modid of the dependency
+    modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
+    mandatory=true #mandatory
+    # The version range of the dependency
+    versionRange="[32,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
