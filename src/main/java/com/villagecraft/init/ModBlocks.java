@@ -28,6 +28,6 @@ public final class ModBlocks {
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MODID);
 	
 	// Adds the Chair block
-	public static final RegistryObject<Block> BLOCK_CHAIR = (RegistryObject<Block>) BLOCKS.register("chair", () -> (Block) new BlockChair(BlockChair.properties)); 
+	public static final RegistryObject<BlockChair> BLOCK_CHAIR = (RegistryObject<BlockChair>) BLOCKS.register("chair", () -> new BlockChair(BlockChair.properties)); 
 	
 }

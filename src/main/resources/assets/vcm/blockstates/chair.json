@@ -2,22 +2,10 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "": "vcm:blocks/chair",
-            "down": "vcm:blocks/chair",
-    		"up": "vcm:blocks/chair",
-    		"north": "vcm:blocks/chair",
-    		"south": "vcm:blocks/chair",
-    		"east": "vcm:blocks/chair",
-    		"west": "vcm:blocks/chair"
+            "": "vcm:blocks/chair"
         }
     },
     "variants": {
-    	"": { "model": "vcm:blocks/chair" },
-        "facing=down": { "model": "vcm:blocks/chair" },
-		"facing=up": { "model": "vcm:blocks/chair" },
-		"facing=north": { "model": "vcm:blocks/chair" },
-		"facing=south": { "model": "vcm:blocks/chair" },
-		"facing=east": { "model": "vcm:blocks/chair" },
-		"facing=west": { "model": "vcm:blocks/chair" }
+    	"": { "model": "vcm:blocks/chair" }        
     }
 }

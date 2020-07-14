@@ -21,6 +21,7 @@ public class BlockStates extends BlockStateProvider {
 		super.act(cache);
 		// Register states for our Chair
 		registerChairBlock(cache);
+		
 	}
 	
 	/**
@@ -28,9 +29,7 @@ public class BlockStates extends BlockStateProvider {
 	 * @param cache
 	 */
 	private void registerChairBlock(DirectoryCache cache) { 
-		
 		ResourceLocation txt = new ResourceLocation(Reference.MODID, "block/chair");
-		
 	}
 
 }

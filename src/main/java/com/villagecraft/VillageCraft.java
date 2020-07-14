@@ -43,8 +43,6 @@ public class VillageCraft {
 		// Registering mod blocks for VillageCraft
 		ModBlocks.BLOCKS.register(modEventBus);
 		
-		// Registering Models for our blocks?
-		
 		// Registering mod items for VillageCraft
 		ModItems.ITEMS.register(modEventBus);
 		
