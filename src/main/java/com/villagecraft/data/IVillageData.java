@@ -1,5 +1,5 @@
 package com.villagecraft.data;
 
-public interface IVillage {
+public interface IVillageData {
 
 }

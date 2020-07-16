@@ -6,6 +6,21 @@
         }
     },
     "variants": {
-    	"": { "model": "vcm:blocks/chair" }        
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/chair"
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/chair",
+	      "y": 180
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/chair",
+	      "y": 270
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/chair",
+	      "y": 90
+	    }       
     }
 }

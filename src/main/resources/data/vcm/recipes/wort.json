@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "xxx",
+        "xyx",
+        "xxx"
+    ],
+    "key":
+    {
+        "x":
+        {
+            "item": "minecraft:wheat"
+        },
+        "y":
+        {
+            "item": "minecraft:water_bucket"
+        }
+    },
+    "result":
+    {
+        "item": "vcm:wort",
+        "count": 1
+    }
+}

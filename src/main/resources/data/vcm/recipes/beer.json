@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "y"
+    ],
+    "key":
+    {
+        "y":
+        {
+            "item": "vcm:beer_bucket"
+        }
+    },
+    "result":
+    {
+        "item": "vcm:beer",
+        "count": 24
+    }
+}

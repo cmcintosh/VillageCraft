@@ -1,5 +1,10 @@
 {
 	"item.vcm.nationcharter": "Nation Charter",
 	"item.vcm.chair": "Chair",
+	"item.vcm.beer": "Beer",
+	"item.vcm.wort": "Wort",
+	"item.vcm.heart": "Heart",
+	"item.vcm.beer_bucket": "Beer Bucket",
+	"item.vcm.stone_hammer": "Stone Hammer",
 	"block.vcm.chair": "Chair"
 }

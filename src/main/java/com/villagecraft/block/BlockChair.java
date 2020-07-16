@@ -35,7 +35,7 @@ import net.minecraft.world.World;
 
 public class BlockChair extends Block {
 	
-	public static Properties properties = Properties.create(Material.WOOD).hardnessAndResistance(3.5F).sound(SoundType.SCAFFOLDING);
+	public static Properties properties = Properties.create(Material.WOOD).hardnessAndResistance(3.5F).sound(SoundType.SCAFFOLDING).notSolid();
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ItemGroup.DECORATIONS).maxStackSize(64);
 	
@@ -62,11 +62,7 @@ public class BlockChair extends Block {
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult blockRayTraceResult) { 
 		
-		if (player.isCrouching()) { 
-			player.setPose(Pose.STANDING);
-		} else {
-			player.setPose(Pose.CROUCHING);	
-		}
+		
 		
 		return ActionResultType.SUCCESS;
 	}
