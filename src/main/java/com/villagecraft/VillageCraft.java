@@ -12,7 +12,6 @@ import com.villagecraft.entity.BardVillagerRenderer;
 import com.villagecraft.init.ModBlocks;
 import com.villagecraft.init.ModFoods;
 import com.villagecraft.init.ModItems;
-import com.villagecraft.init.ModVillagerEntities;
 import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.item.ItemNationCharter;
 import com.villagecraft.util.Reference;
@@ -59,13 +58,11 @@ public class VillageCraft {
 		ModFoods.ITEMS.register(modEventBus);
 		
 		// Registering the mod villager professions
+		ModVillagerProfessions.POINTS_OF_INTEREST.register(modEventBus);
 		ModVillagerProfessions.PROFESSIONS.register(modEventBus);
 		
-		// Registering the mod villager entities
-		ModVillagerEntities.VILLAGERS.register(modEventBus);
+		modEventBus.addListener(ModVillagerProfessions::trades);
 		
-//		RenderingRegistry.registerEntityRenderingHandler(ModVillagerEntities.BARD.get(), BardVillagerRenderer::new);
-
 	}
 	
 }

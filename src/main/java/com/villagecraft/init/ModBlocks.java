@@ -1,9 +1,13 @@
 package com.villagecraft.init;
 
+import java.util.Set;
+
+import com.google.common.collect.ImmutableSet;
 import com.villagecraft.block.BlockChair;
 import com.villagecraft.util.Reference;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.RegistryObject;
@@ -30,4 +34,9 @@ public final class ModBlocks {
 	// Adds the Chair block
 	public static final RegistryObject<BlockChair> BLOCK_CHAIR = (RegistryObject<BlockChair>) BLOCKS.register("chair", () -> new BlockChair(BlockChair.properties)); 
 	
+	
+	// Utility function
+	public static final Set<BlockState> getAllStates(Block block) { 
+		return ImmutableSet.copyOf(block.getStateContainer().getValidStates());
+	}
 }

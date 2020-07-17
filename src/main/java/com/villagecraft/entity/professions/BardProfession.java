@@ -1,8 +1,13 @@
 package com.villagecraft.entity.professions;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableSet;
+import com.villagecraft.VillageCraft;
 import com.villagecraft.init.ModBlocks;
 import com.villagecraft.init.ModItems;
 
@@ -34,5 +39,43 @@ public class BardProfession extends VillagerProfession {
 		return ImmutableSet.copyOf(block.getStateContainer().getValidStates());
 	}
 	
+	
+	// Helper function to register professions
+	   public static VillagerProfession villagerProfession(String p1, PointOfInterestType p2, ImmutableSet<Item> p3, ImmutableSet<Block> p4, @Nullable SoundEvent p5)
+	   {
+	       try
+	       {
+	    	   VillageCraft.LOGGER.debug("Called Profession helper for Bard");
+	           Constructor<BardProfession> c = BardProfession.class.getDeclaredConstructor(String.class, PointOfInterestType.class, ImmutableSet.class, ImmutableSet.class, SoundEvent.class);
+	           c.setAccessible(true);
+	           return c.newInstance(p1, p2, p3, p4, p5);
+	       }
+	       catch (NoSuchMethodException e)
+	       {
+	           e.printStackTrace();
+	       }
+	       catch (SecurityException e)
+	       {
+	           e.printStackTrace();
+	       }
+	       catch (InstantiationException e)
+	       {
+	           e.printStackTrace();
+	       }
+	       catch (IllegalAccessException e)
+	       {
+	           e.printStackTrace();
+	       }
+	       catch (IllegalArgumentException e)
+	       {
+	           e.printStackTrace();
+	       }
+	       catch (InvocationTargetException e)
+	       {
+	           e.printStackTrace();
+	       }
+	       
+	       return null;
+	   }
 
 }

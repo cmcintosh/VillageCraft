@@ -11,6 +11,7 @@ import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.world.World;
 
+
 public class BardVillager extends VillagerEntity {
 
 	
@@ -19,6 +20,7 @@ public class BardVillager extends VillagerEntity {
 		super(type, worldIn);
 		// TODO Auto-generated constructor stub
 		this.setVillagerData(new VillagerData(null, ModVillagerProfessions.BARD.get(), 1));
+		
 	}
 	
 
