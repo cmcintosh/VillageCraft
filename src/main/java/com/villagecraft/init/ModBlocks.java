@@ -2,7 +2,9 @@ package com.villagecraft.init;
 
 import java.util.Set;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.villagecraft.VillageCraft;
 import com.villagecraft.block.BlockChair;
 import com.villagecraft.util.Reference;
 
@@ -37,6 +39,8 @@ public final class ModBlocks {
 	
 	// Utility function
 	public static final Set<BlockState> getAllStates(Block block) { 
-		return ImmutableSet.copyOf(block.getStateContainer().getValidStates());
+		ImmutableList states = block.getStateContainer().getValidStates();
+		
+		return ImmutableSet.copyOf(states);
 	}
 }

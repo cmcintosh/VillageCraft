@@ -1,4 +1,4 @@
-package com.villagecraft.entity.trade;
+package com.villagecraft.util;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
+
 
 public class RandomTradeBuilder
 {

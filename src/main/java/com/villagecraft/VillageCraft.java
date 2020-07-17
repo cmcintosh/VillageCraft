@@ -7,8 +7,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.villagecraft.block.BlockChair;
 import com.villagecraft.config.ModConfig;
-import com.villagecraft.entity.BardVillager;
-import com.villagecraft.entity.BardVillagerRenderer;
 import com.villagecraft.init.ModBlocks;
 import com.villagecraft.init.ModFoods;
 import com.villagecraft.init.ModItems;
@@ -23,6 +21,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -61,8 +60,13 @@ public class VillageCraft {
 		ModVillagerProfessions.POINTS_OF_INTEREST.register(modEventBus);
 		ModVillagerProfessions.PROFESSIONS.register(modEventBus);
 		
-		modEventBus.addListener(ModVillagerProfessions::trades);
-		
 	}
 	
+	@SubscribeEvent
+	public static void onTradeEvent(VillagerTradesEvent event) { 
+		VillageCraft.LOGGER.debug("Trades called: " + event.getType().toString());
+		if(event.getType() == ModVillagerProfessions.BARD.get()) {
+			VillageCraft.LOGGER.debug("Trades called: for the bard");
+		}
+	}
 }

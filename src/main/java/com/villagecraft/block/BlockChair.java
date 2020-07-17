@@ -42,6 +42,7 @@ public class BlockChair extends Block {
 	public BlockChair(Properties properties) {
 		super(properties);
 		setDefaultState(getStateContainer().getBaseState().with(FACING, Direction.NORTH));
+		
 	}
 	
 	// Defines the properties needed for the blockstate
