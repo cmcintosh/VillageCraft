@@ -1,0 +1,306 @@
+{
+  "villager_sleep": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.villager_sleep",
+    "sounds": [
+      "vcm:sleep1",
+	  "vcm:sleep2",
+      "vcm:sleep3",
+      "vcm:sleep4",
+      "vcm:sleep5",
+      "vcm:sleep6",
+      "vcm:sleep7",
+      "vcm:sleep8",
+      "vcm:sleep9"
+    ]
+  },
+  "villager_angry": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.villager_angry",
+    "sounds": [
+      "vcm:angry_1_1",
+      "vcm:angry_1_2",
+      "vcm:angry_1_3",
+      "vcm:angry_1_4"
+    ]
+  },
+  "villager_happy": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.villager_happy",
+    "sounds": [
+      "vcm:happy2_2"
+    ]
+  },
+  "villager_socialize": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.villager_socialize",
+    "sounds": [
+      "vcm:socialize1",
+      "vcm:socialize2",
+      "vcm:socialize3",
+      "vcm:socialize4",
+      "vcm:socialize5",
+      "vcm:socialize6",
+      "vcm:socialize7",
+      "vcm:socialize8",
+      "vcm:socialize9",
+      "vcm:socialize10",
+      "vcm:socialize11",
+      "vcm:socialize12",
+      "vcm:socialize13",
+      "vcm:socialize14",
+      "vcm:socialize15",
+      "vcm:socialize16",
+      "vcm:socialize17",
+      "vcm:socialize18",
+      "vcm:socialize19",
+      "vcm:socialize20",
+      "vcm:socialize21",
+      "vcm:socialize22",
+      "vcm:socialize23",
+      "vcm:socialize24",
+      "vcm:socialize25",
+      "vcm:socialize26",
+      "vcm:socialize27"
+    ]
+  },
+  "villager_grunt": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.villager_grunt",
+    "sounds": [
+      "vcm:grunt1",
+      "vcm:grunt2"
+    ]
+  },
+  "big_attack": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.big_attack",
+    "sounds": [
+      "vcm:big_attack_01",
+      "vcm:big_attack_02"
+    ]
+  },
+  "slam_ground": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.slam_ground",
+    "sounds": [
+      "vcm:slam_ground"
+    ]
+  },
+  "courage_aura": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.courage_aura",
+    "sounds": [
+      "vcm:courage_aura"
+    ]
+  },
+  "villager_afraid": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.villager_afraid",
+    "sounds": [
+      "vcm:afraid1",
+      "vcm:afraid2",
+      "vcm:afraid3",
+      "vcm:afraid4"
+    ]
+  },
+  "villager_enchant": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.villager_enchant",
+    "sounds": [
+      "vcm:enchant"
+    ]
+  },
+  "villager_enchant_apply": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.villager_enchant_apply",
+    "sounds": [
+      "vcm:enchant_apply"
+    ]
+  },
+  "villager_heart_magic": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.villager_heart_magic",
+    "sounds": [
+      "vcm:heart_magic"
+    ]
+  },
+  "twinkle": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.twinkle",
+    "sounds": [
+      "vcm:twinkle"
+    ]
+  },
+  "healing_source": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.healing_source",
+    "sounds": [
+      "vcm:healing_source"
+    ]
+  },
+  "healing_target": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.healing_target",
+    "sounds": [
+      "vcm:healing_target"
+    ]
+  },
+  "earth_rumble": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.earth_rumble",
+    "sounds": [
+      "vcm:earth1",
+      "vcm:earth2",
+      "vcm:earth3"
+    ]
+  },
+  "earth_blast": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.earth_blast",
+    "sounds": [
+      "vcm:earth_blast"
+    ]
+  },
+  "death_summon": {
+    "category": "hostile",
+    "subtitle": "vcm.subtitle.death_summon",
+    "sounds": [
+      "vcm:death_summon"
+    ]
+  },
+  "death_summon_target": {
+    "category": "hostile",
+    "subtitle": "vcm.subtitle.death_summon_target",
+    "sounds": [
+      "vcm:death_summon_target"
+    ]
+  },
+  "death_skull_arrive": {
+    "category": "hostile",
+    "subtitle": "vcm.subtitle.death_skull_arrive",
+    "sounds": [
+      "vcm:death_skull_arrive"
+    ]
+  },
+  "death_skull_leave": {
+    "category": "hostile",
+    "subtitle": "vcm.subtitle.death_skull_leave",
+    "sounds": [
+      "vcm:death_skull_leave"
+    ]
+  },
+  "death_skull_rebound": {
+    "category": "hostile",
+    "subtitle": "vcm.subtitle.death_skull_rebound",
+    "sounds": [
+      "vcm:death_skull_rebound1",
+      "vcm:death_skull_rebound2"
+    ]
+  },
+  "death_shield": {
+    "category": "hostile",
+    "subtitle": "vcm.subtitle.death_shield",
+    "sounds": [
+      "vcm:death_shield"
+    ]
+  },
+  "death_circle": {
+    "category": "hostile",
+    "subtitle": "vcm.subtitle.death_circle",
+    "sounds": [
+      "vcm:death_circle"
+    ]
+  },
+  "death_full_skulls": {
+    "category": "hostile",
+    "subtitle": "vcm.subtitle.death_full_skulls",
+    "sounds": [
+      "vcm:death_full_skulls"
+    ]
+  },
+  "death_summon_end": {
+    "category": "hostile",
+    "subtitle": "vcm.subtitle.death_summon_end",
+    "sounds": [
+      "vcm:death_summon_end"
+    ]
+  },
+  "necro_dead": {
+    "category": "hostile",
+    "subtitle": "vcm.subtitle.necro_dead",
+    "sounds": [
+      "vcm:necro_dead"
+    ]
+  },
+  "flute_short_1": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.flute_short_1",
+    "sounds": [
+      "vcm:flute_short_1"
+    ]
+  },
+  "flute_short_2": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.flute_short_2",
+    "sounds": [
+      "vcm:flute_short_2"
+    ]
+  },
+  "flute_short_3": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.flute_short_3",
+    "sounds": [
+      "vcm:flute_short_3"
+    ]
+  },
+  "flute_short_4": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.flute_short_4",
+    "sounds": [
+      "vcm:flute_short_4"
+    ]
+  },
+  "flute_short_5": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.flute_short_5",
+    "sounds": [
+      "vcm:flute_short_5"
+    ]
+  },
+  "flute_short_6": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.flute_short_6",
+    "sounds": [
+      "vcm:flute_short_6"
+    ]
+  },
+  "flute_short_7": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.flute_short_7",
+    "sounds": [
+      "vcm:flute_short_7"
+    ]
+  },
+  "flute_tavern_1": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.flute_tavern_1",
+    "sounds": [
+      "vcm:flute_tavern_1"
+    ]
+  },
+  "flute_tavern_2": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.flute_tavern_2",
+    "sounds": [
+      "vcm:flute_tavern_2"
+    ]
+  },
+  "flute_tavern_3": {
+    "category": "neutral",
+    "subtitle": "vcm.subtitle.flute_tavern_3",
+    "sounds": [
+      "vcm:flute_tavern_3"
+    ]
+  }
+}

@@ -2,24 +2,24 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "": "vcm:blocks/chair"
+            "": "vcm:blocks/ore_box"
         }
     },
     "variants": {
     	
     	"facing=north": {
-	      "model": "vcm:blocks/chair",
+	      "model": "vcm:blocks/ore_box",
 	      "y": 180
 	    },
 	    "facing=south": {
-	      "model": "vcm:blocks/chair"
+	      "model": "vcm:blocks/ore_box"
 	    },
 	    "facing=west": {
-	      "model": "vcm:blocks/chair",
+	      "model": "vcm:blocks/ore_box",
 	      "y": 90
 	    },
 	    "facing=east": {
-	      "model": "vcm:blocks/chair",
+	      "model": "vcm:blocks/ore_box",
 	      "y": 270
 	    }       
     }

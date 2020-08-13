@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        " x ",
+        " x ",
+        "yyy"
+    ],
+    "key":
+    {
+        "x":
+        {
+            "item": "minecraft:iron_bars"
+        },
+        "y":
+        {
+            "item": "minecraft:smooth_stone_slab"
+        }
+    },
+    "result":
+    {
+       	"item": "vcm:village_center",
+       	"count": 1
+    }
+}

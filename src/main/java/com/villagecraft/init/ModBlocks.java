@@ -5,7 +5,14 @@ import java.util.Set;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.villagecraft.VillageCraft;
+import com.villagecraft.block.BlockBardStand;
+import com.villagecraft.block.BlockBeeKeepersHive;
 import com.villagecraft.block.BlockChair;
+
+import com.villagecraft.block.BlockDraftingTable;
+import com.villagecraft.block.BlockOreBox;
+import com.villagecraft.block.BlockVillageCenter;
+import com.villagecraft.block.TradesmanHelmet;
 import com.villagecraft.util.Reference;
 
 import net.minecraft.block.Block;
@@ -33,14 +40,17 @@ public final class ModBlocks {
 	
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MODID);
 	
-	// Adds the Chair block
-	public static final RegistryObject<BlockChair> BLOCK_CHAIR = (RegistryObject<BlockChair>) BLOCKS.register("chair", () -> new BlockChair(BlockChair.properties)); 
+	public static final RegistryObject<BlockVillageCenter> BLOCK_VILLAGE_CENTER = (RegistryObject<BlockVillageCenter>) BLOCKS.register("village_center", () -> new BlockVillageCenter(BlockVillageCenter.properties));
 	
+	public static final RegistryObject<BlockChair> BLOCK_CHAIR = (RegistryObject<BlockChair>) BLOCKS.register("chair", () -> new BlockChair(BlockChair.properties));
+	public static final RegistryObject<BlockBardStand> BARD_STAND = (RegistryObject<BlockBardStand>) BLOCKS.register("bard_stand", () -> new BlockBardStand(BlockBardStand.properties));
+	public static final RegistryObject<BlockOreBox> ORE_BOX = (RegistryObject<BlockOreBox>) BLOCKS.register("ore_box", () -> new BlockOreBox(BlockOreBox.properties));
+	public static final RegistryObject<BlockDraftingTable> DRAFTING_TABLE = (RegistryObject<BlockDraftingTable>) BLOCKS.register("drafting_table", () -> new BlockDraftingTable(BlockDraftingTable.properties));
+	public static final RegistryObject<TradesmanHelmet> TRADESMAN_HELMET = (RegistryObject<TradesmanHelmet>) BLOCKS.register("tradesman_helmet", () -> new TradesmanHelmet(TradesmanHelmet.properties));
 	
 	// Utility function
 	public static final Set<BlockState> getAllStates(Block block) { 
 		ImmutableList states = block.getStateContainer().getValidStates();
-		
 		return ImmutableSet.copyOf(states);
 	}
 }

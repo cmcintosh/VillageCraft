@@ -34,16 +34,16 @@ import net.minecraft.village.PointOfInterestType;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 
-public class BardProfession extends VillagerCraftBaseProfession {
+public class TradesmanProfession extends VillagerCraftBaseProfession {
 	
 	public static final ImmutableSet<Item> PROFESSION_ITEM = ImmutableSet.of(ModItems.BEER_BUCKET.get());
 	public static final ImmutableSet<Block> PROFESSION_BLOCK = ImmutableSet.of(Blocks.BIRCH_LOG);
-	public VillagerProfession PROFESSION = ModVillagerProfessions.BARD.get();
+	public VillagerProfession PROFESSION = ModVillagerProfessions.ARCHITECT.get();
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	public BardProfession(String nameIn, PointOfInterestType pointOfInterestIn, 
+	public TradesmanProfession(String nameIn, PointOfInterestType pointOfInterestIn, 
 			ImmutableSet<Item> specificItemsIn,
 			ImmutableSet<Block> relatedWorldBlocksIn, 
 			SoundEvent soundIn) {
@@ -54,10 +54,13 @@ public class BardProfession extends VillagerCraftBaseProfession {
 	 * {@inheritDoc}
 	 */
 	public static void RegisterVillagerTrades(VillagerTradesEvent event) { 
-		if (event.getType() == ModVillagerProfessions.BARD.get()) {
-			event.getTrades().get(1).add((entity, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 16), new ItemStack(ModItems.BEER_BUCKET.get()), 8, 10, 0F));
-			RandomTradeBuilder.forEachLevel((level, tradeBuild) -> event.getTrades().get(level.intValue()).add(tradeBuild.build()));
+		// add in profession tokens
+		if (event.getType() == ModVillagerProfessions.TRADESMAN.get()) {
+			event.getTrades().get(1).add((entity, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 1), new ItemStack(ModItems.PROF_MERCHANT.get()), 80, 20, 0F));
+			event.getTrades().get(1).add((entity, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 1), new ItemStack(ModItems.PROF_WORKER.get()), 80, 20, 0F));
+			event.getTrades().get(2).add((entity, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 1), new ItemStack(ModItems.PROF_BRAWLER.get()), 80, 20, 0F));
 		}
+//      RandomTradeBuilder.forEachLevel((level, tradeBuild) -> event.getTrades().get(level.intValue()).add(tradeBuild.build()));
 	}
 	
 	/**

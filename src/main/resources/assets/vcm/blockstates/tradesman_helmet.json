@@ -2,24 +2,24 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "": "vcm:blocks/chair"
+            "": "vcm:blocks/tradesman_helmet"
         }
     },
     "variants": {
     	
     	"facing=north": {
-	      "model": "vcm:blocks/chair",
+	      "model": "vcm:blocks/tradesman_helmet",
 	      "y": 180
 	    },
 	    "facing=south": {
-	      "model": "vcm:blocks/chair"
+	      "model": "vcm:blocks/tradesman_helmet"
 	    },
 	    "facing=west": {
-	      "model": "vcm:blocks/chair",
+	      "model": "vcm:blocks/tradesman_helmet",
 	      "y": 90
 	    },
 	    "facing=east": {
-	      "model": "vcm:blocks/chair",
+	      "model": "vcm:blocks/tradesman_helmet",
 	      "y": 270
 	    }       
     }

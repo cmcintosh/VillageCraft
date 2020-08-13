@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/drafting_table"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/drafting_table"
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/drafting_table",
+	      "y": 180
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/drafting_table",
+	      "y": 270
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/drafting_table",
+  	      "y": 90
+	    }       
+    }
+}

@@ -11,6 +11,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.villagecraft.VillageCraft;
 import com.villagecraft.entity.goal.HealGolemGoal;
+import com.villagecraft.entity.goal.VillagerGoalDeliverToStorage;
 import com.villagecraft.init.ModBlocks;
 import com.villagecraft.init.ModFoods;
 import com.villagecraft.init.ModItems;
@@ -23,6 +24,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.item.Item;
@@ -33,40 +35,42 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.village.PointOfInterestType;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
-public class BardProfession extends VillagerCraftBaseProfession {
+public class WorkerProfession extends VillagerCraftBaseProfession {
 	
-	public static final ImmutableSet<Item> PROFESSION_ITEM = ImmutableSet.of(ModItems.BEER_BUCKET.get());
-	public static final ImmutableSet<Block> PROFESSION_BLOCK = ImmutableSet.of(Blocks.BIRCH_LOG);
-	public VillagerProfession PROFESSION = ModVillagerProfessions.BARD.get();
+	public static final ImmutableSet<Item> PROFESSION_ITEM = ImmutableSet.copyOf(ForgeRegistries.ITEMS);
+	public static final ImmutableSet<Block> PROFESSION_BLOCK = ImmutableSet.copyOf(ForgeRegistries.BLOCKS);
+	public VillagerProfession PROFESSION = ModVillagerProfessions.WORKER.get();
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	public BardProfession(String nameIn, PointOfInterestType pointOfInterestIn, 
+	public WorkerProfession(String nameIn, PointOfInterestType pointOfInterestIn, 
 			ImmutableSet<Item> specificItemsIn,
 			ImmutableSet<Block> relatedWorldBlocksIn, 
 			SoundEvent soundIn) {
-			super(nameIn, pointOfInterestIn, specificItemsIn, relatedWorldBlocksIn, soundIn);		
+			super(nameIn, pointOfInterestIn, specificItemsIn, relatedWorldBlocksIn, soundIn);
+			
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	public static void RegisterVillagerTrades(VillagerTradesEvent event) { 
-		if (event.getType() == ModVillagerProfessions.BARD.get()) {
-			event.getTrades().get(1).add((entity, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 16), new ItemStack(ModItems.BEER_BUCKET.get()), 8, 10, 0F));
-			RandomTradeBuilder.forEachLevel((level, tradeBuild) -> event.getTrades().get(level.intValue()).add(tradeBuild.build()));
-		}
+		// RandomTradeBuilder.forEachLevel((level, tradeBuild) -> event.getTrades().get(level.intValue()).add(tradeBuild.build()));
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	public static void RegisterVillagerGoals(EntityJoinWorldEvent event) { 
-		Entity entity = event.getEntity();
-		
-		
+		VillagerEntity entity = (VillagerEntity)event.getEntity();
+		VillagerGoalDeliverToStorage goal = new VillagerGoalDeliverToStorage(event.getEntity());
+		// VillagerGoalDeliverToStorage...
+		entity.goalSelector.addGoal(1, goal);
+		// Fill Supply Requests ...
+			
 	}
 
 }

@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "   ",
+        " xy",
+        "   "
+    ],
+    "key":
+    {
+        "x":
+        {
+            "item": "minecraft:iron_helmet"
+        },
+        "y":
+        {
+            "item": "minecraft:torch"
+        }
+    },
+    "result":
+    {
+       	"item": "vcm:tradesman_helmet",
+       	"count": 1
+    }
+}

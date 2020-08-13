@@ -2,24 +2,24 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "": "vcm:blocks/chair"
+            "": "vcm:blocks/bard_stand"
         }
     },
     "variants": {
     	
     	"facing=north": {
-	      "model": "vcm:blocks/chair",
+	      "model": "vcm:blocks/bard_stand",
 	      "y": 180
 	    },
 	    "facing=south": {
-	      "model": "vcm:blocks/chair"
+	      "model": "vcm:blocks/bard_stand"
 	    },
 	    "facing=west": {
-	      "model": "vcm:blocks/chair",
+	      "model": "vcm:blocks/bard_stand",
 	      "y": 90
 	    },
 	    "facing=east": {
-	      "model": "vcm:blocks/chair",
+	      "model": "vcm:blocks/bard_stand",
 	      "y": 270
 	    }       
     }

@@ -1,6 +1,0 @@
-{
-	"parent": "item/handheld",
-	"textures": {
-		"layer0": "vcm:item/structure_guard_post"
-	}
-}
