@@ -3,6 +3,8 @@
 	"entity.minecraft.villager.vcm.bard": "Bard",
 	"entity.minecraft.villager.vcm.miner": "Miner",
 	"block.vcm.village_center": "Village Center",
+	"block.vcm.village_center.desc0": "The Village center is used to oversee your village stats.",
+	"block.vcm.village_center.desc1": "It also holds all emeralds for the village.  If this block is destroyed, the village is destroyed and all villagers will flee.",
 	"block.vcm.bard_stand": "Bard Stand",
 	"block.vcm.lute": "Lute",
 	"block.vcm.ore_box": "Miner Box",

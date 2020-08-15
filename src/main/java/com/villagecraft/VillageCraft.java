@@ -17,6 +17,7 @@ import com.villagecraft.entity.professions.TradesmanProfession;
 import com.villagecraft.entity.professions.WorkerProfession;
 import com.villagecraft.gui.RenderVillageCenter;
 import com.villagecraft.init.ModBlocks;
+import com.villagecraft.init.ModContainer;
 import com.villagecraft.init.ModFoods;
 import com.villagecraft.init.ModItems;
 import com.villagecraft.init.ModTiles;
@@ -44,6 +45,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
@@ -56,6 +58,7 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -76,6 +79,7 @@ public class VillageCraft {
 	public static final Logger LOGGER = LogManager.getLogger(Reference.MODID);
 	public static VillageCraftData data = new VillageCraftData();
 	
+	
 	public static VillageCraft instance;
 	
 	
@@ -88,6 +92,8 @@ public class VillageCraft {
 		
 		// Registering mod blocks for VillageCraft
 		ModBlocks.BLOCKS.register(modEventBus);
+		
+		ModContainer.CONTAINER_TYPE.register(modEventBus);
 		
 		// Registering mod tile entity
 		ModTiles.TILES.register(modEventBus);
@@ -160,6 +166,15 @@ public class VillageCraft {
         	BardProfession.RegisterVillagerGoals(event);
       	  }
         }
+    }
+    
+    protected TileEntity refTE;
+    public TileEntity getRefrencedTE() {
+        return refTE;
+    }
+
+    public void setRefrencedTE(TileEntity te) {
+    	this.refTE = te;
     }
     
 }
