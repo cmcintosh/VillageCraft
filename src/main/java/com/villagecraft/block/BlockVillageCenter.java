@@ -6,22 +6,27 @@ import javax.annotation.Nullable;
 
 import com.villagecraft.VillageCraft;
 import com.villagecraft.container.VillageCenterContainer;
+import com.villagecraft.init.ModContainer;
 import com.villagecraft.init.ModTiles;
 import com.villagecraft.tile.TileEntityVillageCenter;
+import com.villagecraft.util.Reference;
 
 import net.minecraft.util.text.ITextComponent;
-
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
@@ -60,14 +65,18 @@ public class BlockVillageCenter extends ContainerBlock {
 		setDefaultState(getStateContainer().getBaseState().with(FACING, Direction.NORTH));	
 	}
 	
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return AABB;
+	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof TileEntityVillageCenter) {
+            InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityVillageCenter) tileentity);
+            worldIn.updateComparatorOutputLevel(pos, this);
+        }
     }
 	
 	@OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new TranslationTextComponent("block.vcm.village_center.desc0").func_240699_a_(TextFormatting.GRAY));
-        tooltip.add(new TranslationTextComponent("block.vcm.village_center.desc1").func_240699_a_(TextFormatting.GRAY));
+//        tooltip.add(new TranslationTextComponent("block.vcm.village_center.desc0").func_240699_a_(TextFormatting.GRAY));
+//        tooltip.add(new TranslationTextComponent("block.vcm.village_center.desc1").func_240699_a_(TextFormatting.GRAY));
     }
 	
 	// Defines the properties needed for the blockstate
@@ -83,25 +92,33 @@ public class BlockVillageCenter extends ContainerBlock {
         return getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
 	
+	public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+	
 	// When activated we will have the player sit
 	// @TODO: learn how to do this
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, 
 			Hand handIn, BlockRayTraceResult blockRayTraceResult) {
-		if (!worldIn.isRemote) {
-			TileEntity tile = worldIn.getTileEntity(pos);
-			if (tile instanceof TileEntityVillageCenter) {
-				
-				NetworkHooks.openGui((ServerPlayerEntity) player, (TileEntityVillageCenter) tile, pos);
-				return ActionResultType.SUCCESS;
-			}
-		}
-		return ActionResultType.FAIL;
+		if(!player.isSneaking()){
+            if(worldIn.isRemote){
+                Reference.setRefrencedTE(worldIn.getTileEntity(pos));
+            }else{
+                INamedContainerProvider inamedcontainerprovider = this.getContainer(state, worldIn, pos);
+                if (inamedcontainerprovider != null) {
+                    player.openContainer(inamedcontainerprovider);
+                }
+            }
+            return ActionResultType.SUCCESS;
+        }
+        return ActionResultType.FAIL;
 	}
+		
+	protected TileEntityVillageCenter tile;
 	
-	public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
-		VillageCraft.LOGGER.debug("click detected");
-		return ActionResultType.SUCCESS;
+	public TileEntity getTileEntity() { 
+		return this.tile;
 	}
 
 	@Override
@@ -111,7 +128,9 @@ public class BlockVillageCenter extends ContainerBlock {
 
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return ModTiles.TILE_VILLAGE_CENTER.get().create();
+		TileEntityVillageCenter tile = ModTiles.TILE_VILLAGE_CENTER.get().create();
+		
+		return tile;
 	}
 
 	@Override

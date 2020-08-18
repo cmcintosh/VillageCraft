@@ -19,6 +19,7 @@ public class VillageCraftData extends WorldSavedData {
 	public CompoundNBT data = new CompoundNBT();
 	
 	protected ArrayList<VillageCraftNation> nations;
+	protected ArrayList<VillageCraftVillage> villages;
 	
 	protected ServerWorld world = null;
 	
@@ -35,8 +36,6 @@ public class VillageCraftData extends WorldSavedData {
 	
 	public void initialize() {
 		
-		
-		
 		this.initialized = true;
 	}
 	
@@ -47,6 +46,26 @@ public class VillageCraftData extends WorldSavedData {
 	
 	protected VillageCraftNation loadNation(String nation) { 
 		return world.getSavedData().getOrCreate(() -> { return new VillageCraftNation(nation); }, nation +"_nation");
+	}
+	
+	public VillageCraftVillage getVillage(String village) {
+		VillageCraftVillage villages;
+		return (VillageCraftVillage) this.villages.stream().filter(a -> { return a.getName() == village; });
+	}
+	
+	protected VillageCraftVillage loadVillage(String village) { 
+		return world.getSavedData().getOrCreate(() -> { return new VillageCraftVillage(village); }, village +"_village");
+	}
+	
+	/**
+	 * Generates an returns the next village id.
+	 * This is allows the tile / inventoyr to be generated as well.
+	 */
+	public int getNextVillageId() { 
+		VillageCraftVillage village = new VillageCraftVillage("<no name>");
+		this.villages.add(village);
+		this.markDirty();
+		return this.villages.size();
 	}
 	
 	@Override
@@ -61,6 +80,16 @@ public class VillageCraftData extends WorldSavedData {
 				VillageCraftNation nationData = this.loadNation(nation);
 				this.nations.add(nationData);
 			}			
+		}
+		
+		String villages = nbt.getString("villages");
+		this.villages = new ArrayList<VillageCraftVillage>();
+		if (villages != null) { 
+			String[] array = villages.split("\\|", -1);
+			for (String village : array) { 
+				VillageCraftVillage villageData = this.loadVillage(village);
+				this.villages.add(villageData);
+			}
 		}
 		
 	}

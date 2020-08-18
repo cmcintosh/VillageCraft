@@ -38,5 +38,11 @@
 	"item.vcm.prof_lumberjack": "Lumberjack Assignment",
 	"item.vcm.prof_miner": "Miner Assignment",
 	"item.vcm.prof_rancher": "Rancher Assignment",
-	"item.vcm.prof_teacher": "Teacher Assignment"
+	"item.vcm.prof_teacher": "Teacher Assignment",
+	"village_info.title": "Village Center"
+	"village_info.update": "Update",
+	"village_info.nation": "Nation",
+	"village_info.village_name": "Village Name",
+	"village_info.population_beds": "Population/Beds",
+	"village_info.level_value": "Level/Value"
 }

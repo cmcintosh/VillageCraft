@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import com.villagecraft.VillageCraft;
 import com.villagecraft.block.BlockVillageCenter;
 import com.villagecraft.container.VillageCenterContainer;
+import com.villagecraft.container.VillageCenterInventory;
 import com.villagecraft.init.ModTiles;
 import com.villagecraft.util.Reference;
 
@@ -37,34 +38,42 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-public class TileEntityVillageCenter extends LockableLootTileEntity implements INamedContainerProvider {
+public class TileEntityVillageCenter extends LockableLootTileEntity implements IInventory {
 	
-	private NonNullList<ItemStack> chestContents = NonNullList.withSize(36, ItemStack.EMPTY);
+	
 	protected int numPlayersUsing;
-	private IItemHandlerModifiable items = createHandler();
-	private LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> items);
-
+	private NonNullList<ItemStack> items;
+	private LazyOptional<NonNullList<ItemStack>> itemHandler = LazyOptional.of(() -> items);
+	
+		
 	public TileEntityVillageCenter(TileEntityType<?> typeIn) {
 		super(typeIn);
+		if (this.items == null) {
+			this.items = NonNullList.withSize(9, ItemStack.EMPTY);	
+		}
+		
 	}
 
 	public TileEntityVillageCenter() {
 		this(ModTiles.TILE_VILLAGE_CENTER.get());
+		if (this.items == null) {
+			this.items = NonNullList.withSize(9, ItemStack.EMPTY);
+		}
 	}
 
 	@Override
 	public int getSizeInventory() {
-		return 36;
+		return this.items.size();
 	}
 
 	@Override
 	public NonNullList<ItemStack> getItems() {
-		return this.chestContents;
+		return this.items;
 	}
 
 	@Override
 	public void setItems(NonNullList<ItemStack> itemsIn) {
-		this.chestContents = itemsIn;
+		this.items = itemsIn;
 	}
 
 	@Override
@@ -75,6 +84,7 @@ public class TileEntityVillageCenter extends LockableLootTileEntity implements I
 	@Override
 	protected Container createMenu(int id, PlayerInventory player) {
 		VillageCraft.LOGGER.debug("********************* Create menu *****************");
+		Reference.setRefrencedTE(this);
 		return new VillageCenterContainer(id, player, this);
 	}
 
@@ -82,17 +92,16 @@ public class TileEntityVillageCenter extends LockableLootTileEntity implements I
 	public CompoundNBT write(CompoundNBT compound) {
 		super.write(compound);
 		if (!this.checkLootAndWrite(compound)) {
-			ItemStackHelper.saveAllItems(compound, this.chestContents);
+			ItemStackHelper.saveAllItems(compound, this.items);
 		}
 		return compound;
 	}
 
 	
 	public void read(CompoundNBT compound) {
-//		super.read(compound);
-		this.chestContents = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+		super.read(this.getBlockState(), compound);
 		if (!this.checkLootAndRead(compound)) {
-			ItemStackHelper.loadAllItems(compound, this.chestContents);
+			ItemStackHelper.loadAllItems(compound, this.items);
 		}
 	}
 
@@ -154,9 +163,11 @@ public class TileEntityVillageCenter extends LockableLootTileEntity implements I
 	}
 
 	public static void swapContents(TileEntityVillageCenter te, TileEntityVillageCenter otherTe) {
-		NonNullList<ItemStack> list = te.getItems();
-		te.setItems(otherTe.getItems());
-		otherTe.setItems(list);
+		if (te != otherTe) {
+			NonNullList<ItemStack> list = te.getItems();
+			te.setItems(otherTe.getItems());
+			otherTe.setItems(list);	
+		}
 	}
 
 	@Override
@@ -182,10 +193,14 @@ public class TileEntityVillageCenter extends LockableLootTileEntity implements I
 	
 	@Override
 	public void remove() {
+		if(getWorld().isRemote())
+            return;
+		
 		super.remove();
 		if(itemHandler != null) {
 			itemHandler.invalidate();
 		}
 	}
+	
 
 }

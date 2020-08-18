@@ -12,6 +12,7 @@ import com.villagecraft.item.ItemNationCharter;
 
 import com.villagecraft.item.ItemWort;
 import com.villagecraft.item.ItemProfessionToken;
+import com.villagecraft.item.ItemVillageCenter;
 import com.villagecraft.util.Reference;
 
 import net.minecraft.block.Block;
@@ -34,7 +35,7 @@ public class ModItems {
 	/**
 	 * Village interaction Items
 	 */
-	public static final RegistryObject<Item> VILLAGE_CENTER = ITEMS.register("village_center", () -> ( (new BlockItem(  ModBlocks.BLOCK_VILLAGE_CENTER.get(), ModBlocks.BLOCK_VILLAGE_CENTER.get().item_properties))) );
+	public static final RegistryObject<Item> VILLAGE_CENTER = ITEMS.register("village_center", () -> ( (new ItemVillageCenter(  ModBlocks.BLOCK_VILLAGE_CENTER.get(), ModBlocks.BLOCK_VILLAGE_CENTER.get().item_properties))) );
     public static final RegistryObject<Item> NATION_CHARTER = ITEMS.register("nationcharter", () -> (Item) new ItemNationCharter(ItemNationCharter.properties) );
     public static final RegistryObject<Item> HEART = ITEMS.register("heart", () -> (Item) new ItemHeart(ItemHeart.properties) );
     

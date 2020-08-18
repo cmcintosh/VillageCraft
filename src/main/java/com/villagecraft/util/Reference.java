@@ -1,5 +1,7 @@
 package com.villagecraft.util;
 
+import net.minecraft.tileentity.TileEntity;
+
 public class Reference {
 	public static final String MODID = "vcm";
 	public static final String NAME = "VillageCraft";
@@ -13,4 +15,14 @@ public class Reference {
 	 * GUID ids
 	 */
 	public static final int NATION_CHARTER_GUID = 1;
+	
+	protected static TileEntity referenceTe;
+	
+	public static TileEntity getRefrencedTE() {
+        return referenceTe;
+    }
+	
+	public static void setRefrencedTE(TileEntity tileEntity) {
+		referenceTe = tileEntity;
+	}
 }

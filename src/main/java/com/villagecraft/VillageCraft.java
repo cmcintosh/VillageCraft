@@ -8,6 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.villagecraft.block.BlockChair;
+import com.villagecraft.block.BlockVillageCenter;
+import com.villagecraft.container.VillageCenterContainer;
 import com.villagecraft.data.VillageCraftData;
 import com.villagecraft.entity.goal.HealGolemGoal;
 import com.villagecraft.entity.goal.VillagerGoalGotoVillageCenter;
@@ -16,6 +18,7 @@ import com.villagecraft.entity.professions.MerchantProfession;
 import com.villagecraft.entity.professions.TradesmanProfession;
 import com.villagecraft.entity.professions.WorkerProfession;
 import com.villagecraft.gui.RenderVillageCenter;
+import com.villagecraft.gui.VillageCenterScreen;
 import com.villagecraft.init.ModBlocks;
 import com.villagecraft.init.ModContainer;
 import com.villagecraft.init.ModFoods;
@@ -23,6 +26,7 @@ import com.villagecraft.init.ModItems;
 import com.villagecraft.init.ModTiles;
 import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.item.ItemNationCharter;
+import com.villagecraft.item.ItemVillageCenter;
 import com.villagecraft.util.RandomTradeBuilder;
 import com.villagecraft.util.Reference;
 
@@ -31,6 +35,8 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.entity.VillagerRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -39,16 +45,22 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.merchant.villager.VillagerTrades.ITrade;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.VillagerTradingManager;
 import net.minecraftforge.event.RegistryEvent;
@@ -58,6 +70,7 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.RegistryObject;
@@ -65,6 +78,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.config.ModConfig.Type;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -72,6 +86,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 
+@Mod.EventBusSubscriber(modid = Reference.MODID)
 @Mod(Reference.MODID)
 public class VillageCraft {
 
@@ -116,13 +131,10 @@ public class VillageCraft {
 		MinecraftForge.EVENT_BUS.addListener(this::entityJoinWorldEvent);
 		
 		// Register GUI handlers
-		MinecraftForge.EVENT_BUS.register(new RenderVillageCenter());
-		
+		MinecraftForge.EVENT_BUS.register(this);
 		
 		// EntityJoinWorldEvent
 		this.LOGGER.debug(this.data.getName() + " Is created");
-		
-		
 		
 	}
 	
@@ -143,6 +155,7 @@ public class VillageCraft {
         RandomTradeBuilder.forEachWandererRare((tradeBuild) -> rareList.add(tradeBuild.build()));
     }
     
+	
     @SubscribeEvent
     public void entityJoinWorldEvent(EntityJoinWorldEvent event) {
   	  Entity entity = event.getEntity();
@@ -175,6 +188,30 @@ public class VillageCraft {
 
     public void setRefrencedTE(TileEntity te) {
     	this.refTE = te;
+    }
+    
+    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+    @OnlyIn(Dist.CLIENT)
+    public static class ClientRegistryEvents {
+    	@SubscribeEvent
+        public static void onClientSetupEvent(FMLClientSetupEvent event) {
+        	LOGGER.debug("Called Client side setup");
+            ScreenManager.registerFactory(
+            		ModContainer.VILLAGE_CENTER_CONTAINER.get(), 
+            		VillageCenterScreen::new
+            );
+            LOGGER.debug("Got past screen register");
+            DeferredWorkQueue.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    ItemModelsProperties.func_239418_a_( 
+                    		ModItems.VILLAGE_CENTER.get(), 
+                    		new ResourceLocation(Reference.MODID, "location"), 
+                    		new ItemVillageCenter.LocationProperty()
+                    );
+                }
+            });
+        }
     }
     
 }
