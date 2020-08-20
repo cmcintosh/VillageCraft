@@ -10,6 +10,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldSavedData;
 
+/**
+
+ * @author chris
+ *
+ */
 public class VillageCraftData extends WorldSavedData {
 
 	public static final String DATA_NAME = "VillageCraftData";

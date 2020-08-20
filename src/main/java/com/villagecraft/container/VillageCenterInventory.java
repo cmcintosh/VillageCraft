@@ -31,7 +31,12 @@ public class VillageCenterInventory extends Inventory implements ISidedInventory
         readFromNBT(this.itemStack.getTag());
     }
     
-    private void readFromNBT(CompoundNBT tagCompound) {
+    public VillageCenterInventory(ItemStack stack) {
+		this.itemStack = stack;
+		this.items = NonNullList.withSize(9, stack);
+	}
+
+	private void readFromNBT(CompoundNBT tagCompound) {
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         ItemStackHelper.loadAllItems(tagCompound, this.items);
     }

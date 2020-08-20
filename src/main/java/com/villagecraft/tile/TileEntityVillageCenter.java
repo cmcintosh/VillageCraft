@@ -1,6 +1,9 @@
 package com.villagecraft.tile;
 
+import java.util.UUID;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.villagecraft.VillageCraft;
 import com.villagecraft.block.BlockVillageCenter;
@@ -20,7 +23,9 @@ import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -30,177 +35,82 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.server.ChunkManager;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-public class TileEntityVillageCenter extends LockableLootTileEntity implements IInventory {
-	
-	
-	protected int numPlayersUsing;
-	private NonNullList<ItemStack> items;
-	private LazyOptional<NonNullList<ItemStack>> itemHandler = LazyOptional.of(() -> items);
-	
-		
-	public TileEntityVillageCenter(TileEntityType<?> typeIn) {
-		super(typeIn);
-		if (this.items == null) {
-			this.items = NonNullList.withSize(9, ItemStack.EMPTY);	
-		}
-		
-	}
+public class TileEntityVillageCenter extends TileBasicVillageBlock {
 
+	protected String dataType = "village_center"; 
+	protected boolean enabled  = false;
+	private UUID ownerId = null;
+	
+	protected int ticksPerDay = 24000;
+	protected int ticksPerHour = 1000;
+	protected int ticksPerSecond = 20;
+	
+	protected int maxFuelTicks = 100;
+	protected int currentFuelTick = 0;
+	
+	private final String UUID_TAG = "UUID_TAG";
+    private final String ENABLED_TAG = "VILLAGE_ENABLED_TAG";
+	
+	public TileEntityVillageCenter(TileEntityType<?> tileEntityTypeIn) {
+		super(tileEntityTypeIn, 9);
+		// TODO Auto-generated constructor stub
+		 
+	}
+	
 	public TileEntityVillageCenter() {
 		this(ModTiles.TILE_VILLAGE_CENTER.get());
-		if (this.items == null) {
-			this.items = NonNullList.withSize(9, ItemStack.EMPTY);
-		}
 	}
+
+	@Nullable
+    @Override
+    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+        return new VillageCenterContainer(i, playerInventory, this);
+    }
 
 	@Override
-	public int getSizeInventory() {
-		return this.items.size();
-	}
-
-	@Override
-	public NonNullList<ItemStack> getItems() {
-		return this.items;
-	}
-
-	@Override
-	public void setItems(NonNullList<ItemStack> itemsIn) {
-		this.items = itemsIn;
-	}
-
-	@Override
-	protected ITextComponent getDefaultName() {
-		return new TranslationTextComponent("vcm.container.village_center");
-	}
-
-	@Override
-	protected Container createMenu(int id, PlayerInventory player) {
-		VillageCraft.LOGGER.debug("********************* Create menu *****************");
-		Reference.setRefrencedTE(this);
-		return new VillageCenterContainer(id, player, this);
-	}
-
-	@Override
-	public CompoundNBT write(CompoundNBT compound) {
-		super.write(compound);
-		if (!this.checkLootAndWrite(compound)) {
-			ItemStackHelper.saveAllItems(compound, this.items);
-		}
-		return compound;
-	}
-
-	
-	public void read(CompoundNBT compound) {
-		super.read(this.getBlockState(), compound);
-		if (!this.checkLootAndRead(compound)) {
-			ItemStackHelper.loadAllItems(compound, this.items);
-		}
-	}
-
-	private void playSound(SoundEvent sound) {
-		double dx = (double) this.pos.getX() + 0.5D;
-		double dy = (double) this.pos.getY() + 0.5D;
-		double dz = (double) this.pos.getZ() + 0.5D;
-		this.world.playSound((PlayerEntity) null, dx, dy, dz, sound, SoundCategory.BLOCKS, 0.5f,
-				this.world.rand.nextFloat() * 0.1f + 0.9f);
-	}
-
-	@Override
-	public boolean receiveClientEvent(int id, int type) {
-		if (id == 1) {
-			this.numPlayersUsing = type;
-			return true;
-		} else {
-			return super.receiveClientEvent(id, type);
-		}
-	}
-
-	@Override
-	public void openInventory(PlayerEntity player) {
-		if (!player.isSpectator()) {
-			if (this.numPlayersUsing < 0) {
-				this.numPlayersUsing = 0;
-			}
-
-			++this.numPlayersUsing;
-			this.onOpenOrClose();
-		}
-	}
-
-	@Override
-	public void closeInventory(PlayerEntity player) {
-		if (!player.isSpectator()) {
-			--this.numPlayersUsing;
-			this.onOpenOrClose();
-		}
-	}
-
-	protected void onOpenOrClose() {
-		Block block = this.getBlockState().getBlock();
-		if (block instanceof BlockVillageCenter) {
-			this.world.addBlockEvent(this.pos, block, 1, this.numPlayersUsing);
-			this.world.notifyNeighborsOfStateChange(this.pos, block);
-		}
-	}
-
-	public static int getPlayersUsing(IBlockReader reader, BlockPos pos) {
-		BlockState blockstate = reader.getBlockState(pos);
-		if (blockstate.hasTileEntity()) {
-			TileEntity tileentity = reader.getTileEntity(pos);
-			if (tileentity instanceof TileEntityVillageCenter) {
-				return ((TileEntityVillageCenter) tileentity).numPlayersUsing;
-			}
-		}
-		return 0;
-	}
-
-	public static void swapContents(TileEntityVillageCenter te, TileEntityVillageCenter otherTe) {
-		if (te != otherTe) {
-			NonNullList<ItemStack> list = te.getItems();
-			te.setItems(otherTe.getItems());
-			otherTe.setItems(list);	
-		}
-	}
-
-	@Override
-	public void updateContainingBlockInfo() {
-		super.updateContainingBlockInfo();
-		if (this.itemHandler != null) {
-			this.itemHandler.invalidate();
-			this.itemHandler = null;
-		}
-	}
-
-	@Override
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nonnull Direction side) {
-		if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return itemHandler.cast();
-		}
-		return super.getCapability(cap, side);
-	}
-
-	private IItemHandlerModifiable createHandler() {
-		return new InvWrapper(this);
+	public ITextComponent getDisplayName() {
+		return new StringTextComponent(getType().getRegistryName().getPath());
 	}
 	
+	
+    public void read(CompoundNBT compound)
+    {
+        ownerId = compound.getUniqueId(UUID_TAG);
+        enabled = compound.getBoolean(ENABLED_TAG);
+    }
+
+    @Nonnull
+    @Override
+    public CompoundNBT write(CompoundNBT compound)
+    {
+        compound.putUniqueId(UUID_TAG, ownerId);
+        compound.putBoolean(ENABLED_TAG, enabled);
+        return super.write(compound);
+    }
+    
+
 	@Override
-	public void remove() {
-		if(getWorld().isRemote())
-            return;
+	public void tick() {
+		// 
 		
-		super.remove();
-		if(itemHandler != null) {
-			itemHandler.invalidate();
-		}
 	}
 	
-
+	@Override
+	public boolean isItemValidForSlot(int index, ItemStack stack) { 
+		if (stack.getItem().getRegistryName() == Items.EMERALD.getRegistryName()) {
+			return true;
+		}
+		return false;
+	}
+	
 }

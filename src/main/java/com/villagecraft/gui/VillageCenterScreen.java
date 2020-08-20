@@ -77,6 +77,12 @@ public class VillageCenterScreen extends ContainerScreen<VillageCenterContainer>
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(matrixStack);
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
+		
+		int k = (this.width - this.xSize) / 2;
+        int l = (this.height - this.ySize) / 2;
+		this.villageNameTxtField = new TextFieldWidget(this.font, 8, 19, 101, 20, new TranslationTextComponent("village_info.village_name")); 
+		
+		this.blit(matrixStack, k, l, 0, 0, this.xSize, this.ySize);
 	}
 	
 	@Override

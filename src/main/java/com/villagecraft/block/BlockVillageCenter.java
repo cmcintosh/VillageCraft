@@ -16,6 +16,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ChestBlock;
 import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.AbstractBlock.Properties;
@@ -26,8 +27,10 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemGroup;
@@ -65,11 +68,14 @@ public class BlockVillageCenter extends ContainerBlock {
 		setDefaultState(getStateContainer().getBaseState().with(FACING, Direction.NORTH));	
 	}
 	
+	
+	
 	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
+        
         if (tileentity instanceof TileEntityVillageCenter) {
-            InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityVillageCenter) tileentity);
-            worldIn.updateComparatorOutputLevel(pos, this);
+        	InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
+        	worldIn.updateComparatorOutputLevel(pos, this);
         }
     }
 	
@@ -101,18 +107,17 @@ public class BlockVillageCenter extends ContainerBlock {
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, 
 			Hand handIn, BlockRayTraceResult blockRayTraceResult) {
-		if(!player.isSneaking()){
-            if(worldIn.isRemote){
-                Reference.setRefrencedTE(worldIn.getTileEntity(pos));
-            }else{
-                INamedContainerProvider inamedcontainerprovider = this.getContainer(state, worldIn, pos);
-                if (inamedcontainerprovider != null) {
-                    player.openContainer(inamedcontainerprovider);
-                }
+		
+		if (!worldIn.isRemote) {
+            TileEntity tileEntity = worldIn.getTileEntity(pos);
+            if (tileEntity instanceof INamedContainerProvider) {
+                NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileEntity, tileEntity.getPos());
+            } else {
+                throw new IllegalStateException("Our named container provider is missing!");
             }
             return ActionResultType.SUCCESS;
         }
-        return ActionResultType.FAIL;
+		return ActionResultType.FAIL;
 	}
 		
 	protected TileEntityVillageCenter tile;
@@ -137,6 +142,6 @@ public class BlockVillageCenter extends ContainerBlock {
 	public TileEntity createNewTileEntity(IBlockReader worldIn) {
 		return ModTiles.TILE_VILLAGE_CENTER.get().create();
 	}
-
+	
 	
 }

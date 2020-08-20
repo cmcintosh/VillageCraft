@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableSet;
 import com.villagecraft.VillageCraft;
 import com.villagecraft.block.BlockBardStand;
 import com.villagecraft.block.BlockBeeKeepersHive;
+import com.villagecraft.block.BlockBrawlerEquipment;
 import com.villagecraft.block.BlockChair;
 
 import com.villagecraft.block.BlockDraftingTable;
@@ -47,6 +48,7 @@ public final class ModBlocks {
 	public static final RegistryObject<BlockOreBox> ORE_BOX = (RegistryObject<BlockOreBox>) BLOCKS.register("ore_box", () -> new BlockOreBox(BlockOreBox.properties));
 	public static final RegistryObject<BlockDraftingTable> DRAFTING_TABLE = (RegistryObject<BlockDraftingTable>) BLOCKS.register("drafting_table", () -> new BlockDraftingTable(BlockDraftingTable.properties));
 	public static final RegistryObject<TradesmanHelmet> TRADESMAN_HELMET = (RegistryObject<TradesmanHelmet>) BLOCKS.register("tradesman_helmet", () -> new TradesmanHelmet(TradesmanHelmet.properties));
+	public static final RegistryObject<BlockBrawlerEquipment> BRAWLER_BOX = (RegistryObject<BlockBrawlerEquipment>) BLOCKS.register("brawler_box", () -> new BlockBrawlerEquipment(BlockBrawlerEquipment.properties));
 	
 	// Utility function
 	public static final Set<BlockState> getAllStates(Block block) { 

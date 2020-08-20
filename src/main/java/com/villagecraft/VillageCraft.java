@@ -17,10 +17,12 @@ import com.villagecraft.entity.professions.BardProfession;
 import com.villagecraft.entity.professions.MerchantProfession;
 import com.villagecraft.entity.professions.TradesmanProfession;
 import com.villagecraft.entity.professions.WorkerProfession;
+import com.villagecraft.entity.vanilla.IronGolem;
 import com.villagecraft.gui.RenderVillageCenter;
 import com.villagecraft.gui.VillageCenterScreen;
 import com.villagecraft.init.ModBlocks;
 import com.villagecraft.init.ModContainer;
+import com.villagecraft.init.ModEntity;
 import com.villagecraft.init.ModFoods;
 import com.villagecraft.init.ModItems;
 import com.villagecraft.init.ModTiles;
@@ -29,6 +31,7 @@ import com.villagecraft.item.ItemNationCharter;
 import com.villagecraft.item.ItemVillageCenter;
 import com.villagecraft.util.RandomTradeBuilder;
 import com.villagecraft.util.Reference;
+
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -45,6 +48,7 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.merchant.villager.VillagerTrades.ITrade;
+import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
@@ -68,6 +72,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
@@ -125,6 +130,8 @@ public class VillageCraft {
 		// Registering the villager professions
 		ModVillagerProfessions.PROFESSIONS.register(modEventBus);
 		
+		ModEntity.ENTITY_TYPES.register(modEventBus);
+		
 		// Registering the villager trades
 		MinecraftForge.EVENT_BUS.addListener(this::villagerTrades);
 		MinecraftForge.EVENT_BUS.addListener(this::wandererTrades);
@@ -154,13 +161,28 @@ public class VillageCraft {
         List<ITrade> rareList = event.getRareTrades();
         RandomTradeBuilder.forEachWandererRare((tradeBuild) -> rareList.add(tradeBuild.build()));
     }
-    
 	
     @SubscribeEvent
     public void entityJoinWorldEvent(EntityJoinWorldEvent event) {
   	  Entity entity = event.getEntity();
+  	  	if (entity instanceof GolemEntity && !(entity instanceof IronGolem) ) {
+  	  		GolemEntity golem = (GolemEntity) entity;
+  	  		
+  	  		if (golem.isServerWorld()) {
+  	  			ServerWorld sw = (ServerWorld) golem.world;
+  	  			IronGolem ironGolem = new IronGolem(ModEntity.IRON_GOLEM.get(), sw);
+  	  			ironGolem.serverPosX = golem.serverPosX;
+  	  			ironGolem.serverPosY = golem.serverPosY;
+  	  			ironGolem.serverPosZ = golem.serverPosZ;
+  	  			ironGolem.deserializeNBT(golem.serializeNBT());
+  	  			ironGolem.setHealth(golem.getHealth());
+  	  			// ironGolem.getDataManager().setEntryValues(golem.getDataManager().getAll());
+  	  			sw.removeEntity(golem);
+  	  			sw.addEntity(ironGolem);
+  	  		}
+  	  	}
+  	  
         if (entity instanceof VillagerEntity) {
-          
           VillagerEntity villager = (VillagerEntity)event.getEntity();
           
       	  if (villager.isServerWorld()) {
@@ -195,7 +217,7 @@ public class VillageCraft {
     public static class ClientRegistryEvents {
     	@SubscribeEvent
         public static void onClientSetupEvent(FMLClientSetupEvent event) {
-        	LOGGER.debug("Called Client side setup");
+        	
             ScreenManager.registerFactory(
             		ModContainer.VILLAGE_CENTER_CONTAINER.get(), 
             		VillageCenterScreen::new

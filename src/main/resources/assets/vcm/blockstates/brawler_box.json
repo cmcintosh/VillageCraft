@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/brawler_box"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/brawler_box",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/brawler_box"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/brawler_box",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/brawler_box",
+	      "y": 270
+	    }       
+    }
+}

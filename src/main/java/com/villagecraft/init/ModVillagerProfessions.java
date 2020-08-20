@@ -3,6 +3,7 @@ package com.villagecraft.init;
 import com.villagecraft.VillageCraft;
 import com.villagecraft.entity.professions.ArchitectProfession;
 import com.villagecraft.entity.professions.BardProfession;
+import com.villagecraft.entity.professions.BrawlerProfession;
 import com.villagecraft.entity.professions.MerchantProfession;
 import com.villagecraft.entity.professions.MinerProfession;
 import com.villagecraft.entity.professions.TradesmanProfession;
@@ -74,6 +75,11 @@ public class ModVillagerProfessions {
 		return ModVillagerProfessions.fixPOITypeBlockStates(village_chest);
 	});
 	
+	public static final RegistryObject<PointOfInterestType> BRAWLER_BOX = POINTS_OF_INTEREST.register("brawler_box", () -> {
+		PointOfInterestType village_chest = new PointOfInterestType("brawler_box", ModVillagerProfessions.getAllStates(ModBlocks.BRAWLER_BOX.get()), 1, 1);
+		return ModVillagerProfessions.fixPOITypeBlockStates(village_chest);
+	});
+	
 	/**
 	 * Goal Related Points of Interest
 	 * @param block
@@ -133,6 +139,11 @@ public class ModVillagerProfessions {
 	// @MINER
 	public static final RegistryObject<VillagerProfession> MINER = PROFESSIONS.register("miner", () -> {
 		return MinerProfession.villagerProfession("miner", ORE_BOX.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
+	});
+	
+	// @Brawler
+	public static final RegistryObject<VillagerProfession> BRAWLER = PROFESSIONS.register("brawler", () -> {
+		return BrawlerProfession.villagerProfession("brawler", BRAWLER_BOX.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
 	});
 }
 

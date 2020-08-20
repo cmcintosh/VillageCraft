@@ -38,7 +38,7 @@ public class BrawlerProfession extends VillagerCraftBaseProfession {
 	
 	public static final ImmutableSet<Item> PROFESSION_ITEM = ImmutableSet.of(ModItems.BEER_BUCKET.get());
 	public static final ImmutableSet<Block> PROFESSION_BLOCK = ImmutableSet.of(Blocks.BIRCH_LOG);
-	public VillagerProfession PROFESSION = ModVillagerProfessions.ARCHITECT.get();
+	public VillagerProfession PROFESSION = ModVillagerProfessions.BRAWLER.get();
 	
 	/**
 	 * {@inheritDoc}
@@ -47,13 +47,14 @@ public class BrawlerProfession extends VillagerCraftBaseProfession {
 			ImmutableSet<Item> specificItemsIn,
 			ImmutableSet<Block> relatedWorldBlocksIn, 
 			SoundEvent soundIn) {
-			super(nameIn, pointOfInterestIn, specificItemsIn, relatedWorldBlocksIn, soundIn);		
+			super(nameIn, pointOfInterestIn, specificItemsIn, relatedWorldBlocksIn, soundIn);	
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	public static void RegisterVillagerTrades(VillagerTradesEvent event) { 
+		net.minecraft.entity.passive.PigEntity pig;
 		
 		RandomTradeBuilder.forEachLevel((level, tradeBuild) -> event.getTrades().get(level.intValue()).add(tradeBuild.build()));
 	}
