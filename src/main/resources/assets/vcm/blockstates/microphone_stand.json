@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/microphone_stand"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/microphone_stand",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/microphone_stand"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/microphone_stand",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/microphone_stand",
+	      "y": 270
+	    }       
+    }
+}

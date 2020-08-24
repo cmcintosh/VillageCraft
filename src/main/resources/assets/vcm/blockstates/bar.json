@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/bar"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/bar",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/bar"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/bar",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/bar",
+	      "y": 270
+	    }       
+    }
+}

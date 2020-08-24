@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/guitar_stand"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/guitar_stand",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/guitar_stand"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/guitar_stand",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/guitar_stand",
+	      "y": 270
+	    }       
+    }
+}

@@ -12,6 +12,7 @@ import com.villagecraft.block.BlockVillageCenter;
 import com.villagecraft.container.VillageCenterContainer;
 import com.villagecraft.data.VillageCraftData;
 import com.villagecraft.entity.goal.HealGolemGoal;
+import com.villagecraft.entity.goal.VillagerGoalBase;
 import com.villagecraft.entity.goal.VillagerGoalGotoVillageCenter;
 import com.villagecraft.entity.professions.BardProfession;
 import com.villagecraft.entity.professions.MerchantProfession;
@@ -27,8 +28,8 @@ import com.villagecraft.init.ModFoods;
 import com.villagecraft.init.ModItems;
 import com.villagecraft.init.ModTiles;
 import com.villagecraft.init.ModVillagerProfessions;
-import com.villagecraft.item.ItemNationCharter;
-import com.villagecraft.item.ItemVillageCenter;
+import com.villagecraft.item.blockitems.ItemVillageCenter;
+import com.villagecraft.item.village.ItemNationCharter;
 import com.villagecraft.util.RandomTradeBuilder;
 import com.villagecraft.util.Reference;
 
@@ -166,20 +167,7 @@ public class VillageCraft {
     public void entityJoinWorldEvent(EntityJoinWorldEvent event) {
   	  Entity entity = event.getEntity();
   	  	if (entity instanceof GolemEntity && !(entity instanceof IronGolem) ) {
-  	  		GolemEntity golem = (GolemEntity) entity;
   	  		
-  	  		if (golem.isServerWorld()) {
-  	  			ServerWorld sw = (ServerWorld) golem.world;
-  	  			IronGolem ironGolem = new IronGolem(ModEntity.IRON_GOLEM.get(), sw);
-  	  			ironGolem.serverPosX = golem.serverPosX;
-  	  			ironGolem.serverPosY = golem.serverPosY;
-  	  			ironGolem.serverPosZ = golem.serverPosZ;
-  	  			ironGolem.deserializeNBT(golem.serializeNBT());
-  	  			ironGolem.setHealth(golem.getHealth());
-  	  			// ironGolem.getDataManager().setEntryValues(golem.getDataManager().getAll());
-  	  			sw.removeEntity(golem);
-  	  			sw.addEntity(ironGolem);
-  	  		}
   	  	}
   	  
         if (entity instanceof VillagerEntity) {
@@ -192,13 +180,14 @@ public class VillageCraft {
           		VillageCraft.data.initialize();
       		}
       		
-      		villager.goalSelector.addGoal(1, new HealGolemGoal(villager));
+      		// all villagers need the base goal
+      		villager.goalSelector.addGoal(1, new VillagerGoalBase(villager));
         	
         	// Register goals for each villager type
         	TradesmanProfession.RegisterVillagerGoals(event);
         	WorkerProfession.RegisterVillagerGoals(event);
-        	
         	BardProfession.RegisterVillagerGoals(event);
+        	
       	  }
         }
     }

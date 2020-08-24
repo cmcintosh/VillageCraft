@@ -11,9 +11,10 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IEquipable;
 import net.minecraft.entity.IRideable;
 import net.minecraft.entity.MobEntity;
-
+import net.minecraft.entity.ai.attributes.AttributeModifierManager;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
@@ -34,19 +35,16 @@ public class IronGolem extends GolemEntity implements IRideable, IEquipable {
     private static final DataParameter<Integer> BOOST_TIME = EntityDataManager.createKey(PigEntity.class, DataSerializers.VARINT);
 	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.CARROT, Items.POTATO, Items.BEETROOT);
 	private final BoostHelper field_234214_bx_ = new BoostHelper(this.dataManager, BOOST_TIME, SADDLED);
-	
+	private final AttributeModifierManager attributes;
 	
 	public IronGolem(EntityType<? extends GolemEntity> type, World worldIn) {
 		super(type, worldIn);
+		AttributeModifierMap.MutableAttribute map = IronGolem.registerAttributes();
+		this.attributes = new AttributeModifierManager(GlobalEntityTypeAttributes.getAttributesForEntity(type));
 		
-//		IronGolem.registerAttributes()
-//		.createMutableAttribute(Attributes.MAX_HEALTH, 20)        //HEALTH
-//        .createMutableAttribute(Attributes.MOVEMENT_SPEED, 1D)    //SPEED
-//        .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2)      //ATTACK
-//        .createMutableAttribute(Attributes.ATTACK_SPEED, 128D);
+		final double baseSpeed = this.attributes.getAttributeValue(Attributes.MOVEMENT_SPEED);
+		final double baseHealth = this.attributes.getAttributeValue(Attributes.MAX_HEALTH);
 		
-		final double baseSpeed = this.getAttribute(Attributes.MOVEMENT_SPEED).getBaseValue();
-		final double baseHealth = this.getAttribute(Attributes.MAX_HEALTH).getBaseValue();
 		// Multiply base health and base speed by one and a half
 		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(baseSpeed * 1.5D);
 		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(baseHealth * 1.5D);
@@ -55,15 +53,20 @@ public class IronGolem extends GolemEntity implements IRideable, IEquipable {
 		
 	}
 	
-	
-	public static AttributeModifierMap.MutableAttribute func_234290_eH_() {
-        return MobEntity
-        		.registerAttributes()
-        		.createMutableAttribute(Attributes.MAX_HEALTH, 20)        //HEALTH
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 1D)    //SPEED
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2)      //ATTACK
-                .createMutableAttribute(Attributes.ATTACK_SPEED, 128D);
+	public static AttributeModifierMap.MutableAttribute registerAttributes() {
+      return AttributeModifierMap.func_233803_a_()
+    		  .createMutableAttribute(Attributes.MAX_HEALTH)
+    		  .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE)
+    		  .createMutableAttribute(Attributes.MOVEMENT_SPEED)
+    		  .createMutableAttribute(Attributes.ARMOR)
+    		  .createMutableAttribute(Attributes.ARMOR_TOUGHNESS)
+    		  .createMutableAttribute(net.minecraftforge.common.ForgeMod.SWIM_SPEED.get())
+    		  .createMutableAttribute(net.minecraftforge.common.ForgeMod.NAMETAG_DISTANCE.get())
+    		  .createMutableAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
     }
+	
+	
+	
 		
 	@Override
 	public boolean func_230264_L__() {

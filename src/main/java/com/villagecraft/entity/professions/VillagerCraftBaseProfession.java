@@ -9,6 +9,8 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableSet;
 import com.villagecraft.VillageCraft;
+import com.villagecraft.entity.goal.VillagerGoalBase;
+import com.villagecraft.entity.goal.VillagerGoalDeliverToStorage;
 import com.villagecraft.init.ModFoods;
 import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.util.TradeTypes;
@@ -17,6 +19,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.block.Block;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.merchant.villager.VillagerTrades.ITrade;
@@ -118,5 +121,10 @@ public class VillagerCraftBaseProfession  extends VillagerProfession {
 	/**
 	 * Register Goals for a profession.
 	 */
-	public static void RegisterVillagerGoals(EntityJoinWorldEvent event) { }
+	public static void RegisterVillagerGoals(EntityJoinWorldEvent event) { 
+		VillagerEntity entity = (VillagerEntity)event.getEntity();
+		VillagerGoalBase goal = new VillagerGoalBase(entity);
+		entity.goalSelector.addGoal(1, goal);
+		
+	}
 }

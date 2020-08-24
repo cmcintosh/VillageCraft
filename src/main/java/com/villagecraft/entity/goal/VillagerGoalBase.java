@@ -1,11 +1,13 @@
 package com.villagecraft.entity.goal;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import com.villagecraft.VillageCraft;
 import com.villagecraft.init.ModVillagerProfessions;
+import com.villagecraft.item.profession_tokens.ItemProfessionToken;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -16,6 +18,9 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
+import net.minecraft.item.Item;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.village.PointOfInterestManager;
 import net.minecraft.village.PointOfInterestType;
@@ -38,13 +43,26 @@ public class VillagerGoalBase extends Goal {
 	protected Block targetBlockType;
 	protected BlockPos targetPosition;
 	
+	protected CompoundNBT extraVillagerData;
+	protected ItemProfessionToken token;
+	
 	public VillagerGoalBase(VillagerEntity entity) { 
 		super();
 		villager = entity;
 		ServerWorld world = (ServerWorld) entity.getEntityWorld();
 		poiManager = world.getPointOfInterestManager();
+		extraVillagerData = new CompoundNBT();
 		
 	}
+	
+	
+	
+	protected boolean hasProfessionToken() { 
+		
+//		this.villager.getVillagerInventory().
+		return false;
+	}
+	
 
 	@Override
 	public boolean shouldExecute() {
@@ -62,7 +80,10 @@ public class VillagerGoalBase extends Goal {
 	/**
 	 * Tick here
 	 */
-	public void tick() { }
+	public void tick() { 
+		villager.swingArm(Hand.MAIN_HAND);
+		villager.setCanPickUpLoot(true);
+	}
 	
 	
 	/**
