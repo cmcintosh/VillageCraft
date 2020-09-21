@@ -5,11 +5,13 @@ import java.util.Set;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.villagecraft.VillageCraft;
+import com.villagecraft.block.BlockAlchemistTable;
 import com.villagecraft.block.BlockAuctionHouse;
 import com.villagecraft.block.BlockBar;
 import com.villagecraft.block.BlockBardStand;
 import com.villagecraft.block.BlockBeeKeepersHive;
 import com.villagecraft.block.BlockBrawlerEquipment;
+import com.villagecraft.block.BlockBuildersChest;
 import com.villagecraft.block.BlockCaravanStop;
 import com.villagecraft.block.BlockChair;
 
@@ -20,8 +22,10 @@ import com.villagecraft.block.BlockGuitarStand;
 import com.villagecraft.block.BlockInn;
 import com.villagecraft.block.BlockMicrophoneStand;
 import com.villagecraft.block.BlockOreBox;
+import com.villagecraft.block.BlockPotterWheel;
 import com.villagecraft.block.BlockPyrotechnicTable;
 import com.villagecraft.block.BlockSupplyOffice;
+import com.villagecraft.block.BlockTitleOffice;
 import com.villagecraft.block.BlockTownHall;
 import com.villagecraft.block.BlockVillageCenter;
 import com.villagecraft.block.BlockVillageManager;
@@ -53,12 +57,14 @@ public final class ModBlocks {
 	
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MODID);
 	
-	public static final RegistryObject<BlockVillageCenter> BLOCK_VILLAGE_CENTER = (RegistryObject<BlockVillageCenter>) BLOCKS.register("village_center", () -> new BlockVillageCenter(BlockVillageCenter.properties));
+	public static final RegistryObject<BlockAlchemistTable> BLOCK_ALCHEMIST_TABLE = (RegistryObject<BlockAlchemistTable>) BLOCKS.register("alchemist_table", () -> new BlockAlchemistTable(BlockAlchemistTable.properties));
+	public static final RegistryObject<BlockDraftingTable> DRAFTING_TABLE = (RegistryObject<BlockDraftingTable>) BLOCKS.register("drafting_table", () -> new BlockDraftingTable(BlockDraftingTable.properties));
+	
 	
 	public static final RegistryObject<BlockChair> BLOCK_CHAIR = (RegistryObject<BlockChair>) BLOCKS.register("chair", () -> new BlockChair(BlockChair.properties));
 	public static final RegistryObject<BlockBardStand> BARD_STAND = (RegistryObject<BlockBardStand>) BLOCKS.register("bard_stand", () -> new BlockBardStand(BlockBardStand.properties));
 	public static final RegistryObject<BlockOreBox> ORE_BOX = (RegistryObject<BlockOreBox>) BLOCKS.register("ore_box", () -> new BlockOreBox(BlockOreBox.properties));
-	public static final RegistryObject<BlockDraftingTable> DRAFTING_TABLE = (RegistryObject<BlockDraftingTable>) BLOCKS.register("drafting_table", () -> new BlockDraftingTable(BlockDraftingTable.properties));
+	
 	public static final RegistryObject<TradesmanHelmet> TRADESMAN_HELMET = (RegistryObject<TradesmanHelmet>) BLOCKS.register("tradesman_helmet", () -> new TradesmanHelmet(TradesmanHelmet.properties));
 	public static final RegistryObject<BlockBrawlerEquipment> BRAWLER_BOX = (RegistryObject<BlockBrawlerEquipment>) BLOCKS.register("brawler_box", () -> new BlockBrawlerEquipment(BlockBrawlerEquipment.properties));
 	public static final RegistryObject<BlockBar> BAR = (RegistryObject<BlockBar>) BLOCKS.register("bar", () -> new BlockBar(BlockBar.properties));
@@ -73,6 +79,10 @@ public final class ModBlocks {
 	public static final RegistryObject<BlockSupplyOffice> SUPPLY_OFFICE = (RegistryObject<BlockSupplyOffice>) BLOCKS.register("supply_office", () -> new BlockSupplyOffice(BlockSupplyOffice.properties));
 	public static final RegistryObject<BlockTownHall> TOWN_HALL = (RegistryObject<BlockTownHall>) BLOCKS.register("town_hall", () -> new BlockTownHall(BlockTownHall.properties));
 	public static final RegistryObject<BlockInn> INN = (RegistryObject<BlockInn>) BLOCKS.register("inn", () -> new BlockInn(BlockInn.properties));
+	public static final RegistryObject<BlockTitleOffice> TITLE_OFFICE = (RegistryObject<BlockTitleOffice>) BLOCKS.register("title_office", () -> new BlockTitleOffice(BlockTitleOffice.properties));
+	public static final RegistryObject<BlockPotterWheel> POTTERS_WHEEL = (RegistryObject<BlockPotterWheel>) BLOCKS.register("potters_wheel", () -> new BlockPotterWheel(BlockPotterWheel.properties));
+	public static final RegistryObject<BlockBuildersChest> BUILDERS_CHEST = (RegistryObject<BlockBuildersChest>) BLOCKS.register("builders_chest", () -> new BlockBuildersChest(BlockBuildersChest.properties));
+	public static final RegistryObject<BlockVillageCenter> BLOCK_VILLAGE_CENTER = (RegistryObject<BlockVillageCenter>) BLOCKS.register("village_center", () -> new BlockVillageCenter(BlockVillageCenter.properties));
 	
 	// caravaneer
 	// Utility function

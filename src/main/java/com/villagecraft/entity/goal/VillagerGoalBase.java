@@ -6,6 +6,11 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import com.villagecraft.VillageCraft;
+import com.villagecraft.capabilities.CapabilityVillagerAttribute;
+import com.villagecraft.capabilities.IVillagerAttribute;
+import com.villagecraft.capabilities.IVillagerHonor;
+import com.villagecraft.capabilities.IVillagerHunger;
+import com.villagecraft.capabilities.VillagerHungerAttribute;
 import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.item.profession_tokens.ItemProfessionToken;
 
@@ -21,10 +26,13 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.village.PointOfInterestManager;
 import net.minecraft.village.PointOfInterestType;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.util.LazyOptional;
 
 public class VillagerGoalBase extends Goal {
 	
@@ -46,13 +54,16 @@ public class VillagerGoalBase extends Goal {
 	protected CompoundNBT extraVillagerData;
 	protected ItemProfessionToken token;
 	
+	protected IVillagerHunger hunger;
+	protected IVillagerHonor honor;
+	
 	public VillagerGoalBase(VillagerEntity entity) { 
 		super();
 		villager = entity;
 		ServerWorld world = (ServerWorld) entity.getEntityWorld();
 		poiManager = world.getPointOfInterestManager();
 		extraVillagerData = new CompoundNBT();
-		
+	
 	}
 	
 	
@@ -81,8 +92,7 @@ public class VillagerGoalBase extends Goal {
 	 * Tick here
 	 */
 	public void tick() { 
-		villager.swingArm(Hand.MAIN_HAND);
-		villager.setCanPickUpLoot(true);
+			
 	}
 	
 	
@@ -197,5 +207,30 @@ public class VillagerGoalBase extends Goal {
 		public boolean test(BlockPos t) {
 			return true;
 		} 
+	}
+	
+	/**
+	 * Returns the Hunger capability for a villager.
+	 * @return
+	 */
+	public LazyOptional<IVillagerHunger> getHunger() {
+		return this.villager.getCapability(CapabilityVillagerAttribute.VILLAGER_HUNGER);
+	}
+	
+	/**
+	 * Returns the Honor capability for a villager.
+	 */
+	public LazyOptional<IVillagerHonor> getHonor() { 
+		return this.villager.getCapability(CapabilityVillagerAttribute.VILLAGER_HONOR); 
+	}
+	
+	public void attackVillagerEntity(VillagerEntity entity, int amount) { 
+		entity.setShakeHeadTicks(5);
+		entity.performHurtAnimation();
+		ResourceLocation location = new ResourceLocation("vcm", "villager_grunt");
+		SoundEvent event = new SoundEvent(location);
+		entity.playSound(event, 100, 1);
+		entity.setHealth((float) (entity.getHealth() - amount));
+		
 	}
 }

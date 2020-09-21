@@ -2,6 +2,8 @@ package com.villagecraft.block;
 
 import javax.annotation.Nullable;
 
+import com.villagecraft.VillageCraft;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -24,7 +26,7 @@ public class BlockTownHall extends Block {
 	
 	public static Properties properties = Properties.create(Material.WOOD).hardnessAndResistance(3.5F).sound(SoundType.CLOTH).notSolid();
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ItemGroup.DECORATIONS).maxStackSize(64);
+	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(VillageCraft.VILLAGE_CRAFT).maxStackSize(64);
 
 	public BlockTownHall(Properties properties) {
 		super(properties);

@@ -54,13 +54,7 @@ public class TraderProfession extends VillagerCraftBaseProfession {
 	 * {@inheritDoc}
 	 */
 	public static void RegisterVillagerTrades(VillagerTradesEvent event) { 
-		// add in profession tokens
-		if (event.getType() == ModVillagerProfessions.TRADER.get()) {
-			event.getTrades().get(1).add((entity, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 1), new ItemStack(ModItems.PROF_MERCHANT.get()), 80, 20, 0F));
-			event.getTrades().get(1).add((entity, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 1), new ItemStack(ModItems.PROF_WORKER.get()), 80, 20, 0F));
-			event.getTrades().get(2).add((entity, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 1), new ItemStack(ModItems.PROF_BRAWLER.get()), 80, 20, 0F));
-		}
-//      RandomTradeBuilder.forEachLevel((level, tradeBuild) -> event.getTrades().get(level.intValue()).add(tradeBuild.build()));
+		
 	}
 	
 	/**

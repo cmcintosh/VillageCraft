@@ -1,15 +1,18 @@
 package com.villagecraft.init;
 
 import com.villagecraft.VillageCraft;
+import com.villagecraft.entity.professions.AlchemistProfession;
 import com.villagecraft.entity.professions.ArchitectProfession;
 import com.villagecraft.entity.professions.BardProfession;
 import com.villagecraft.entity.professions.BarkeeperProfession;
 import com.villagecraft.entity.professions.BassistProfession;
+import com.villagecraft.entity.professions.BeekeeperProfession;
 import com.villagecraft.entity.professions.BrawlerProfession;
 import com.villagecraft.entity.professions.CaravaneerProfession;
 import com.villagecraft.entity.professions.DiplomatProfession;
 import com.villagecraft.entity.professions.DrummerProfession;
 import com.villagecraft.entity.professions.InnkeeperProfession;
+import com.villagecraft.entity.professions.LandlordProfession;
 import com.villagecraft.entity.professions.ManagerProfession;
 import com.villagecraft.entity.professions.MayorProfession;
 import com.villagecraft.entity.professions.MerchantProfession;
@@ -56,6 +59,11 @@ public class ModVillagerProfessions {
 	/**
 	 * Points of interests
 	 */
+	public static final RegistryObject<PointOfInterestType> ALCHEMIST_TABLE = POINTS_OF_INTEREST.register("alchemist", () -> { 	
+		PointOfInterestType alchemist_table = new PointOfInterestType("alchemist_table", ModVillagerProfessions.getAllStates(ModBlocks.BLOCK_ALCHEMIST_TABLE.get()), 1, 1);
+		return ModVillagerProfessions.fixPOITypeBlockStates(alchemist_table);
+	});
+	
 	public static final RegistryObject<PointOfInterestType> BARD_CHAIR = POINTS_OF_INTEREST.register("bard", () -> { 	
 		PointOfInterestType bardPlace = new PointOfInterestType("bard_stand", ModVillagerProfessions.getAllStates(ModBlocks.BARD_STAND.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(bardPlace);
@@ -151,6 +159,26 @@ public class ModVillagerProfessions {
 		return ModVillagerProfessions.fixPOITypeBlockStates(inn);
 	});
 	
+	public static final RegistryObject<PointOfInterestType> TITLE_OFFICE = POINTS_OF_INTEREST.register("title_office", () -> {
+		PointOfInterestType title_office = new PointOfInterestType("title_office", ModVillagerProfessions.getAllStates(ModBlocks.TITLE_OFFICE.get()), 1, 1);
+		return ModVillagerProfessions.fixPOITypeBlockStates(title_office);
+	});
+	
+	public static final RegistryObject<PointOfInterestType> POTTERS_WHEEL = POINTS_OF_INTEREST.register("potter_wheel", () -> {
+		PointOfInterestType potter_wheel = new PointOfInterestType("potter_wheel", ModVillagerProfessions.getAllStates(ModBlocks.POTTERS_WHEEL.get()), 1, 1);
+		return ModVillagerProfessions.fixPOITypeBlockStates(potter_wheel);
+	});
+	
+	public static final RegistryObject<PointOfInterestType> BUILDERS_CHEST = POINTS_OF_INTEREST.register("builders_chest", () -> {
+		PointOfInterestType builders_chest = new PointOfInterestType("builders_chest", ModVillagerProfessions.getAllStates(ModBlocks.BUILDERS_CHEST.get()), 1, 1);
+		return ModVillagerProfessions.fixPOITypeBlockStates(builders_chest);
+	});
+	
+	public static final RegistryObject<PointOfInterestType> BEEHIVE = POINTS_OF_INTEREST.register("beehive", () -> {
+		PointOfInterestType beehive = new PointOfInterestType("beehive", ModVillagerProfessions.getAllStates(net.minecraft.block.Blocks.BEEHIVE), 1, 1);
+		return ModVillagerProfessions.fixPOITypeBlockStates(beehive);
+	});
+	
 	/**
 	 * Goal Related Points of Interest
 	 * @param block
@@ -182,6 +210,21 @@ public class ModVillagerProfessions {
 	/**
 	 * Villager Professions
 	 */
+    // @ALCHEMIST
+    public static final RegistryObject<VillagerProfession> ALCHEMIST = PROFESSIONS.register("alchemist", () -> { 
+    	return AlchemistProfession.villagerProfession("alchemist", ALCHEMIST_TABLE.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")) );
+    });
+    
+    // @ARCHITECT
+    public static final RegistryObject<VillagerProfession> ARCHITECT = PROFESSIONS.register("architect", () -> { 
+    	return ArchitectProfession.villagerProfession("architect", DRAFTING_TABLE.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")) );
+    });
+    
+    // @BEE KEEPER
+    public static final RegistryObject<VillagerProfession> BEEKEEPER = PROFESSIONS.register("beekeeper", () -> { 
+    	return BeekeeperProfession.villagerProfession("beekeeper", BEEHIVE.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")) );
+    });
+    
     // @TRADESMAN
     public static final RegistryObject<VillagerProfession> TRADESMAN = PROFESSIONS.register("tradesman", () -> { 
     	return TradesmanProfession.villagerProfession("tradesman", TRADESMAN_HELMET.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")) );
@@ -202,10 +245,7 @@ public class ModVillagerProfessions {
     	return TradesmanProfession.villagerProfession("trader", AUCTION_HOUSE.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")) );
     });
     
-    // @ARCHITECT
-    public static final RegistryObject<VillagerProfession> ARCHITECT = PROFESSIONS.register("architect", () -> { 
-    	return ArchitectProfession.villagerProfession("architect", DRAFTING_TABLE.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")) );
-    });
+    
     
 	// @BARD
 	public static final RegistryObject<VillagerProfession> BARD = PROFESSIONS.register("bard", () -> {
@@ -267,6 +307,18 @@ public class ModVillagerProfessions {
 	
 	public static final RegistryObject<VillagerProfession> INNKEEPER = PROFESSIONS.register("innkeeper", () -> {
 		return InnkeeperProfession.villagerProfession("innkeeper", INN.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
+	});
+	
+	public static final RegistryObject<VillagerProfession> LANDLORD = PROFESSIONS.register("landlord", () -> {
+		return LandlordProfession.villagerProfession("landlord", TITLE_OFFICE.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
+	});
+	
+	public static final RegistryObject<VillagerProfession> POTTER = PROFESSIONS.register("potter", () -> {
+		return LandlordProfession.villagerProfession("potter", POTTERS_WHEEL.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
+	});
+	
+	public static final RegistryObject<VillagerProfession> BUILDER = PROFESSIONS.register("builder", () -> {
+		return LandlordProfession.villagerProfession("builder", BUILDERS_CHEST.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
 	});
 }
 

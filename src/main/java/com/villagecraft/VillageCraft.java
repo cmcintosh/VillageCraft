@@ -9,11 +9,15 @@ import org.apache.logging.log4j.Logger;
 
 import com.villagecraft.block.BlockChair;
 import com.villagecraft.block.BlockVillageCenter;
+import com.villagecraft.capabilities.CapabilityVillagerAttribute;
+import com.villagecraft.capabilities.HonorProvider;
+import com.villagecraft.capabilities.HungerProvider;
 import com.villagecraft.container.VillageCenterContainer;
 import com.villagecraft.data.VillageCraftData;
 import com.villagecraft.entity.goal.HealGolemGoal;
 import com.villagecraft.entity.goal.VillagerGoalBase;
 import com.villagecraft.entity.goal.VillagerGoalGotoVillageCenter;
+import com.villagecraft.entity.goal.VillagerHungerGoal;
 import com.villagecraft.entity.professions.BardProfession;
 import com.villagecraft.entity.professions.MerchantProfession;
 import com.villagecraft.entity.professions.TradesmanProfession;
@@ -68,8 +72,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.VillagerTradingManager;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
@@ -102,6 +109,15 @@ public class VillageCraft {
 	
 	
 	public static VillageCraft instance;
+	
+	public static final ItemGroup VILLAGE_CRAFT = new ItemGroup("village_craft")
+    {
+        @Override
+        public ItemStack createIcon()
+        {
+            return new ItemStack(ModItems.TOWN_HALL.get());
+        }
+    };
 	
 	
 	public VillageCraft() { 
@@ -137,23 +153,51 @@ public class VillageCraft {
 		MinecraftForge.EVENT_BUS.addListener(this::villagerTrades);
 		MinecraftForge.EVENT_BUS.addListener(this::wandererTrades);
 		MinecraftForge.EVENT_BUS.addListener(this::entityJoinWorldEvent);
+		MinecraftForge.EVENT_BUS.addListener(this::onAttachCapabilitiesEvent);
+		
+		
 		
 		// Register GUI handlers
 		MinecraftForge.EVENT_BUS.register(this);
 		
 		// EntityJoinWorldEvent
 		this.LOGGER.debug(this.data.getName() + " Is created");
-		
 	}
 	
+	/**
+	 * Register Capabilities hook.
+	 */
+	public void onAttachCapabilitiesEvent(AttachCapabilitiesEvent<Entity> e) { 
+		if (e.getObject() instanceof VillagerEntity) {
+			HungerProvider hProvider = new HungerProvider();
+			e.addCapability(new ResourceLocation(Reference.MODID, "hunger"), hProvider);
+			e.addListener(hProvider::invalidate);
+			
+			HonorProvider provider = new HonorProvider();
+			e.addCapability(new ResourceLocation(Reference.MODID, "honor"), provider);
+			e.addListener(provider::invalidate);
+			
+			
+		}
+	}
+	
+	/**
+	 * Register all trades for villagers.
+	 * @param event
+	 */
     public void villagerTrades(VillagerTradesEvent event)
     {
-        BardProfession.RegisterVillagerTrades(event);
+    	BardProfession.RegisterVillagerTrades(event);
         WorkerProfession.RegisterVillagerTrades(event);
         MerchantProfession.RegisterVillagerTrades(event);
         TradesmanProfession.RegisterVillagerTrades(event);
     }
     
+
+	/**
+	 * Register all trades for wanderer.
+	 * @param event
+	 */
     public void wandererTrades(WandererTradesEvent event)
     {
         List<ITrade> genericList = event.getGenericTrades();
@@ -162,6 +206,7 @@ public class VillageCraft {
         List<ITrade> rareList = event.getRareTrades();
         RandomTradeBuilder.forEachWandererRare((tradeBuild) -> rareList.add(tradeBuild.build()));
     }
+    
 	
     @SubscribeEvent
     public void entityJoinWorldEvent(EntityJoinWorldEvent event) {
@@ -177,11 +222,12 @@ public class VillageCraft {
       		if (this.data.initialized == false) {
       			ServerWorld world = (ServerWorld) villager.world;
           		world.getSavedData().getOrCreate(() -> { VillageCraft.data.setWorld(world); return VillageCraft.data; }, "VillageCraftData");
-          		VillageCraft.data.initialize();
+          		VillageCraft.data.initialize();          		
       		}
       		
       		// all villagers need the base goal
       		villager.goalSelector.addGoal(1, new VillagerGoalBase(villager));
+      		villager.goalSelector.addGoal(1, new VillagerHungerGoal(villager));
         	
         	// Register goals for each villager type
         	TradesmanProfession.RegisterVillagerGoals(event);
@@ -204,14 +250,15 @@ public class VillageCraft {
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
     @OnlyIn(Dist.CLIENT)
     public static class ClientRegistryEvents {
-    	@SubscribeEvent
+    	@SuppressWarnings("deprecation")
+		@SubscribeEvent
         public static void onClientSetupEvent(FMLClientSetupEvent event) {
         	
             ScreenManager.registerFactory(
             		ModContainer.VILLAGE_CENTER_CONTAINER.get(), 
             		VillageCenterScreen::new
             );
-            LOGGER.debug("Got past screen register");
+            
             DeferredWorkQueue.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -222,6 +269,7 @@ public class VillageCraft {
                     );
                 }
             });
+            CapabilityVillagerAttribute.register();
         }
     }
     

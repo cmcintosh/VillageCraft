@@ -41,28 +41,6 @@ public class ModItems {
 	public static final RegistryObject<Item> NATION_CHARTER = ITEMS.register("nationcharter", () -> (Item) new ItemNationCharter(ItemNationCharter.properties) );
     public static final RegistryObject<Item> VILLAGECRAFT_CHAIR = ITEMS.register("chair", () -> ( (new BlockItem(  ModBlocks.BLOCK_CHAIR.get(), ModBlocks.BLOCK_CHAIR.get().item_properties))) );
     
-    /**
-     * Profession tokens
-     */
-    public static final RegistryObject<Item> PROF_WORKER = ITEMS.register("prof_worker", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-    public static final RegistryObject<Item> PROF_MERCHANT = ITEMS.register("prof_merchant", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-    public static final RegistryObject<Item> PROF_BRAWLER = ITEMS.register("prof_brawler", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-    public static final RegistryObject<Item> PROF_BARD = ITEMS.register("prof_bard", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-    
-//    public static final RegistryObject<Item> PROF_BLACKSMITH = ITEMS.register("prof_blacksmith", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-//    public static final RegistryObject<Item> PROF_BUTCHER = ITEMS.register("prof_butcher", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-//    public static final RegistryObject<Item> PROF_CAPTAIN = ITEMS.register("prof_captain", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-//    public static final RegistryObject<Item> PROF_CHEF = ITEMS.register("prof_chef", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-//    public static final RegistryObject<Item> PROF_CLERIC = ITEMS.register("prof_cleric", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-//    public static final RegistryObject<Item> PROF_ENCHANTER = ITEMS.register("prof_enchanter", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-//    public static final RegistryObject<Item> PROF_FARMER = ITEMS.register("prof_farmer", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-//    public static final RegistryObject<Item> PROF_GUARD = ITEMS.register("prof_guard", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-//    public static final RegistryObject<Item> PROF_LUMBERJACK = ITEMS.register("prof_lumberjack", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-//    public static final RegistryObject<Item> PROF_MINER = ITEMS.register("prof_miner", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-//    public static final RegistryObject<Item> PROF_RANCHER = ITEMS.register("prof_rancher", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-//    public static final RegistryObject<Item> PROF_TEACHER = ITEMS.register("prof_teacher", () -> (Item) new ItemProfessionToken(ItemProfessionToken.properties) );
-//    
-    
     
     /**
      * Crafting components
@@ -82,12 +60,16 @@ public class ModItems {
      */
     // Profession Blocks
     
-    public static final RegistryObject<Item> BARD_STAND = ITEMS.register("bard_stand", () -> ( (new BlockItem(  ModBlocks.BARD_STAND.get(), ModBlocks.BARD_STAND.get().item_properties))) );
-    public static final RegistryObject<Item> ORE_BOX = ITEMS.register("ore_box", () -> ( (new BlockItem(  ModBlocks.ORE_BOX.get(), ModBlocks.ORE_BOX.get().item_properties))) );
+    public static final RegistryObject<Item> ALCHEMIST_TABLE = ITEMS.register("alchemist_table", () -> ( (new BlockItem(  ModBlocks.BLOCK_ALCHEMIST_TABLE.get(), ModBlocks.BLOCK_ALCHEMIST_TABLE.get().item_properties))) );
     public static final RegistryObject<Item> DRAFTING_TABLE = ITEMS.register("drafting_table", () -> ((new BlockItem( ModBlocks.DRAFTING_TABLE.get(), ModBlocks.DRAFTING_TABLE.get().item_properties))));
+    public static final RegistryObject<Item> BARD_STAND = ITEMS.register("bard_stand", () -> ( (new BlockItem(  ModBlocks.BARD_STAND.get(), ModBlocks.BARD_STAND.get().item_properties))) );
+    public static final RegistryObject<Item> BAR = ITEMS.register("bar", () -> ( (new BlockItem(  ModBlocks.BAR.get(), ModBlocks.BAR.get().item_properties))) );
+    
+    public static final RegistryObject<Item> ORE_BOX = ITEMS.register("ore_box", () -> ( (new BlockItem(  ModBlocks.ORE_BOX.get(), ModBlocks.ORE_BOX.get().item_properties))) );
+    
     public static final RegistryObject<Item> TRADESMAN_HELMET = ITEMS.register("tradesman_helmet", () -> ((new BlockItem( ModBlocks.TRADESMAN_HELMET.get(), ModBlocks.TRADESMAN_HELMET.get().item_properties))));
     public static final RegistryObject<Item> BRALWER_BOX = ITEMS.register("brawler_box", () -> ( (new BlockItem(  ModBlocks.BRAWLER_BOX.get(), ModBlocks.BRAWLER_BOX.get().item_properties))) );
-    public static final RegistryObject<Item> BAR = ITEMS.register("bar", () -> ( (new BlockItem(  ModBlocks.BAR.get(), ModBlocks.BAR.get().item_properties))) );
+    
     public static final RegistryObject<Item> DRUMS = ITEMS.register("drums", () -> ( (new BlockItem(  ModBlocks.DRUMS.get(), ModBlocks.DRUMS.get().item_properties))) );
     public static final RegistryObject<Item> GUITAR_STAND = ITEMS.register("guitar_stand", () -> ( (new BlockItem(  ModBlocks.GUITAR_STAND.get(), ModBlocks.GUITAR_STAND.get().item_properties))) );
     public static final RegistryObject<Item> MICROPHONE_STAND = ITEMS.register("microphone_stand", () -> ( (new BlockItem(  ModBlocks.MICROPHONE_STAND.get(), ModBlocks.MICROPHONE_STAND.get().item_properties))) );
@@ -99,6 +81,9 @@ public class ModItems {
     public static final RegistryObject<Item> SUPPLY_OFFICE = ITEMS.register("supply_office", () -> ( (new BlockItem(  ModBlocks.SUPPLY_OFFICE.get(), ModBlocks.SUPPLY_OFFICE.get().item_properties))) );
     public static final RegistryObject<Item> TOWN_HALL = ITEMS.register("town_hall", () -> ( (new BlockItem(  ModBlocks.TOWN_HALL.get(), ModBlocks.TOWN_HALL.get().item_properties))) );
     public static final RegistryObject<Item> INN = ITEMS.register("inn", () -> ( (new BlockItem(  ModBlocks.INN.get(), ModBlocks.INN.get().item_properties))) );
+    public static final RegistryObject<Item> TITLE_OFFICE = ITEMS.register("title_office", () -> ( (new BlockItem(  ModBlocks.TITLE_OFFICE.get(), ModBlocks.TITLE_OFFICE.get().item_properties))) );
+    public static final RegistryObject<Item> POTTERS_WHEEL = ITEMS.register("potters_wheel", () -> ( (new BlockItem(  ModBlocks.POTTERS_WHEEL.get(), ModBlocks.POTTERS_WHEEL.get().item_properties))) );
+    public static final RegistryObject<Item> BUILDERS_CHEST = ITEMS.register("builders_chest", () -> ( (new BlockItem(  ModBlocks.BUILDERS_CHEST.get(), ModBlocks.BUILDERS_CHEST.get().item_properties))) );
 
 
     /**

@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/alchemist_table"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/alchemist_table",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/alchemist_table"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/alchemist_table",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/alchemist_table",
+	      "y": 270
+	    }       
+    }
+}
