@@ -12,7 +12,6 @@ public enum ModItemTier implements IItemTier {
 		return Ingredient.fromItems(net.minecraft.item.Items.COBBLESTONE);
 	});
 	
-	
 	private final int harvestLevel;
 	private final int maxUses;
 	private final float efficiency;

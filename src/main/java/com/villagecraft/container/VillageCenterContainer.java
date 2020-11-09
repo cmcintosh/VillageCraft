@@ -79,10 +79,6 @@ public class VillageCenterContainer extends BasicVillageCraftContainer {
 
 	public VillageCenterContainer(int id, PlayerInventory inv, final TileEntity tile) {
 		super(ModContainer.VILLAGE_CENTER_CONTAINER.get(), id, tile, inv);
-		
-		// @TODO add multiple slots here.
-		
-//		this.addSlot(new Slot((TileBasicVillageBlock) tile, 0, 80, 35));
 		mainInventory();
 	}
 	

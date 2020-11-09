@@ -74,7 +74,7 @@ public abstract class TileBasicVillageBlock extends TileEntity implements ITicka
 	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return false;
+		return this.content.isEmpty();
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class FluidBeer extends Water {
 	
 	public boolean doesVaporize(IBlockDisplayReader reader, BlockPos pos, FluidStack fluidStack)
     {
-     return false;
+     return true;
     }
 
 }

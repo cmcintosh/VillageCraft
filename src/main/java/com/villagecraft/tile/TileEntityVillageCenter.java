@@ -50,6 +50,7 @@ public class TileEntityVillageCenter extends TileBasicVillageBlock {
 	protected String dataType = "village_center"; 
 	protected boolean enabled  = false;
 	private UUID ownerId = null;
+	private UUID villageId;
 	
 	protected int ticksPerDay = 24000;
 	protected int ticksPerHour = 1000;
@@ -58,17 +59,23 @@ public class TileEntityVillageCenter extends TileBasicVillageBlock {
 	protected int maxFuelTicks = 100;
 	protected int currentFuelTick = 0;
 	
+	private final String UUID_VILLAGE = "VILLAGE_TAG";
 	private final String UUID_TAG = "UUID_TAG";
     private final String ENABLED_TAG = "VILLAGE_ENABLED_TAG";
 	
 	public TileEntityVillageCenter(TileEntityType<?> tileEntityTypeIn) {
 		super(tileEntityTypeIn, 9);
-		// TODO Auto-generated constructor stub
+		this.villageId = UUID.randomUUID();
+		this.enabled = true;
+		this.markDirty();
 		 
 	}
 	
 	public TileEntityVillageCenter() {
 		this(ModTiles.TILE_VILLAGE_CENTER.get());
+		this.villageId = UUID.randomUUID();
+		this.enabled = true;
+		this.markDirty();
 	}
 
 	@Nullable
@@ -85,16 +92,18 @@ public class TileEntityVillageCenter extends TileBasicVillageBlock {
 	
     public void read(CompoundNBT compound)
     {
-        ownerId = compound.getUniqueId(UUID_TAG);
+        villageId = compound.getUniqueId(UUID_VILLAGE);
         enabled = compound.getBoolean(ENABLED_TAG);
+        VillageCraft.LOGGER.debug("Village ID: " + villageId + ", Enabled: " + enabled);
     }
 
     @Nonnull
     @Override
     public CompoundNBT write(CompoundNBT compound)
     {
-        compound.putUniqueId(UUID_TAG, ownerId);
+    	compound.putUniqueId(UUID_VILLAGE, villageId);
         compound.putBoolean(ENABLED_TAG, enabled);
+        
         return super.write(compound);
     }
     
@@ -113,4 +122,26 @@ public class TileEntityVillageCenter extends TileBasicVillageBlock {
 		return false;
 	}
 	
+	/**
+	 * Returns the UUID for this village.
+	 * @return
+	 */
+	public UUID getVillageId() {
+		return this.villageId;
+	}
+	
+	/**
+	 * Returns if the village center is enabled.
+	 */
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+	
+	/**
+	 * Returns the village center owner.
+	 */
+	public UUID getOwner() {
+		return this.ownerId;	
+	}
+
 }

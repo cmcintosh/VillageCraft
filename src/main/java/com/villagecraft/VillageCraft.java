@@ -12,19 +12,21 @@ import com.villagecraft.block.BlockVillageCenter;
 import com.villagecraft.capabilities.CapabilityVillagerAttribute;
 import com.villagecraft.capabilities.HonorProvider;
 import com.villagecraft.capabilities.HungerProvider;
+import com.villagecraft.client.gui.AlchemistTableScreen;
+import com.villagecraft.client.gui.RenderVillageCenter;
+import com.villagecraft.client.gui.VillageCenterScreen;
 import com.villagecraft.container.VillageCenterContainer;
 import com.villagecraft.data.VillageCraftData;
 import com.villagecraft.entity.goal.HealGolemGoal;
 import com.villagecraft.entity.goal.VillagerGoalBase;
-import com.villagecraft.entity.goal.VillagerGoalGotoVillageCenter;
+
 import com.villagecraft.entity.goal.VillagerHungerGoal;
+import com.villagecraft.entity.goal.VillagerRadiantAI;
 import com.villagecraft.entity.professions.BardProfession;
 import com.villagecraft.entity.professions.MerchantProfession;
 import com.villagecraft.entity.professions.TradesmanProfession;
 import com.villagecraft.entity.professions.WorkerProfession;
 import com.villagecraft.entity.vanilla.IronGolem;
-import com.villagecraft.gui.RenderVillageCenter;
-import com.villagecraft.gui.VillageCenterScreen;
 import com.villagecraft.init.ModBlocks;
 import com.villagecraft.init.ModContainer;
 import com.villagecraft.init.ModEntity;
@@ -63,6 +65,8 @@ import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -126,11 +130,12 @@ public class VillageCraft {
 		
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		
-		
 		// Registering mod blocks for VillageCraft
 		ModBlocks.BLOCKS.register(modEventBus);
 		
+		// Registering mod containers.
 		ModContainer.CONTAINER_TYPE.register(modEventBus);
+		
 		
 		// Registering mod tile entity
 		ModTiles.TILES.register(modEventBus);
@@ -147,6 +152,7 @@ public class VillageCraft {
 		// Registering the villager professions
 		ModVillagerProfessions.PROFESSIONS.register(modEventBus);
 		
+		// Register entity types
 		ModEntity.ENTITY_TYPES.register(modEventBus);
 		
 		// Registering the villager trades
@@ -154,8 +160,6 @@ public class VillageCraft {
 		MinecraftForge.EVENT_BUS.addListener(this::wandererTrades);
 		MinecraftForge.EVENT_BUS.addListener(this::entityJoinWorldEvent);
 		MinecraftForge.EVENT_BUS.addListener(this::onAttachCapabilitiesEvent);
-		
-		
 		
 		// Register GUI handlers
 		MinecraftForge.EVENT_BUS.register(this);
@@ -176,7 +180,6 @@ public class VillageCraft {
 			HonorProvider provider = new HonorProvider();
 			e.addCapability(new ResourceLocation(Reference.MODID, "honor"), provider);
 			e.addListener(provider::invalidate);
-			
 			
 		}
 	}
@@ -225,14 +228,10 @@ public class VillageCraft {
           		VillageCraft.data.initialize();          		
       		}
       		
+      		// Next add the VillagerRadiantAI goal.
+      		
       		// all villagers need the base goal
-      		villager.goalSelector.addGoal(1, new VillagerGoalBase(villager));
-      		villager.goalSelector.addGoal(1, new VillagerHungerGoal(villager));
-        	
-        	// Register goals for each villager type
-        	TradesmanProfession.RegisterVillagerGoals(event);
-        	WorkerProfession.RegisterVillagerGoals(event);
-        	BardProfession.RegisterVillagerGoals(event);
+      		 villager.goalSelector.addGoal(1, new VillagerGoalBase(villager));
         	
       	  }
         }
@@ -257,6 +256,11 @@ public class VillageCraft {
             ScreenManager.registerFactory(
             		ModContainer.VILLAGE_CENTER_CONTAINER.get(), 
             		VillageCenterScreen::new
+            );
+            
+            ScreenManager.registerFactory(
+            		ModContainer.ALCHEMIST_TABLE_CONTAINER.get(), 
+            		AlchemistTableScreen::new
             );
             
             DeferredWorkQueue.runLater(new Runnable() {

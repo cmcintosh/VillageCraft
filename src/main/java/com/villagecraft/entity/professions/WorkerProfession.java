@@ -11,7 +11,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 import com.villagecraft.VillageCraft;
 import com.villagecraft.entity.goal.HealGolemGoal;
-import com.villagecraft.entity.goal.VillagerGoalDeliverToStorage;
+
 import com.villagecraft.init.ModBlocks;
 import com.villagecraft.init.ModFoods;
 import com.villagecraft.init.ModItems;

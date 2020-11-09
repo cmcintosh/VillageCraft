@@ -1,0 +1,20 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/log_greatwood"
+        }
+    },
+    "variants": {
+    	"axis=x": {
+	      "model": "vcm:blocks/log_greatwood",
+	      "y": 180
+	    },
+	    "axis=z": {
+	      "model": "vcm:blocks/log_greatwood"
+	    },
+	    "axis=y": {
+	      "model": "vcm:blocks/log_greatwood"
+	    }             
+    }
+}

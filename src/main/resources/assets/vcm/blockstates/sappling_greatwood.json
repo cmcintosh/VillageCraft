@@ -1,0 +1,17 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/sappling_greatwood"
+        }
+    },
+    "variants": {
+    	"stage=1": {
+	      "model": "vcm:blocks/sappling_greatwood",
+	      "y": 180
+	    },
+	    "stage=0": {
+	      "model": "vcm:blocks/sappling_greatwood"
+	    }             
+    }
+}

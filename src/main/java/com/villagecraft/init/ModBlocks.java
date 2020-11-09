@@ -5,7 +5,8 @@ import java.util.Set;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.villagecraft.VillageCraft;
-import com.villagecraft.block.BlockAlchemistTable;
+import com.villagecraft.alchemy.block.BlockAlchemistTable;
+import com.villagecraft.alchemy.block.BlockGreatwoodSappling;
 import com.villagecraft.block.BlockAuctionHouse;
 import com.villagecraft.block.BlockBar;
 import com.villagecraft.block.BlockBardStand;
@@ -20,6 +21,7 @@ import com.villagecraft.block.BlockDrums;
 import com.villagecraft.block.BlockEmbassy;
 import com.villagecraft.block.BlockGuitarStand;
 import com.villagecraft.block.BlockInn;
+import com.villagecraft.block.BlockKeg;
 import com.villagecraft.block.BlockMicrophoneStand;
 import com.villagecraft.block.BlockOreBox;
 import com.villagecraft.block.BlockPotterWheel;
@@ -32,10 +34,22 @@ import com.villagecraft.block.BlockVillageManager;
 import com.villagecraft.block.TradesmanHelmet;
 import com.villagecraft.util.Reference;
 
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.block.SaplingBlock;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
+import net.minecraft.block.trees.OakTree;
+import net.minecraft.entity.EntityType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -57,14 +71,23 @@ public final class ModBlocks {
 	
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MODID);
 	
+	/**
+	 * Tree related
+	 */
+	
+	/**
+	 * Furniture / Decorative blocks
+	 */
+	public static final RegistryObject<BlockChair> BLOCK_CHAIR = (RegistryObject<BlockChair>) BLOCKS.register("chair", () -> new BlockChair(BlockChair.properties));
+	
+	/**
+	 * Profession Blocks
+	 */
 	public static final RegistryObject<BlockAlchemistTable> BLOCK_ALCHEMIST_TABLE = (RegistryObject<BlockAlchemistTable>) BLOCKS.register("alchemist_table", () -> new BlockAlchemistTable(BlockAlchemistTable.properties));
 	public static final RegistryObject<BlockDraftingTable> DRAFTING_TABLE = (RegistryObject<BlockDraftingTable>) BLOCKS.register("drafting_table", () -> new BlockDraftingTable(BlockDraftingTable.properties));
-	
-	
-	public static final RegistryObject<BlockChair> BLOCK_CHAIR = (RegistryObject<BlockChair>) BLOCKS.register("chair", () -> new BlockChair(BlockChair.properties));
+	public static final RegistryObject<BlockKeg> BLOCK_KEG = (RegistryObject<BlockKeg>) BLOCKS.register("keg", () -> new BlockKeg(BlockKeg.properties));
 	public static final RegistryObject<BlockBardStand> BARD_STAND = (RegistryObject<BlockBardStand>) BLOCKS.register("bard_stand", () -> new BlockBardStand(BlockBardStand.properties));
 	public static final RegistryObject<BlockOreBox> ORE_BOX = (RegistryObject<BlockOreBox>) BLOCKS.register("ore_box", () -> new BlockOreBox(BlockOreBox.properties));
-	
 	public static final RegistryObject<TradesmanHelmet> TRADESMAN_HELMET = (RegistryObject<TradesmanHelmet>) BLOCKS.register("tradesman_helmet", () -> new TradesmanHelmet(TradesmanHelmet.properties));
 	public static final RegistryObject<BlockBrawlerEquipment> BRAWLER_BOX = (RegistryObject<BlockBrawlerEquipment>) BLOCKS.register("brawler_box", () -> new BlockBrawlerEquipment(BlockBrawlerEquipment.properties));
 	public static final RegistryObject<BlockBar> BAR = (RegistryObject<BlockBar>) BLOCKS.register("bar", () -> new BlockBar(BlockBar.properties));
@@ -90,4 +113,28 @@ public final class ModBlocks {
 		ImmutableList states = block.getStateContainer().getValidStates();
 		return ImmutableSet.copyOf(states);
 	}
+	
+	// Helper function to create logs.
+	private static RotatedPillarBlock createLogBlock(MaterialColor topColor, MaterialColor barkColor) {
+	      return new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, (p_235431_2_) -> {
+	         return p_235431_2_.get(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topColor : barkColor;
+	      }).hardnessAndResistance(2.0F).sound(SoundType.WOOD));
+	}
+	
+	private static LeavesBlock createLeavesBlock() {
+      return new LeavesBlock(AbstractBlock.Properties.create(Material.LEAVES)
+    		  .hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT)
+    		  .notSolid()
+    		  .setAllowsSpawn(ModBlocks::allowsSpawnOnLeaves)
+    		  .setSuffocates(ModBlocks::isntSolid)
+    		  .setBlocksVision(ModBlocks::isntSolid));
+   }
+	
+	private static Boolean allowsSpawnOnLeaves(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {
+      return entity == EntityType.OCELOT || entity == EntityType.PARROT;
+    }
+	
+	private static boolean isntSolid(BlockState state, IBlockReader reader, BlockPos pos) {
+      return false;
+    }
 }

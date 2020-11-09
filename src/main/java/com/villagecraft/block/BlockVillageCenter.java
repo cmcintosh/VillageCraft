@@ -1,7 +1,7 @@
 package com.villagecraft.block;
 
 import java.util.List;
-
+import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.villagecraft.VillageCraft;
@@ -102,8 +102,6 @@ public class BlockVillageCenter extends ContainerBlock {
         return BlockRenderType.MODEL;
     }
 	
-	// When activated we will have the player sit
-	// @TODO: learn how to do this
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, 
 			Hand handIn, BlockRayTraceResult blockRayTraceResult) {
@@ -134,7 +132,6 @@ public class BlockVillageCenter extends ContainerBlock {
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
 		TileEntityVillageCenter tile = ModTiles.TILE_VILLAGE_CENTER.get().create();
-		
 		return tile;
 	}
 

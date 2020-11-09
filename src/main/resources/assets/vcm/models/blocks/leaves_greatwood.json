@@ -1,0 +1,7 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "vcm:block/leaves_greatwood",
+		"particle": "vcm:block/leaves_greatwood"
+	}
+}

@@ -1,13 +1,14 @@
 package com.villagecraft.init;
 
 import com.villagecraft.VillageCraft;
-import com.villagecraft.entity.professions.AlchemistProfession;
+import com.villagecraft.alchemy.entity.professions.AlchemistProfession;
 import com.villagecraft.entity.professions.ArchitectProfession;
 import com.villagecraft.entity.professions.BardProfession;
 import com.villagecraft.entity.professions.BarkeeperProfession;
 import com.villagecraft.entity.professions.BassistProfession;
 import com.villagecraft.entity.professions.BeekeeperProfession;
 import com.villagecraft.entity.professions.BrawlerProfession;
+import com.villagecraft.entity.professions.BrewmasterProfession;
 import com.villagecraft.entity.professions.CaravaneerProfession;
 import com.villagecraft.entity.professions.DiplomatProfession;
 import com.villagecraft.entity.professions.DrummerProfession;
@@ -179,6 +180,16 @@ public class ModVillagerProfessions {
 		return ModVillagerProfessions.fixPOITypeBlockStates(beehive);
 	});
 	
+	public static final RegistryObject<PointOfInterestType> ANVIL = POINTS_OF_INTEREST.register("anvil", () -> {
+		PointOfInterestType anvil = new PointOfInterestType("anvil", ModVillagerProfessions.getAllStates(net.minecraft.block.Blocks.ANVIL), 1, 1);
+		return ModVillagerProfessions.fixPOITypeBlockStates(anvil);
+	});
+	
+	public static final RegistryObject<PointOfInterestType> KEG = POINTS_OF_INTEREST.register("keg", () -> {
+		PointOfInterestType keg = new PointOfInterestType("keg", ModVillagerProfessions.getAllStates(ModBlocks.BLOCK_KEG.get()), 1, 1);
+		return ModVillagerProfessions.fixPOITypeBlockStates(keg);
+	});
+	
 	/**
 	 * Goal Related Points of Interest
 	 * @param block
@@ -220,10 +231,40 @@ public class ModVillagerProfessions {
     	return ArchitectProfession.villagerProfession("architect", DRAFTING_TABLE.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")) );
     });
     
+    // @BARD
+ 	public static final RegistryObject<VillagerProfession> BARD = PROFESSIONS.register("bard", () -> {
+ 		return BardProfession.villagerProfession("bard", BARD_CHAIR.get(), ImmutableSet.of(), ImmutableSet.of(ModBlocks.BARD_STAND.get()), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
+ 	});
+ 	
+ 	// Bassist
+ 	public static final RegistryObject<VillagerProfession> BASSIST = PROFESSIONS.register("bassist", () -> {
+		return BassistProfession.villagerProfession("bassist", GUITAR_STAND.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
+	});
+ 	
+ 	// @Barkeeper
+ 	public static final RegistryObject<VillagerProfession> BAR_KEEPER = PROFESSIONS.register("barkeeper", () -> {
+ 		return BarkeeperProfession.villagerProfession("barkeeper", BAR.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")));
+ 	});
+    
     // @BEE KEEPER
     public static final RegistryObject<VillagerProfession> BEEKEEPER = PROFESSIONS.register("beekeeper", () -> { 
     	return BeekeeperProfession.villagerProfession("beekeeper", BEEHIVE.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")) );
     });
+    
+    // @Blacksmith
+    public static final RegistryObject<VillagerProfession> BLACKSMITH = PROFESSIONS.register("blacksmith", () -> { 
+    	return BeekeeperProfession.villagerProfession("blacksmith", ANVIL.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")) );
+    });
+    
+    // @Brawler
+ 	public static final RegistryObject<VillagerProfession> BRAWLER = PROFESSIONS.register("brawler", () -> {
+ 		return BrawlerProfession.villagerProfession("brawler", BRAWLER_BOX.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
+ 	});
+ 	
+ 	// @BrewMaster
+  	public static final RegistryObject<VillagerProfession> BREWMASTER = PROFESSIONS.register("brewmaster", () -> {
+  		return BrewmasterProfession.villagerProfession("brewmaster", KEG.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
+  	});
     
     // @TRADESMAN
     public static final RegistryObject<VillagerProfession> TRADESMAN = PROFESSIONS.register("tradesman", () -> { 
@@ -247,25 +288,16 @@ public class ModVillagerProfessions {
     
     
     
-	// @BARD
-	public static final RegistryObject<VillagerProfession> BARD = PROFESSIONS.register("bard", () -> {
-		return BardProfession.villagerProfession("bard", BARD_CHAIR.get(), ImmutableSet.of(), ImmutableSet.of(ModBlocks.BARD_STAND.get()), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
-	});
+	
 	
 	// @MINER
 	public static final RegistryObject<VillagerProfession> MINER = PROFESSIONS.register("miner", () -> {
 		return MinerProfession.villagerProfession("miner", ORE_BOX.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")));
 	});
 	
-	// @Brawler
-	public static final RegistryObject<VillagerProfession> BRAWLER = PROFESSIONS.register("brawler", () -> {
-		return BrawlerProfession.villagerProfession("brawler", BRAWLER_BOX.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
-	});
 	
-	// @Barkeeper
-	public static final RegistryObject<VillagerProfession> BAR_KEEPER = PROFESSIONS.register("barkeeper", () -> {
-		return BarkeeperProfession.villagerProfession("barkeeper", BAR.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")));
-	});
+	
+	
 	
 	// @Drummer
 	public static final RegistryObject<VillagerProfession> DRUMMER = PROFESSIONS.register("drummer", () -> {
@@ -277,9 +309,7 @@ public class ModVillagerProfessions {
 		return SingerProfession.villagerProfession("singer", MICROPHONE_STAND.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
 	});
 	
-	public static final RegistryObject<VillagerProfession> BASSIST = PROFESSIONS.register("bassist", () -> {
-		return BassistProfession.villagerProfession("bassist", GUITAR_STAND.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
-	});
+	
 	
 	public static final RegistryObject<VillagerProfession> PYROTECHNIC = PROFESSIONS.register("pyrotechnic", () -> {
 		return PyrotechnicProfession.villagerProfession("pyrotechnic", PYROTECHNIC_TABLE.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));

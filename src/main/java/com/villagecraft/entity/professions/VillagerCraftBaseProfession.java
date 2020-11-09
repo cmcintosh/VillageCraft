@@ -10,7 +10,6 @@ import javax.annotation.Nullable;
 import com.google.common.collect.ImmutableSet;
 import com.villagecraft.VillageCraft;
 import com.villagecraft.entity.goal.VillagerGoalBase;
-import com.villagecraft.entity.goal.VillagerGoalDeliverToStorage;
 import com.villagecraft.init.ModFoods;
 import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.util.TradeTypes;
