@@ -95,7 +95,7 @@ public class VillagerHungerGoal extends VillagerGoalBase {
 		SoundEvent event = new SoundEvent(location);
 		villager.playSound(event, 100, 1);
 		// @TODO: Configurable on/off
-		villager.setHealth((float) (villager.getHealth() - 1));
+//		villager.setHealth((float) (villager.getHealth() - 1));
 	}
 	
 	/**

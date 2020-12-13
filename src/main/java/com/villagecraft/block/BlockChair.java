@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableMap;
+import com.villagecraft.init.ModItems;
 
 import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.Block;
@@ -37,7 +38,7 @@ public class BlockChair extends Block {
 	
 	public static Properties properties = Properties.create(Material.WOOD).hardnessAndResistance(3.5F).sound(SoundType.SCAFFOLDING).notSolid();
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ItemGroup.DECORATIONS).maxStackSize(64);
+	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ModItems.PROFESSION_BLOCKS).maxStackSize(64);
 	
 	public BlockChair(Properties properties) {
 		super(properties);
