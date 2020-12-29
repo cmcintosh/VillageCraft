@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=east,part=left":  { "model": "vcm:blocks/town_hall_left" },
+    "facing=south,part=left": { "model": "vcm:blocks/town_hall_left", "y": 90 },
+    "facing=west,part=left":  { "model": "vcm:blocks/town_hall_left", "y": 180 },
+    "facing=north,part=left": { "model": "vcm:blocks/town_hall_left", "y": 270 },
+    "facing=east,part=right":  { "model": "vcm:blocks/town_hall_right" },
+    "facing=south,part=right": { "model": "vcm:blocks/town_hall_right", "y": 90 },
+    "facing=west,part=right":  { "model": "vcm:blocks/town_hall_right", "y": 180 },
+    "facing=north,part=right": { "model": "vcm:blocks/town_hall_right", "y": 270 }
+  }
+}

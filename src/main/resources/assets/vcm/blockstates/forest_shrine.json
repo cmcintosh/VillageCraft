@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/forest_shrine"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/forest_shrine",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/forest_shrine"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/forest_shrine",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/forest_shrine",
+	      "y": 270
+	    }       
+    }
+}

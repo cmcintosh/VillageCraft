@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 
 public class BlockHerbalistPestle extends Block {
 	
-	public static Properties properties = Properties.create(Material.WOOD).hardnessAndResistance(3.5F).sound(SoundType.BONE).notSolid();
+	public static Properties properties = Properties.create(Material.WOOD).hardnessAndResistance(3.5F).sound(SoundType.BONE).notSolid().doesNotBlockMovement();
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ModItems.PROFESSION_BLOCKS).maxStackSize(64);
 

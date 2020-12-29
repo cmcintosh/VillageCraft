@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/supply_office"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/supply_office",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/supply_office"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/supply_office",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/supply_office",
+	      "y": 270
+	    }       
+    }
+}

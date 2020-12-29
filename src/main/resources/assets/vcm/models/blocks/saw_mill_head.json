@@ -1,0 +1,54 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "vcm:block/barrel_side",
+		"2": "vcm:block/base_wood_grain",
+		"3": "vcm:block/log_greatwood_top",
+		"4": "vcm:block/plank_greatwood",
+		"particle": "vcm:block/barrel_side"
+	},
+	"elements": [
+		{
+			"name": "log_ramp",
+			"from": [-5, 3, 0],
+			"to": [11, 8, 16],
+			"rotation": {"angle": 45, "axis": "z", "origin": [3, 11, 8]},
+			"faces": {
+				"north": {"uv": [8, 0, 16, 16], "rotation": 90, "texture": "#3"},
+				"east": {"uv": [0, 0, 8, 16], "rotation": 270, "texture": "#2"},
+				"south": {"uv": [0, 0, 8, 16], "rotation": 270, "texture": "#3"},
+				"west": {"uv": [0, 0, 9, 16], "rotation": 270, "texture": "#2"},
+				"up": {"uv": [0, 0, 8, 16], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#2"}
+			}
+		},
+		{
+			"name": "support",
+			"from": [10, 0, 2],
+			"to": [12, 9, 4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [18, 8, 10]},
+			"faces": {
+				"north": {"uv": [0, 0, 2, 9], "texture": "#4"},
+				"east": {"uv": [0, 0, 2, 9], "texture": "#4"},
+				"south": {"uv": [0, 0, 2, 9], "texture": "#4"},
+				"west": {"uv": [0, 0, 2, 9], "texture": "#4"},
+				"up": {"uv": [0, 0, 2, 2], "texture": "#4"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#4"}
+			}
+		},
+		{
+			"name": "support",
+			"from": [10, 0, 12],
+			"to": [12, 9, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [18, 8, 20]},
+			"faces": {
+				"north": {"uv": [0, 0, 2, 9], "texture": "#4"},
+				"east": {"uv": [0, 0, 2, 9], "texture": "#4"},
+				"south": {"uv": [0, 0, 2, 9], "texture": "#4"},
+				"west": {"uv": [0, 0, 2, 9], "texture": "#4"},
+				"up": {"uv": [0, 0, 2, 2], "texture": "#4"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#4"}
+			}
+		}
+	]
+}

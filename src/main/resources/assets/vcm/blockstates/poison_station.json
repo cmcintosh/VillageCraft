@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/poison_station"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/poison_station",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/poison_station"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/poison_station",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/poison_station",
+	      "y": 270
+	    }       
+    }
+}

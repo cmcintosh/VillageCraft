@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/taming_pen"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/taming_pen",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/taming_pen"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/taming_pen",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/taming_pen",
+	      "y": 270
+	    }       
+    }
+}

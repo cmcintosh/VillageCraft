@@ -18,12 +18,14 @@ import com.villagecraft.client.gui.VillageCenterScreen;
 import com.villagecraft.container.VillageCenterContainer;
 import com.villagecraft.data.VillageCraftData;
 import com.villagecraft.entity.goal.HealGolemGoal;
+import com.villagecraft.entity.goal.HostileAttackVillageCenter;
 import com.villagecraft.entity.goal.VillagerGoalBase;
 
 import com.villagecraft.entity.goal.VillagerHungerGoal;
 import com.villagecraft.entity.goal.VillagerRadiantAI;
 import com.villagecraft.entity.professions.BardProfession;
 import com.villagecraft.entity.professions.MerchantProfession;
+import com.villagecraft.entity.professions.OutpostLiasonProfession;
 import com.villagecraft.entity.professions.TradesmanProfession;
 import com.villagecraft.entity.professions.WorkerProfession;
 import com.villagecraft.entity.vanilla.IronGolem;
@@ -48,6 +50,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.entity.VillagerRenderer;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -55,6 +58,8 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.merchant.villager.VillagerTrades.ITrade;
+import net.minecraft.entity.monster.SpiderEntity;
+import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
@@ -84,7 +89,9 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.GenericEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
@@ -157,9 +164,9 @@ public class VillageCraft {
 		
 		// Registering the villager trades
 		MinecraftForge.EVENT_BUS.addListener(this::villagerTrades);
-		MinecraftForge.EVENT_BUS.addListener(this::wandererTrades);
+        MinecraftForge.EVENT_BUS.addListener(this::wandererTrades);
 		MinecraftForge.EVENT_BUS.addListener(this::entityJoinWorldEvent);
-		MinecraftForge.EVENT_BUS.addListener(this::onAttachCapabilitiesEvent);
+		MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, VillageCraft::onAttachCapabilitiesEvent);
 		
 		// Register GUI handlers
 		MinecraftForge.EVENT_BUS.register(this);
@@ -171,7 +178,7 @@ public class VillageCraft {
 	/**
 	 * Register Capabilities hook.
 	 */
-	public void onAttachCapabilitiesEvent(AttachCapabilitiesEvent<Entity> e) { 
+	public static void onAttachCapabilitiesEvent(AttachCapabilitiesEvent<Entity> e) { 
 		if (e.getObject() instanceof VillagerEntity) {
 			HungerProvider hProvider = new HungerProvider();
 			e.addCapability(new ResourceLocation(Reference.MODID, "hunger"), hProvider);
@@ -180,8 +187,7 @@ public class VillageCraft {
 			HonorProvider provider = new HonorProvider();
 			e.addCapability(new ResourceLocation(Reference.MODID, "honor"), provider);
 			e.addListener(provider::invalidate);
-			
-		}
+		} 
 	}
 	
 	/**
@@ -190,10 +196,10 @@ public class VillageCraft {
 	 */
     public void villagerTrades(VillagerTradesEvent event)
     {
-    	BardProfession.RegisterVillagerTrades(event);
-        WorkerProfession.RegisterVillagerTrades(event);
-        MerchantProfession.RegisterVillagerTrades(event);
-        TradesmanProfession.RegisterVillagerTrades(event);
+    	// TODO: Register trades for villagers.
+    	
+    	OutpostLiasonProfession.RegisterVillagerTrades(event);
+    	MerchantProfession.RegisterVillagerTrades(event);
     }
     
 
@@ -220,20 +226,20 @@ public class VillageCraft {
   	  
         if (entity instanceof VillagerEntity) {
           VillagerEntity villager = (VillagerEntity)event.getEntity();
-          
-      	  if (villager.isServerWorld()) {
-      		if (this.data.initialized == false) {
-      			ServerWorld world = (ServerWorld) villager.world;
-          		world.getSavedData().getOrCreate(() -> { VillageCraft.data.setWorld(world); return VillageCraft.data; }, "VillageCraftData");
-          		VillageCraft.data.initialize();          		
-      		}
-      		
-      		// Next add the VillagerRadiantAI goal.
-      		
-      		// all villagers need the base goal
-      		 villager.goalSelector.addGoal(1, new VillagerGoalBase(villager));
-        	
-      	  }
+          if (villager.isServerWorld()) {
+        	  villager.goalSelector.addGoal(4, new VillagerGoalBase(villager));  
+          }
+        } else if (entity instanceof ZombieEntity ) {
+        	CreatureEntity creature = ((CreatureEntity) entity);
+        	if (creature.isServerWorld() && creature.isEntityUndead()) {
+        		creature.goalSelector.addGoal(6,  new HostileAttackVillageCenter(creature, false));	
+        	}
+		}
+        else if (entity instanceof SpiderEntity) {
+        	CreatureEntity creature = ((CreatureEntity) entity);
+        	if (creature.isServerWorld() && creature.isEntityUndead()) {
+        		creature.goalSelector.addGoal(4,  new HostileAttackVillageCenter(creature, true));	
+        	}
         }
     }
     
@@ -266,7 +272,7 @@ public class VillageCraft {
             DeferredWorkQueue.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    ItemModelsProperties.func_239418_a_( 
+                	ItemModelsProperties.registerProperty(
                     		ModItems.VILLAGE_CENTER.get(), 
                     		new ResourceLocation(Reference.MODID, "location"), 
                     		new ItemVillageCenter.LocationProperty()

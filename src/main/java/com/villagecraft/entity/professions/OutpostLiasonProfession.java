@@ -38,7 +38,7 @@ public class OutpostLiasonProfession extends VillagerCraftBaseProfession {
 	
 	public static final ImmutableSet<Item> PROFESSION_ITEM = ImmutableSet.of(ModItems.BEER_BUCKET.get());
 	public static final ImmutableSet<Block> PROFESSION_BLOCK = ImmutableSet.of(Blocks.BIRCH_LOG);
-	public VillagerProfession PROFESSION = ModVillagerProfessions.BARD.get();
+	public VillagerProfession PROFESSION = ModVillagerProfessions.OUTPOST_LIASON.get();
 	
 	/**
 	 * {@inheritDoc}
@@ -54,9 +54,12 @@ public class OutpostLiasonProfession extends VillagerCraftBaseProfession {
 	 * {@inheritDoc}
 	 */
 	public static void RegisterVillagerTrades(VillagerTradesEvent event) { 
-		if (event.getType() == ModVillagerProfessions.BARD.get()) {
-			event.getTrades().get(1).add((entity, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 16), new ItemStack(ModItems.BEER_BUCKET.get()), 8, 10, 0F));
-			RandomTradeBuilder.forEachLevel((level, tradeBuild) -> event.getTrades().get(level.intValue()).add(tradeBuild.build()));
+		if (event.getType() == ModVillagerProfessions.OUTPOST_LIASON.get()) {
+			// Level 1
+			event.getTrades().get(1).add((entity, random) -> new MerchantOffer(new ItemStack(Items.CHEST, 32), new ItemStack(ModItems.DELIVERY_STATION.get()), 8, 10, 0F));
+			event.getTrades().get(2).add((entity, random) -> new MerchantOffer(new ItemStack(Items.IRON_HELMET, 1), new ItemStack(Items.LANTERN, 1), new ItemStack(ModItems.TRADESMAN_HELMET.get()), 1, 30, 0F));
+			event.getTrades().get(2).add((entity, random) -> new MerchantOffer(new ItemStack(Items.EMERALD, 16), new ItemStack(ModItems.AUCTION_HOUSE.get()), 100, 30, 0F));
+			event.getTrades().get(3).add((entity, random) -> new MerchantOffer(new ItemStack(Items.WOODEN_SWORD, 1), new ItemStack(Items.CHEST, 1), new ItemStack(ModItems.BRALWER_BOX.get()), 100, 10, 0F));
 		}
 	}
 	

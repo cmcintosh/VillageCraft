@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/inn"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/inn",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/inn"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/inn",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/inn",
+	      "y": 270
+	    }       
+    }
+}

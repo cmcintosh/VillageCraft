@@ -38,6 +38,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -45,6 +47,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraft.client.gui.screen.inventory.ChestScreen;
+import net.minecraft.client.gui.widget.button.Button;
 
 public class VillageCenterContainer extends BasicVillageCraftContainer {
 	
@@ -80,16 +83,44 @@ public class VillageCenterContainer extends BasicVillageCraftContainer {
 	public VillageCenterContainer(int id, PlayerInventory inv, final TileEntity tile) {
 		super(ModContainer.VILLAGE_CENTER_CONTAINER.get(), id, tile, inv);
 		mainInventory();
+		
+		// Upgrade slot
+		this.addSlot(new Slot(this.tile, 10, 9, 55) {
+            public void onSlotChanged() {
+                this.inventory.markDirty();
+            }
+
+            @Override
+            public boolean isItemValid(ItemStack stack) {
+            	if (stack.getItem() == net.minecraft.item.Items.EMERALD || stack.getItem() == net.minecraft.item.Items.EMERALD_BLOCK) {
+            		return true;
+            	}
+            	return false;                
+            }            
+        });
+		
+		// Upgrade slot
+		this.addSlot(new Slot(this.tile, 11, 24, 55) {
+            public void onSlotChanged() {
+                this.inventory.markDirty();
+            }
+
+            @Override
+            public boolean isItemValid(ItemStack stack) {
+            	if (stack.getItem() == net.minecraft.item.Items.EMERALD || stack.getItem() == net.minecraft.item.Items.EMERALD_BLOCK) {
+            		return true;
+            	}
+            	return false;                
+            }
+        });
+		
 	}
 	
 	@Override
 	public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
-		Slot slot = this.inventorySlots.get(index);
-			if (!this.mergeItemStack(slot.getStack(), 0, 36, false)) {
-				return itemstack;
-			}
 		return itemstack;
 	}
+	
 	
 }

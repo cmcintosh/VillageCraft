@@ -1,0 +1,36 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "vcm:block/infuser_normal",
+		"1": "vcm:block/alchemical_metal",
+		"2": "vcm:block/arcane_stone_1",
+		"particle": "vcm:block/infuser_normal"
+	},
+	"elements": [
+		{
+			"from": [2, 1, 3],
+			"to": [14, 13, 15],
+			"rotation": {"angle": 45, "axis": "x", "origin": [10, 9, 11]},
+			"faces": {
+				"north": {"uv": [0, 4, 3.875, 8], "texture": "#0"},
+				"east": {"uv": [4, 0, 8, 4], "texture": "#0"},
+				"south": {"uv": [8, 4, 12, 8], "texture": "#0"},
+				"west": {"uv": [4, 4, 7.875, 7.875], "texture": "#0"},
+				"up": {"uv": [12, 4, 15.875, 7.875], "texture": "#0"},
+				"down": {"uv": [4.125, 0, 8, 4], "texture": "#0"}
+			}
+		},
+		{
+			"from": [0, 0, 0],
+			"to": [16, 1, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 1], "texture": "#2"},
+				"east": {"uv": [0, 0, 16, 1], "texture": "#2"},
+				"south": {"uv": [0, 0, 16, 1], "texture": "#2"},
+				"west": {"uv": [0, 0, 16, 1], "texture": "#2"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#1"}
+			}
+		}
+	]
+}

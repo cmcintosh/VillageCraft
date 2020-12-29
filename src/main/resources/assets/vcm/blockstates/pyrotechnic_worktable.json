@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/pyrotechnic_worktable"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/pyrotechnic_worktable",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/pyrotechnic_worktable"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/pyrotechnic_worktable",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/pyrotechnic_worktable",
+	      "y": 270
+	    }       
+    }
+}

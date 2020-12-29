@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/delivery_station"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/delivery_station",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/delivery_station"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/delivery_station",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/delivery_station",
+	      "y": 270
+	    }       
+    }
+}

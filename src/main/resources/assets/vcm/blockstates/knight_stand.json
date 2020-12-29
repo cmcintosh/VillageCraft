@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=east,half=lower":  { "model": "vcm:blocks/knight_stand_bottom" },
+    "facing=south,half=lower": { "model": "vcm:blocks/knight_stand_bottom", "y": 90 },
+    "facing=west,half=lower":  { "model": "vcm:blocks/knight_stand_bottom", "y": 180 },
+    "facing=north,half=lower": { "model": "vcm:blocks/knight_stand_bottom", "y": 270 },
+    "facing=east,half=upper":  { "model": "vcm:blocks/knight_stand_top" },
+    "facing=south,half=upper": { "model": "vcm:blocks/knight_stand_top", "y": 90 },
+    "facing=west,half=upper":  { "model": "vcm:blocks/knight_stand_top", "y": 180 },
+    "facing=north,half=upper": { "model": "vcm:blocks/knight_stand_top", "y": 270 }
+  }
+}

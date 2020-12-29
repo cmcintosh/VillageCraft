@@ -54,7 +54,7 @@ public class IronGolem extends GolemEntity implements IRideable, IEquipable {
 	}
 	
 	public static AttributeModifierMap.MutableAttribute registerAttributes() {
-      return AttributeModifierMap.func_233803_a_()
+      return AttributeModifierMap.createMutableAttribute()
     		  .createMutableAttribute(Attributes.MAX_HEALTH)
     		  .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE)
     		  .createMutableAttribute(Attributes.MOVEMENT_SPEED)

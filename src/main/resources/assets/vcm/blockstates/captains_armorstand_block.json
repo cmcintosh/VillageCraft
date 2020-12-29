@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/captains_armorstand_block"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/captains_armorstand_block",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/captains_armorstand_block"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/captains_armorstand_block",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/captains_armorstand_block",
+	      "y": 270
+	    }       
+    }
+}

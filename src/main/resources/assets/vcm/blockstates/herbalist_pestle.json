@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/herbalist_pestle"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/herbalist_pestle",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/herbalist_pestle"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/herbalist_pestle",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/herbalist_pestle",
+	      "y": 270
+	    }       
+    }
+}

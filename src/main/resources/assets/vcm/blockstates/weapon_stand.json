@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/weapon_stand"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/weapon_stand",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/weapon_stand"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/weapon_stand",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/weapon_stand",
+	      "y": 270
+	    }       
+    }
+}

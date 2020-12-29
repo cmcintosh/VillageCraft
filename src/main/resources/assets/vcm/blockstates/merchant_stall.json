@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/merchant_stall"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/merchant_stall",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/merchant_stall"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/merchant_stall",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/merchant_stall",
+	      "y": 270
+	    }       
+    }
+}

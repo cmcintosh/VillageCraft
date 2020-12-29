@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/auction_house"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/auction_house",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/auction_house"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/auction_house",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/auction_house",
+	      "y": 270
+	    }       
+    }
+}

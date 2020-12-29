@@ -1,7 +1,7 @@
 package com.villagecraft.init;
 
 import com.villagecraft.VillageCraft;
-import com.villagecraft.alchemy.entity.professions.AlchemistProfession;
+import com.villagecraft.entity.professions.AlchemistProfession;
 import com.villagecraft.entity.professions.ArchitectProfession;
 import com.villagecraft.entity.professions.BardProfession;
 import com.villagecraft.entity.professions.BarkeeperProfession;
@@ -238,8 +238,8 @@ public class ModVillagerProfessions {
 	});
 	
 	// @HUNTER
-	public static final RegistryObject<PointOfInterestType> TAMING_PIN = POINTS_OF_INTEREST.register("taming_pin", () -> {
-		PointOfInterestType poi = new PointOfInterestType("taming_pin", ModVillagerProfessions.getAllStates(ModBlocks.TAMING_PIN.get()), 1, 1);
+	public static final RegistryObject<PointOfInterestType> TAMING_PEN = POINTS_OF_INTEREST.register("taming_pen", () -> {
+		PointOfInterestType poi = new PointOfInterestType("taming_pen", ModVillagerProfessions.getAllStates(ModBlocks.TAMING_PEN.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(poi);
 	});
 	
@@ -317,9 +317,9 @@ public class ModVillagerProfessions {
 	});
 	
 	// @OUTPOST_LIASON
-	public static final RegistryObject<PointOfInterestType> SUPPLY_OFFICE = POINTS_OF_INTEREST.register("supply_office", () -> {
-		PointOfInterestType supply_office = new PointOfInterestType("supply_office", ModVillagerProfessions.getAllStates(ModBlocks.SUPPLY_OFFICE.get()), 1, 1);
-		return ModVillagerProfessions.fixPOITypeBlockStates(supply_office);
+	public static final RegistryObject<PointOfInterestType> VILLAGE_CENTER = POINTS_OF_INTEREST.register("village_center", () ->{
+		PointOfInterestType tradesman_helmet = new PointOfInterestType("village_center", ModVillagerProfessions.getAllStates(ModBlocks.BLOCK_VILLAGE_CENTER.get()), 1, 1);
+		return ModVillagerProfessions.fixPOITypeBlockStates(tradesman_helmet);
 	});
 	
 	// @POTTER
@@ -373,8 +373,8 @@ public class ModVillagerProfessions {
 	
 	// @TRADER
 	// @TODO currently using vanilla crafting table...
-	public static final RegistryObject<PointOfInterestType> CRAFTING_TABLE = POINTS_OF_INTEREST.register("village_crafting_table", () -> {
-		PointOfInterestType village_crafting_table = new PointOfInterestType("village_crafting_table", ModVillagerProfessions.getAllStates(net.minecraft.block.Blocks.CRAFTING_TABLE), 1, 1);
+	public static final RegistryObject<PointOfInterestType> MERCHANT_STALL = POINTS_OF_INTEREST.register("merchant_stall", () -> {
+		PointOfInterestType village_crafting_table = new PointOfInterestType("merchant_stall", ModVillagerProfessions.getAllStates(ModBlocks.MERCHANT_STALL.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(village_crafting_table);
 	});
 	
@@ -411,9 +411,9 @@ public class ModVillagerProfessions {
 	
 	// @WORKER
 	// @TODO currently using vanilla chest...
-	public static final RegistryObject<PointOfInterestType> CHEST = POINTS_OF_INTEREST.register("village_chest", () -> {
-		PointOfInterestType village_chest = new PointOfInterestType("village_chest", ModVillagerProfessions.getAllStates(net.minecraft.block.Blocks.CHEST), 1, 1);
-		return ModVillagerProfessions.fixPOITypeBlockStates(village_chest);
+	public static final RegistryObject<PointOfInterestType> CHEST = POINTS_OF_INTEREST.register("delivery_station", () -> {
+		PointOfInterestType delivery_station = new PointOfInterestType("delivery_station", ModVillagerProfessions.getAllStates(ModBlocks.DELIVERY_STATION.get()), 1, 1);
+		return ModVillagerProfessions.fixPOITypeBlockStates(delivery_station);
 	});
 	
 	
@@ -422,10 +422,7 @@ public class ModVillagerProfessions {
 	 * @param block
 	 * @return
 	 */
-	public static final RegistryObject<PointOfInterestType> VILLAGE_CENTER = POINTS_OF_INTEREST.register("village_center", () ->{
-		PointOfInterestType tradesman_helmet = new PointOfInterestType("village_center", ModVillagerProfessions.getAllStates(ModBlocks.BLOCK_VILLAGE_CENTER.get()), 1, 1);
-		return ModVillagerProfessions.fixPOITypeBlockStates(tradesman_helmet);
-	});
+	
 	
 	// Get All Block States
 	public static Set<BlockState> getAllStates(Block block) {
@@ -575,7 +572,7 @@ public class ModVillagerProfessions {
 	
 	// @HERBALIST
 		public static final RegistryObject<VillagerProfession> HUNTER = PROFESSIONS.register("hunter", () -> {
-			return HerbalistProfession.villagerProfession("hunter", TAMING_PIN.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
+			return HerbalistProfession.villagerProfession("hunter", TAMING_PEN.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
 		});
 	
 	// @INNKEEPER
@@ -625,7 +622,7 @@ public class ModVillagerProfessions {
 	
 	// @MERCHANT
     public static final RegistryObject<VillagerProfession> MERCHANT = PROFESSIONS.register("merchant", () -> {
-    	return MerchantProfession.villagerProfession("merchant", CRAFTING_TABLE.get(), MerchantProfession.PROFESSION_ITEM, MerchantProfession.PROFESSION_BLOCK, new SoundEvent(new ResourceLocation("vcm", "villager_socialize")) );	
+    	return MerchantProfession.villagerProfession("merchant", AUCTION_HOUSE.get(), MerchantProfession.PROFESSION_ITEM, MerchantProfession.PROFESSION_BLOCK, new SoundEvent(new ResourceLocation("vcm", "villager_socialize")) );	
     });	
     
 	// @MINER
@@ -640,7 +637,7 @@ public class ModVillagerProfessions {
 	
 	// @OUTPOST_LIASON
 	public static final RegistryObject<VillagerProfession> OUTPOST_LIASON = PROFESSIONS.register("outpost_liason", () -> {
-		return OutpostLiasonProfession.villagerProfession("outpost_liason", SUPPLY_OFFICE.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
+		return OutpostLiasonProfession.villagerProfession("outpost_liason", VILLAGE_CENTER.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_socialize")));
 	});
 	
 	// @POTTER
@@ -685,7 +682,7 @@ public class ModVillagerProfessions {
 	
 	// @TRADER
 	public static final RegistryObject<VillagerProfession> TRADER = PROFESSIONS.register("trader", () -> { 
-    	return TradesmanProfession.villagerProfession("trader", AUCTION_HOUSE.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")) );
+    	return TradesmanProfession.villagerProfession("trader", MERCHANT_STALL.get(), ImmutableSet.of(), ImmutableSet.of(), new SoundEvent(new ResourceLocation("vcm", "villager_grunt")) );
     });
 	
 	// @TRADESMAN

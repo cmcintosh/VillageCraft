@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/tannery"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/tannery",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/tannery"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/tannery",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/tannery",
+	      "y": 270
+	    }       
+    }
+}

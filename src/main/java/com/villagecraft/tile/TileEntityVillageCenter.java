@@ -27,6 +27,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
+import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -45,12 +46,25 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-public class TileEntityVillageCenter extends TileBasicVillageBlock {
+public class TileEntityVillageCenter extends TileBasicVillageBlock implements ITickableTileEntity, INamedContainerProvider, IInventory {
+	
+	public static String UUID_VILLAGE = "VILLAGE_TAG";
+	public static String UUID_TAG = "UUID_TAG";
+    public static String ENABLED_TAG = "VILLAGE_ENABLED_TAG";
+    public static String VILLAGE_LEVEL = "VILLAGE_LEVEL";
+    public static String VILLAGE_DAMAGE = "VILLAGE_DAMAGE";
+	
 
+	protected int size = 15;
+	private NonNullList<ItemStack> inventory = NonNullList.withSize(11, ItemStack.EMPTY);
+	
 	protected String dataType = "village_center"; 
-	protected boolean enabled  = false;
+	
+	private boolean enabled  = true;
 	private UUID ownerId = null;
 	private UUID villageId;
+	private int level;
+	private int damage = 100;
 	
 	protected int ticksPerDay = 24000;
 	protected int ticksPerHour = 1000;
@@ -59,42 +73,31 @@ public class TileEntityVillageCenter extends TileBasicVillageBlock {
 	protected int maxFuelTicks = 100;
 	protected int currentFuelTick = 0;
 	
-	private final String UUID_VILLAGE = "VILLAGE_TAG";
-	private final String UUID_TAG = "UUID_TAG";
-    private final String ENABLED_TAG = "VILLAGE_ENABLED_TAG";
 	
 	public TileEntityVillageCenter(TileEntityType<?> tileEntityTypeIn) {
-		super(tileEntityTypeIn, 9);
+		super(tileEntityTypeIn, 10);
+		
+		inventory = NonNullList.withSize(size, ItemStack.EMPTY);
 		this.villageId = UUID.randomUUID();
-		this.enabled = true;
 		this.markDirty();
 		 
 	}
 	
 	public TileEntityVillageCenter() {
 		this(ModTiles.TILE_VILLAGE_CENTER.get());
+		
+		inventory = NonNullList.withSize(size, ItemStack.EMPTY);
 		this.villageId = UUID.randomUUID();
 		this.enabled = true;
 		this.markDirty();
 	}
-
-	@Nullable
-    @Override
-    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new VillageCenterContainer(i, playerInventory, this);
-    }
-
-	@Override
-	public ITextComponent getDisplayName() {
-		return new StringTextComponent(getType().getRegistryName().getPath());
-	}
-	
-	
+		
     public void read(CompoundNBT compound)
     {
         villageId = compound.getUniqueId(UUID_VILLAGE);
         enabled = compound.getBoolean(ENABLED_TAG);
-        VillageCraft.LOGGER.debug("Village ID: " + villageId + ", Enabled: " + enabled);
+        level = compound.getInt(VILLAGE_LEVEL);
+        damage = compound.getInt(VILLAGE_DAMAGE);
     }
 
     @Nonnull
@@ -103,23 +106,106 @@ public class TileEntityVillageCenter extends TileBasicVillageBlock {
     {
     	compound.putUniqueId(UUID_VILLAGE, villageId);
         compound.putBoolean(ENABLED_TAG, enabled);
+        compound.putInt(VILLAGE_LEVEL, level);
+        compound.putInt(VILLAGE_DAMAGE, damage);
         
         return super.write(compound);
     }
     
+    @Nullable
+    @Override
+    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+        return new VillageCenterContainer(i, playerInventory, this);
+    }
+    
+    
+	protected Container createMenu(int id, PlayerInventory playerInventory) {
+		// TODO Auto-generated method stub
+    	return new VillageCenterContainer(id, playerInventory, this);
+	}
+    
+    @Override
+	public void clear() {
+		inventory.clear();
+	}
 
 	@Override
-	public void tick() {
-		// 
-		
+	public int getSizeInventory() {
+		return size;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return this.inventory.isEmpty();
+	}
+    
+	@Override
+	public ItemStack getStackInSlot(int index) {
+		if (index > size - 1 || inventory == null)
+			return ItemStack.EMPTY;
+		return inventory.get(index);
+	}
+	
+
+	@Override
+	public ItemStack decrStackSize(int index, int count) {
+		if (index > size - 1)
+			return ItemStack.EMPTY;
+		ItemStack stack = inventory.get(index);
+		if (count >= stack.getCount())
+			return removeStackFromSlot(index);
+		else {
+			stack.shrink(count);
+			return new ItemStack(stack.getItem(), count);
+		}
+	}
+
+	@Override
+	public ItemStack removeStackFromSlot(int index) {
+		if (index > size - 1)
+			return ItemStack.EMPTY;
+		ItemStack stack = inventory.get(index).copy();
+		inventory.set(index, ItemStack.EMPTY);
+		return stack;
+	}
+
+	@Override
+	public void setInventorySlotContents(int index, ItemStack stack) {
+		if (index > size - 1)
+			return;
+		inventory.set(index, stack);
+	}
+
+	@Override
+	public boolean isUsableByPlayer(PlayerEntity player) {
+		if (this.world.getTileEntity(this.pos) != this) {
+			return false;
+		} else {
+			return !(player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
+					(double) this.pos.getZ() + 0.5D) > 64.0D);
+		}
+	}
+
+	@Override
+	public ITextComponent getDisplayName() {
+		return new StringTextComponent(getType().getRegistryName().getPath());
 	}
 	
 	@Override
-	public boolean isItemValidForSlot(int index, ItemStack stack) { 
-		if (stack.getItem().getRegistryName() == Items.EMERALD.getRegistryName()) {
-			return true;
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		if (index == 14 || index == 15) {
+			if (stack.getItem().getRegistryName() == Items.EMERALD.getRegistryName() || stack.getItem().getRegistryName() == Items.EMERALD_BLOCK.getRegistryName()) {
+				return true;
+			}
+			return false;	
 		}
-		return false;
+		return true;
+	}
+	
+	@Override
+	public void tick() {
+	
 	}
 	
 	/**
@@ -142,6 +228,32 @@ public class TileEntityVillageCenter extends TileBasicVillageBlock {
 	 */
 	public UUID getOwner() {
 		return this.ownerId;	
+	}
+	
+	public int getVillageLevel() {
+		return this.level;
+	}
+	
+	/**
+	 * Creates an array of boolean values, each value represents a potion input slot, value is true if the slot is not
+	 * null.
+    */
+   public boolean[] createFilledSlotsArray() {
+      boolean[] aboolean = new boolean[3];
+
+      for(int i = 0; i < 3; ++i) {
+         if (!this.inventory.get(i).isEmpty()) {
+            aboolean[i] = true;
+         }
+      }
+
+      return aboolean;
+   }
+
+	
+	protected ITextComponent getDefaultName() {
+		// TODO Auto-generated method stub
+		return new StringTextComponent(getType().getRegistryName().getPath());
 	}
 
 }

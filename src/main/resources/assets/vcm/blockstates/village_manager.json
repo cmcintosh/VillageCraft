@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=east,part=left":  { "model": "vcm:blocks/village_management_left" },
+    "facing=south,part=left": { "model": "vcm:blocks/village_management_left", "y": 90 },
+    "facing=west,part=left":  { "model": "vcm:blocks/village_management_left", "y": 180 },
+    "facing=north,part=left": { "model": "vcm:blocks/village_management_left", "y": 270 },
+    "facing=east,part=right":  { "model": "vcm:blocks/village_management_right" },
+    "facing=south,part=right": { "model": "vcm:blocks/village_management_right", "y": 90 },
+    "facing=west,part=right":  { "model": "vcm:blocks/village_management_right", "y": 180 },
+    "facing=north,part=right": { "model": "vcm:blocks/village_management_right", "y": 270 }
+  }
+}

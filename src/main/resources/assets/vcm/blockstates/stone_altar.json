@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/stone_altar"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/stone_altar",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/stone_altar"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/stone_altar",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/stone_altar",
+	      "y": 270
+	    }       
+    }
+}

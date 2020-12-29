@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/warped_altar"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/warped_altar",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/warped_altar"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/warped_altar",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/warped_altar",
+	      "y": 270
+	    }       
+    }
+}

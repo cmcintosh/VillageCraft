@@ -1,26 +1,12 @@
 {
-    "forge_marker": 1,
-    "defaults": {
-        "textures": {
-            "": "vcm:blocks/drafting_table"
-        }
-    },
-    "variants": {
-    	
-    	"facing=north": {
-	      "model": "vcm:blocks/drafting_table"
-	    },
-	    "facing=south": {
-	      "model": "vcm:blocks/drafting_table",
-	      "y": 180
-	    },
-	    "facing=west": {
-	      "model": "vcm:blocks/drafting_table",
-	      "y": 270
-	    },
-	    "facing=east": {
-	      "model": "vcm:blocks/drafting_table",
-  	      "y": 90
-	    }       
-    }
+  "variants": {
+    "facing=east,part=head":  { "model": "vcm:blocks/drafting_table_left" },
+    "facing=south,part=head": { "model": "vcm:blocks/drafting_table_left", "y": 90 },
+    "facing=west,part=head":  { "model": "vcm:blocks/drafting_table_left", "y": 180 },
+    "facing=north,part=head": { "model": "vcm:blocks/drafting_table_left", "y": 270 },
+    "facing=east,part=foot":  { "model": "vcm:blocks/drafting_table_right" },
+    "facing=south,part=foot": { "model": "vcm:blocks/drafting_table_right", "y": 90 },
+    "facing=west,part=foot":  { "model": "vcm:blocks/drafting_table_right", "y": 180 },
+    "facing=north,part=foot": { "model": "vcm:blocks/drafting_table_right", "y": 270 }
+  }
 }

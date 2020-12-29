@@ -1,7 +1,7 @@
 package com.villagecraft.init;
 
-import com.villagecraft.alchemy.container.AlchemistTableContainer;
 import com.villagecraft.block.BlockVillageCenter;
+import com.villagecraft.container.AlchemistTableContainer;
 import com.villagecraft.container.VillageCenterContainer;
 import com.villagecraft.util.Reference;
 

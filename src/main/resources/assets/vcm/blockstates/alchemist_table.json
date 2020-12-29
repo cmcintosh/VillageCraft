@@ -9,14 +9,14 @@
     	
     	"facing=north": {
 	      "model": "vcm:blocks/alchemist_table",
-	      "y": 180
+	      "y": 90
 	    },
 	    "facing=south": {
 	      "model": "vcm:blocks/alchemist_table"
 	    },
 	    "facing=west": {
 	      "model": "vcm:blocks/alchemist_table",
-	      "y": 90
+	      "y": 180
 	    },
 	    "facing=east": {
 	      "model": "vcm:blocks/alchemist_table",

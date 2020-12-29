@@ -1,6 +1,6 @@
 package com.villagecraft.init;
 
-import com.villagecraft.alchemy.entity.tile.AlchemistTableTile;
+import com.villagecraft.tile.AlchemistTableTile;
 import com.villagecraft.tile.TileEntityVillageCenter;
 import com.villagecraft.util.Reference;
 

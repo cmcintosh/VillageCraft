@@ -174,7 +174,7 @@ public class ModItems {
     public static final RegistryObject<Item> HERBALIST_PESTLE = ITEMS.register("herbalist_pestle", () -> ( (new BlockItem(  ModBlocks.HERBALIST_PESTLE.get(), ModBlocks.HERBALIST_PESTLE.get().item_properties))) );
     
     // @HUNTER
-    public static final RegistryObject<Item> TAMING_PIN = ITEMS.register("taming_pin", () -> ( (new BlockItem(  ModBlocks.TAMING_PIN.get(), ModBlocks.TAMING_PIN.get().item_properties))) );
+    public static final RegistryObject<Item> TAMING_PEN = ITEMS.register("taming_pen", () -> ( (new BlockItem(  ModBlocks.TAMING_PEN.get(), ModBlocks.TAMING_PEN.get().item_properties))) );
     
     // @INNKEEPER
     public static final RegistryObject<Item> INN = ITEMS.register("inn", () -> ( (new BlockItem(  ModBlocks.INN.get(), ModBlocks.INN.get().item_properties))) );
@@ -258,6 +258,7 @@ public class ModItems {
     public static final RegistryObject<Item> WEAVING_STATION = ITEMS.register("weaving_station", () -> ((new BlockItem( ModBlocks.WEAVING_STATION.get(), ModBlocks.WEAVING_STATION.get().item_properties))));
     
     // @WORKER
+    public static final RegistryObject<Item> DELIVERY_STATION = ITEMS.register("delivery_station", () -> ((new BlockItem( ModBlocks.DELIVERY_STATION.get(), ModBlocks.DELIVERY_STATION.get().item_properties))));
     
 
     /**

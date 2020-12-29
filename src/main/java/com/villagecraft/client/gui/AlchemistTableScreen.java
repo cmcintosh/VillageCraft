@@ -1,7 +1,7 @@
 package com.villagecraft.client.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.villagecraft.alchemy.container.AlchemistTableContainer;
+import com.villagecraft.container.AlchemistTableContainer;
 import com.villagecraft.container.VillageCenterContainer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.button.Button;

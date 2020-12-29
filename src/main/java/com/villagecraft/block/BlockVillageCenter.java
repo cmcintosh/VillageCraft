@@ -1,10 +1,12 @@
 package com.villagecraft.block;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.villagecraft.VillageCraft;
+import com.villagecraft.block.BlockSawMill.SawMillPart;
 import com.villagecraft.container.VillageCenterContainer;
 import com.villagecraft.init.ModContainer;
 import com.villagecraft.init.ModItems;
@@ -17,6 +19,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.SoundType;
@@ -24,7 +27,10 @@ import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
-
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -53,6 +59,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -141,5 +148,11 @@ public class BlockVillageCenter extends ContainerBlock {
 		return ModTiles.TILE_VILLAGE_CENTER.get().create();
 	}
 	
+	
+	
+	@Override
+    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+        super.onBlockPlacedBy(world, pos, state, placer, stack);
+    }
 	
 }

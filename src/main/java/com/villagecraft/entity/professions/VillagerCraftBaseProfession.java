@@ -117,13 +117,34 @@ public class VillagerCraftBaseProfession  extends VillagerProfession {
 	 */
 	public static void RegisterVillagerTrades(VillagerTradesEvent event) { }
 	
+	
+	
+	
 	/**
-	 * Register Goals for a profession.
+	 * Execute the goal for this Profession 
+	 * @param villager
 	 */
-	public static void RegisterVillagerGoals(EntityJoinWorldEvent event) { 
-		VillagerEntity entity = (VillagerEntity)event.getEntity();
-		VillagerGoalBase goal = new VillagerGoalBase(entity);
-		entity.goalSelector.addGoal(1, goal);
-		
+	public boolean shouldExecuteGoal(VillagerEntity villager) { 
+		return false;
 	}
+	
+	/**
+	 * Should continue executing the goal
+	 * @return
+	 */
+	public boolean shouldContinueExecutingGoal(VillagerEntity villager) { 
+		return false;
+	}
+	
+	/**
+	 * Start executing the goal
+	 * @return
+	 */
+	public void startExecutingGoal(VillagerEntity villager) { }
+
+	/**
+	 * execute a tick for goals.
+	 * @param villager
+	 */
+	public void tickGoal(VillagerEntity villager) { }
 }

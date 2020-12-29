@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/embassy"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/embassy",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/embassy"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/embassy",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/embassy",
+	      "y": 270
+	    }       
+    }
+}

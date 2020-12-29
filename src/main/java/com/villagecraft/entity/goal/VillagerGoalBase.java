@@ -2,6 +2,7 @@ package com.villagecraft.entity.goal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -14,6 +15,7 @@ import com.villagecraft.capabilities.IVillagerAttribute;
 import com.villagecraft.capabilities.IVillagerHonor;
 import com.villagecraft.capabilities.IVillagerHunger;
 import com.villagecraft.capabilities.VillagerHungerAttribute;
+import com.villagecraft.entity.professions.VillagerCraftBaseProfession;
 import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.item.profession_tokens.ItemProfessionToken;
 import com.villagecraft.tile.TileEntityVillageCenter;
@@ -32,6 +34,8 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
@@ -41,6 +45,8 @@ import net.minecraft.village.PointOfInterestManager;
 import net.minecraft.village.PointOfInterestType;
 import net.minecraft.village.PointOfInterestManager.Status;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.LazyOptional;
 
 public class VillagerGoalBase extends Goal {
@@ -66,6 +72,8 @@ public class VillagerGoalBase extends Goal {
 	protected IVillagerHunger hunger;
 	protected IVillagerHonor honor;
 	
+	protected Random rand = new Random();
+	
 	public VillagerGoalBase(VillagerEntity entity) { 
 		super();
 		villager = entity;
@@ -85,15 +93,36 @@ public class VillagerGoalBase extends Goal {
 
 	@Override
 	public boolean shouldExecute() {
+		
+		if (this.shouldExecuteHungerTick()) {
+			this.hungerTick();
+		}
+		
+		if (this.villager.getVillagerData().getProfession() instanceof VillagerCraftBaseProfession) { 
+			VillagerCraftBaseProfession profession = (VillagerCraftBaseProfession) villager.getVillagerData().getProfession(); 
+			return profession.shouldExecuteGoal(villager);
+		}
+		
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 	
-	protected BlockPos getVillagerBlockPos() { 
-		if (this.villager != null) {
-			return new BlockPos(this.villager.getPosX(), this.villager.getPosY(), this.villager.getPosZ());
+	/**
+     * Execute a one shot task or start executing a continuous task
+     */
+    public void startExecuting() {
+    	if (this.villager.getVillagerData().getProfession() instanceof VillagerCraftBaseProfession) { 
+			VillagerCraftBaseProfession profession = (VillagerCraftBaseProfession) villager.getVillagerData().getProfession(); 
+			profession.startExecutingGoal(villager);
 		}
-		return null;
+    }
+	
+	public boolean shouldContinueExecuting() {
+		if (this.villager.getVillagerData().getProfession() instanceof VillagerCraftBaseProfession) { 
+			VillagerCraftBaseProfession profession = (VillagerCraftBaseProfession) villager.getVillagerData().getProfession(); 
+			return profession.shouldExecuteGoal(villager);
+		}
+		return false;
 	}
 	
 	/**
@@ -108,18 +137,27 @@ public class VillagerGoalBase extends Goal {
 		// 1. b. If village center located, move towards the center, and when within 5f register.
 		
 		// Villager Hunger Related tasks 
-		if (this.shouldExecuteHungerTick()) {
-			this.hungerTick();
-		}
+		
 		
 		// Villager Thirst Related tasks
 		
 		// Villager Want(s) Related tasks
 		
-		// Villager Quest Related tasks			
+		// Villager Quest Related tasks		
+		
+		if (this.villager.getVillagerData().getProfession() instanceof VillagerCraftBaseProfession) { 
+			VillagerCraftBaseProfession profession = (VillagerCraftBaseProfession) villager.getVillagerData().getProfession(); 
+			profession.tickGoal(villager);
+		}
 	}
 	
-	
+	protected BlockPos getVillagerBlockPos() { 
+		if (this.villager != null) {
+			return new BlockPos(this.villager.getPosX(), this.villager.getPosY(), this.villager.getPosZ());
+		}
+		return null;
+	}
+		
 	/**
 	 * return a block position object for a entity.
 	 */
@@ -305,16 +343,27 @@ public class VillagerGoalBase extends Goal {
 			});
 		}
 		
+		   protected void spawnParticles(IParticleData particleData) {
+		      for(int i = 0; i < 5; ++i) {
+		         double d0 = this.rand.nextGaussian() * 0.02D;
+		         double d1 = this.rand.nextGaussian() * 0.02D;
+		         double d2 = this.rand.nextGaussian() * 0.02D;
+		         this.villager.world.addParticle(particleData, this.villager.getPosXRandom(1.0D), this.villager.getPosYRandom() + 1.0D, this.villager.getPosZRandom(1.0D), d0, d1, d2);
+		      }
+
+		   }
+		
 		/**
 		 * If a villager cant entity deal damage.
 		 */
 		public void starving() { 
 			villager.setShakeHeadTicks(5);
 			ResourceLocation location = new ResourceLocation("vcm", "villager_grunt");
+			// @TODO: Configurable on/off
 			SoundEvent event = new SoundEvent(location);
 			villager.playSound(event, 100, 1);
-			// @TODO: Configurable on/off
-//			villager.setHealth((float) (villager.getHealth() - 1));
+			
+			// villager.setHealth((float) (villager.getHealth() - 1));
 		}
 		
 		protected void eat(IVillagerHunger h) { 
@@ -325,13 +374,13 @@ public class VillagerGoalBase extends Goal {
 			// Try to find food in chest
 			eatFromChest(h);
 			
-			// Try to find food in Villager Warehouse...
-			
 			// Try to find food on ground.
 			eatFromGround(h);
 			
+			// Try to purchase food from merchant, trader, cook, or barkeeper.
+			
+			// Try to steal food form villager
 			if (h.getValue() <= this.theftHungerLevel) {
-				// Try to steal food form villager
 				stealFromVillager(h);
 			}
 		}
@@ -438,8 +487,7 @@ public class VillagerGoalBase extends Goal {
 			this.foodItem = null;
 			this.foundFoodBlock = null;
 			this.targetChest = null;
-
-			VillageCraft.LOGGER.debug("Ate Food, new hunger level is: " + h.getValue());
+			
 		}
 		
 		protected boolean hasFoodInInventory(VillagerEntity enitity) { 
@@ -502,12 +550,14 @@ public class VillagerGoalBase extends Goal {
 			BlockPos targetBlock = this.findClosestBlock(ModVillagerProfessions.CHEST.get(), Status.ANY, this.getVillagerBlockPos());
 			ChestTileEntity chest = (ChestTileEntity) this.villager.world.getTileEntity(targetBlock);
 			
-			for (int i = 0; i < chest.getSizeInventory(); i++) {
-				ItemStack check = chest.getStackInSlot(i);
-				if (check.isFood()) {
-					this.targetFoodBlock = targetBlock;
-					this.targetChest = chest;
-					return true;
+			if (chest != null) {
+				for (int i = 0; i < chest.getSizeInventory(); i++) {
+					ItemStack check = chest.getStackInSlot(i);
+					if (check.isFood()) {
+						this.targetFoodBlock = targetBlock;
+						this.targetChest = chest;
+						return true;
+					}
 				}
 			}
 			

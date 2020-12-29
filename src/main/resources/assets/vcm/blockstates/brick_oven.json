@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/brick_oven"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/brick_oven",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/brick_oven"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/brick_oven",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/brick_oven",
+	      "y": 270
+	    }       
+    }
+}

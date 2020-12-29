@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/sawhorse"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/sawhorse",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/sawhorse"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/sawhorse",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/sawhorse",
+	      "y": 270
+	    }       
+    }
+}

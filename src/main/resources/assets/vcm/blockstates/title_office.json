@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/title_office"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/title_office",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/title_office"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/title_office",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/title_office",
+	      "y": 270
+	    }       
+    }
+}

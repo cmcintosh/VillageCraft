@@ -1,0 +1,22 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "vcm:block/workbench_top",
+		"1": "vcm:block/embassy_front",
+		"particle": "vcm:block/workbench_top"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#missing"}
+			}
+		}
+	]
+}

@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:blocks/potter_wheel"
+        }
+    },
+    "variants": {
+    	
+    	"facing=north": {
+	      "model": "vcm:blocks/potter_wheel",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/potter_wheel"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/potter_wheel",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/potter_wheel",
+	      "y": 270
+	    }       
+    }
+}
