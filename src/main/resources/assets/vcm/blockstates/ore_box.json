@@ -8,18 +8,18 @@
     "variants": {
     	
     	"facing=north": {
-	      "model": "vcm:blocks/ore_box",
+	      "model": "vcm:blocks/professions/ore_box",
 	      "y": 180
 	    },
 	    "facing=south": {
-	      "model": "vcm:blocks/ore_box"
+	      "model": "vcm:blocks/professions/ore_box"
 	    },
 	    "facing=west": {
-	      "model": "vcm:blocks/ore_box",
+	      "model": "vcm:blocks/professions/ore_box",
 	      "y": 90
 	    },
 	    "facing=east": {
-	      "model": "vcm:blocks/ore_box",
+	      "model": "vcm:blocks/professions/ore_box",
 	      "y": 270
 	    }       
     }

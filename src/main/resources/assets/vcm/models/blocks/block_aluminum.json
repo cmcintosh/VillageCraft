@@ -1,0 +1,7 @@
+{
+	"parent": "block/cobblestone",
+	"textures": {
+		"0": "vcm:block/metal/aluminum",
+		"particle": "vcm:block/metal/aluminum"
+	}
+}

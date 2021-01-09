@@ -9,6 +9,7 @@ import com.villagecraft.container.VillageCenterContainer;
 import com.villagecraft.init.ModContainer;
 import com.villagecraft.init.ModItems;
 import com.villagecraft.init.ModTiles;
+import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.tile.TileEntityVillageCenter;
 import com.villagecraft.util.Reference;
 
@@ -61,7 +62,7 @@ public class BlockWeavingStation extends ContainerBlock {
 	
 	public static Properties properties = Properties.create(Material.WOOD).hardnessAndResistance(3.5F).sound(SoundType.CLOTH).notSolid();
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ModItems.PROFESSION_BLOCKS).maxStackSize(64);
+	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ModVillagerProfessions.PROFESSION_BLOCKS).maxStackSize(64);
 	private static final VoxelShape AABB = Block.makeCuboidShape(0, 0, 0, 16, 18, 16);
 	
 	public BlockWeavingStation(Properties properties) {

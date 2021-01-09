@@ -17,6 +17,7 @@ import com.villagecraft.client.gui.RenderVillageCenter;
 import com.villagecraft.client.gui.VillageCenterScreen;
 import com.villagecraft.container.VillageCenterContainer;
 import com.villagecraft.data.VillageCraftData;
+import com.villagecraft.data.datagen.OreLootTableProvider;
 import com.villagecraft.entity.goal.HealGolemGoal;
 import com.villagecraft.entity.goal.HostileAttackVillageCenter;
 import com.villagecraft.entity.goal.VillagerGoalBase;
@@ -34,6 +35,7 @@ import com.villagecraft.init.ModContainer;
 import com.villagecraft.init.ModEntity;
 import com.villagecraft.init.ModFoods;
 import com.villagecraft.init.ModItems;
+import com.villagecraft.init.ModOres;
 import com.villagecraft.init.ModTiles;
 import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.item.blockitems.ItemVillageCenter;
@@ -50,6 +52,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.entity.VillagerRenderer;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.IDataProvider;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -81,6 +85,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.VillagerTradingManager;
+import net.minecraftforge.common.data.ForgeBlockTagsProvider;
+import net.minecraftforge.common.data.ForgeItemTagsProvider;
+import net.minecraftforge.common.data.ForgeLootTableProvider;
+import net.minecraftforge.common.data.ForgeRecipeProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityEvent;
@@ -103,6 +111,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -121,37 +130,33 @@ public class VillageCraft {
 	
 	public static VillageCraft instance;
 	
-	public static final ItemGroup VILLAGE_CRAFT = new ItemGroup("village_craft")
-    {
-        @Override
-        public ItemStack createIcon()
-        {
-            return new ItemStack(ModItems.TOWN_HALL.get());
-        }
-    };
-	
 	
 	public VillageCraft() { 
 		LOGGER.debug("VillageCraft, building villages since 1902.");
 		final ModLoadingContext modLoadingContext = ModLoadingContext.get();
-		
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		
+		
 		
 		// Registering mod blocks for VillageCraft
 		ModBlocks.BLOCKS.register(modEventBus);
+		ModOres.ORES.register(modEventBus);
+		ModOres.BLOCKS.register(modEventBus);
+		ModVillagerProfessions.BLOCKS.register(modEventBus);
 		
 		// Registering mod containers.
 		ModContainer.CONTAINER_TYPE.register(modEventBus);
-		
 		
 		// Registering mod tile entity
 		ModTiles.TILES.register(modEventBus);
 		
 		// Registering mod items for VillageCraft
 		ModItems.ITEMS.register(modEventBus);
+		ModOres.ITEMS.register(modEventBus);
 		
 		// Registering the mod foods for VillageCraft
 		ModFoods.ITEMS.register(modEventBus);
+		ModVillagerProfessions.ITEMS.register(modEventBus);
 		
 		// Registering the mod villager Points of interest
 		ModVillagerProfessions.POINTS_OF_INTEREST.register(modEventBus);
@@ -170,6 +175,8 @@ public class VillageCraft {
 		
 		// Register GUI handlers
 		MinecraftForge.EVENT_BUS.register(this);
+		
+		modEventBus.addListener(VillageCraft::gatherData);
 		
 		// EntityJoinWorldEvent
 		this.LOGGER.debug(this.data.getName() + " Is created");
@@ -252,6 +259,14 @@ public class VillageCraft {
     	this.refTE = te;
     }
     
+    @SubscribeEvent
+    public static void gatherData(GatherDataEvent event) {
+//    	LOGGER.debug("called loot gen event");
+//    	DataGenerator gen = event.getGenerator();
+//    	VillageCraftLootTableProvider lootTable = new VillageCraftLootTableProvider(gen);
+//    	gen.addProvider(lootTable);
+    }
+    
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
     @OnlyIn(Dist.CLIENT)
     public static class ClientRegistryEvents {
@@ -273,7 +288,7 @@ public class VillageCraft {
                 @Override
                 public void run() {
                 	ItemModelsProperties.registerProperty(
-                    		ModItems.VILLAGE_CENTER.get(), 
+                			ModVillagerProfessions.ITEM_VILLAGE_CENTER.get(), 
                     		new ResourceLocation(Reference.MODID, "location"), 
                     		new ItemVillageCenter.LocationProperty()
                     );

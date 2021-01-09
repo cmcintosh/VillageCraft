@@ -1,0 +1,25 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "": "vcm:block/ore/aluminum"
+        },
+    },
+    "variants": {
+    	"facing=north": {
+	      "model": "vcm:blocks/ore_aluminum",
+	      "y": 180
+	    },
+	    "facing=south": {
+	      "model": "vcm:blocks/ore_aluminum"
+	    },
+	    "facing=west": {
+	      "model": "vcm:blocks/ore_aluminum",
+	      "y": 90
+	    },
+	    "facing=east": {
+	      "model": "vcm:blocks/ore_aluminum",
+	      "y": 270
+	    }        
+    }
+}

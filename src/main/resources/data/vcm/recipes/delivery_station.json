@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "i", "u", "i",
+        "i", "u", "i",
+        "i", "u", "i",
+    ],
+    "key":
+    {
+        "u":
+        {
+            "item": "minecraft:chest"
+        },
+        "i":
+        {
+        	"item": "minecraft:lead"
+        }
+    },
+    "result":
+    {
+        "item": "vcm:delivery_station",
+        "count": 1
+    }
+}

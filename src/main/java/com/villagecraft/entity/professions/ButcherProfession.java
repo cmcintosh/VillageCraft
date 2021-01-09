@@ -36,7 +36,7 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 
 public class ButcherProfession extends VillagerCraftBaseProfession {
 	
-	public static final ImmutableSet<Item> PROFESSION_ITEM = ImmutableSet.of(ModItems.BUTCHERS_BLOCK.get());
+	public static final ImmutableSet<Item> PROFESSION_ITEM = ImmutableSet.of(ModVillagerProfessions.ITEM_BUTCHERS_BLOCK.get());
 	public static final ImmutableSet<Block> PROFESSION_BLOCK = ImmutableSet.of(Blocks.BIRCH_LOG);
 	public VillagerProfession PROFESSION = ModVillagerProfessions.BUTCHER.get();
 	

@@ -6,8 +6,6 @@ import net.minecraft.data.BlockStateProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
-import net.minecraftforge.common.model.Models;
 
 public class BlockStates extends BlockStateProvider {
 

@@ -1,0 +1,6 @@
+{
+	"parent": "item/iron_ingot",
+	"textures": {
+		"layer0": "vcm:item/ingot/ingot_aluminum"
+	}
+}

@@ -3,6 +3,7 @@ package com.villagecraft.block;
 import javax.annotation.Nullable;
 
 import com.villagecraft.init.ModItems;
+import com.villagecraft.init.ModVillagerProfessions;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -26,7 +27,7 @@ public class BlockTrapStation extends Block {
 	
 	public static Properties properties = Properties.create(Material.WOOD).hardnessAndResistance(3.5F).sound(SoundType.CLOTH).notSolid();
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ModItems.PROFESSION_BLOCKS).maxStackSize(64);
+	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ModVillagerProfessions.PROFESSION_BLOCKS).maxStackSize(64);
 
 	public BlockTrapStation(Properties properties) {
 		super(properties);

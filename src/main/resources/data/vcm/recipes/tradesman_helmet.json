@@ -2,9 +2,9 @@
     "type": "minecraft:crafting_shaped",
     "pattern":
     [
-        "   ",
-        " xy",
-        "   "
+        "zzz",
+        "zxy",
+        "zzz"
     ],
     "key":
     {
@@ -14,7 +14,11 @@
         },
         "y":
         {
-            "item": "minecraft:torch"
+            "item": "minecraft:lantern"
+        },
+        "z":
+        {
+        	"item": "minecraft:chain"
         }
     },
     "result":

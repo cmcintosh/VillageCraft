@@ -332,11 +332,11 @@ public class VillagerGoalBase extends Goal {
 						}
 						
 						if (currentHunger < this.hungerLevel) {
-							this.eat(h);
+						//	this.eat(h);
 						}
 						
 						if (currentHunger < this.starvationLevel) {
-							starving();
+						//	starving();
 						}
 						
 					}

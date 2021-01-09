@@ -1,0 +1,6 @@
+{
+	"parent": "item/iron_nugget",
+	"textures": {
+		"layer0": "vcm:item/nugget/aluminum"
+	}
+}

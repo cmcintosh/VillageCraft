@@ -3,6 +3,7 @@ package com.villagecraft.block;
 import javax.annotation.Nullable;
 
 import com.villagecraft.init.ModItems;
+import com.villagecraft.init.ModVillagerProfessions;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -53,7 +54,7 @@ public class BlockDraftingTable extends HorizontalBlock {
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final EnumProperty<BedPart> PART = BlockStateProperties.BED_PART;
 	
-	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ModItems.PROFESSION_BLOCKS).maxStackSize(64);
+	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ModVillagerProfessions.PROFESSION_BLOCKS).maxStackSize(64);
 
 	public BlockDraftingTable(Properties properties) {
 		super(properties);

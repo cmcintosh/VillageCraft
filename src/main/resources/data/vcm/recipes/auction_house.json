@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "xxx",
+        "z z",
+        "zyz"
+    ],
+    "key":
+    {
+        "x":
+        {
+            "item": "minecraft:oak_slab"
+        },
+        "y":
+        {
+            "item": "minecraft:minecart"
+        },
+        "z":
+        {
+        	"item": "minecraft:oak_fence"
+        }
+    },
+    "result":
+    {
+       	"item": "vcm:auction_house",
+       	"count": 1
+    }
+}

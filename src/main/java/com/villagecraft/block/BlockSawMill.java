@@ -1,6 +1,7 @@
 package com.villagecraft.block;
 
 import com.villagecraft.init.ModItems;
+import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -50,7 +51,7 @@ public class BlockSawMill extends HorizontalBlock {
 	
 	public static final EnumProperty<SawMillPart> PART = EnumProperty.create("part", SawMillPart.class);
 	
-	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ModItems.PROFESSION_BLOCKS).maxStackSize(64);
+	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ModVillagerProfessions.PROFESSION_BLOCKS).maxStackSize(64);
 
 	public BlockSawMill(Properties properties) {
 		super(properties);

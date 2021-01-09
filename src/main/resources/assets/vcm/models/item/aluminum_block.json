@@ -1,0 +1,6 @@
+{
+	"parent": "item/stone",
+	"textures": {
+		"layer0": "vcm:blcok/metal/aluminum"
+	}
+}

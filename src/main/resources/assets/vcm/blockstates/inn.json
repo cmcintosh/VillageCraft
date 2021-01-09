@@ -6,7 +6,6 @@
         }
     },
     "variants": {
-    	
     	"facing=north": {
 	      "model": "vcm:blocks/inn",
 	      "y": 180

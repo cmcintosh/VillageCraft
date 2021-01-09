@@ -16,9 +16,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModEntity {
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, Reference.MODID);
 
-	public static final RegistryObject<EntityType<IronGolem>> IRON_GOLEM = ENTITY_TYPES
-			.register("iron_golem",
-					() -> EntityType.Builder.<IronGolem>create(IronGolem::new, EntityClassification.CREATURE)
-					.size(0.9f, 1.3f)
-					.build(new ResourceLocation("minecraft:entity/iron_golem").toString()));
+//	public static final RegistryObject<EntityType<IronGolem>> IRON_GOLEM = ENTITY_TYPES
+//			.register("iron_golem",
+//					() -> EntityType.Builder.<IronGolem>create(IronGolem::new, EntityClassification.CREATURE)
+//					.size(0.9f, 1.3f)
+//					.build(new ResourceLocation("minecraft:entity/iron_golem").toString()));
 }

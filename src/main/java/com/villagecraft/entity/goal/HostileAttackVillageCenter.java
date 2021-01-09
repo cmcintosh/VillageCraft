@@ -113,7 +113,7 @@ public class HostileAttackVillageCenter extends Goal {
 	     }
 		
 		if ( 
-			(this.targetPos == null || mob.getEntityWorld().getBlockState(this.targetPos).getBlock() != ModBlocks.BLOCK_VILLAGE_CENTER.get().getBlock())
+			(this.targetPos == null || mob.getEntityWorld().getBlockState(this.targetPos).getBlock() != ModVillagerProfessions.BLOCK_VILLAGE_CENTER.get().getBlock())
 		) {
 			BlockPos target = this.findClosestBlock(ModVillagerProfessions.VILLAGE_CENTER.get(), PointOfInterestManager.Status.ANY, this.getEntityBlockPos(this.mob));
 			if (target != null && this.getBlockPosDistance(target, this.mob.getPosition()) < this.maxScanRange ) {

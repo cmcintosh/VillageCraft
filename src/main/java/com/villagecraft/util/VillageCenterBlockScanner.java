@@ -1,7 +1,8 @@
 package com.villagecraft.util;
 
 import com.villagecraft.VillageCraft;
-import com.villagecraft.init.ModBlocks;
+import com.villagecraft.init.ModOres;
+import com.villagecraft.init.ModVillagerProfessions;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -12,8 +13,9 @@ public class VillageCenterBlockScanner extends BlockScanner {
 	
 	protected int maxRadius = 100;
 	
-	public VillageCenterBlockScanner(BlockPos center, World world) { 
-		super(ModBlocks.BLOCK_VILLAGE_CENTER.get(), 150, center, world);
+	public VillageCenterBlockScanner(BlockPos center, World world) {
+		super(ModOres.ALUMINUM_BLOCK.get(), 150, center, world);
+		// super(ModVillagerProfessions.BLOCK_VILLAGE_CENTER.get(), 150, center, world);
 	}
 
 	public VillageCenterBlockScanner(Block scanBlock, int scansPerTick, BlockPos center, World world) {

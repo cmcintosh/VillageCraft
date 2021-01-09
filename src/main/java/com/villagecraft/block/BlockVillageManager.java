@@ -3,6 +3,8 @@ package com.villagecraft.block;
 import javax.annotation.Nullable;
 
 import com.villagecraft.init.ModItems;
+import com.villagecraft.init.ModVillagerProfessions;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -48,7 +50,7 @@ public class BlockVillageManager extends HorizontalBlock {
     
 	public static Properties properties = Properties.create(Material.WOOD).hardnessAndResistance(3.5F).sound(SoundType.CLOTH).notSolid();
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ModItems.PROFESSION_BLOCKS).maxStackSize(64);
+	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ModVillagerProfessions.PROFESSION_BLOCKS).maxStackSize(64);
 	public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
 	public static final EnumProperty<TownHallPart> PART = EnumProperty.create("part", TownHallPart.class);
 
