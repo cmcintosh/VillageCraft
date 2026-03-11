@@ -22,22 +22,33 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.entity.npc.VillagerTrades.ITrade;
+import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.neoforged.neoforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
-import net.neoforged.neoforge.registries.Registries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 
-public class VillagerCraftBaseProfession  extends VillagerProfession {
+/**
+ * Base class for VillagerCraft professions.
+ * Note: VillagerProfession is final in 1.20.1, so we use a factory pattern instead of extending.
+ */
+public class VillagerCraftBaseProfession {
 	
 	public VillagerProfession PROFESSION;
 	public PoiType PONT_OF_INTEREST;
+	
+	public String name;
+	public PoiType pointOfInterest;
+	public ImmutableSet<Item> specificItems;
+	public ImmutableSet<Block> relatedWorldBlocks;
+	public SoundEvent sound;
 	
 	/**
 	 * Constructor for the profession
@@ -49,8 +60,12 @@ public class VillagerCraftBaseProfession  extends VillagerProfession {
 	 */
 	public VillagerCraftBaseProfession(String nameIn, PoiType pointOfInterestIn,
 			ImmutableSet<Item> specificItemsIn, ImmutableSet<Block> relatedWorldBlocksIn, SoundEvent soundIn) {
-		super(nameIn, pointOfInterestIn, specificItemsIn, relatedWorldBlocksIn, soundIn);
-		PONT_OF_INTEREST = pointOfInterestIn;
+		this.name = nameIn;
+		this.pointOfInterest = pointOfInterestIn;
+		this.specificItems = specificItemsIn;
+		this.relatedWorldBlocks = relatedWorldBlocksIn;
+		this.sound = soundIn;
+		this.PONT_OF_INTEREST = pointOfInterestIn;
 		VillageCraft.LOGGER.debug("Initialized Villager Profession for " + this.toString() );		
 	}
 	
@@ -61,7 +76,7 @@ public class VillagerCraftBaseProfession  extends VillagerProfession {
 	public static Int2ObjectArrayMap getTrades() {
 		VillageCraft.LOGGER.debug("Creating trades");
 		Int2ObjectArrayMap int2ObjectArrayMap = new Int2ObjectArrayMap();
-		VillagerTrades.ITrade[] value = { TradeTypes.EmeraldForItemsTrade(Items.EMERALD, 4, 8, 2), TradeTypes.ItemsForEmeraldsTrade(ModFoods.BEER.get(), 1, 1, 2) };
+		ItemListing[] value = { TradeTypes.EmeraldForItemsTrade(Items.EMERALD, 4, 8, 2), TradeTypes.ItemsForEmeraldsTrade(ModFoods.BEER.get(), 1, 1, 2) };
 		int2ObjectArrayMap.put(1, value);
 		return int2ObjectArrayMap;
 	}
@@ -78,9 +93,10 @@ public class VillagerCraftBaseProfession  extends VillagerProfession {
 	public static VillagerProfession villagerProfession(String p1, PoiType p2, ImmutableSet<Item> p3, ImmutableSet<Block> p4, @Nullable SoundEvent p5) {
 	       try
 	       {
-	    	   Constructor<VillagerCraftBaseProfession> c = VillagerCraftBaseProfession.class.getDeclaredConstructor(String.class, PoiType.class, ImmutableSet.class, ImmutableSet.class, SoundEvent.class);
+	    	   // Create using reflection since constructor is protected
+	    	   Constructor<VillagerProfession> c = VillagerProfession.class.getDeclaredConstructor(String.class, PoiType.class, ImmutableSet.class, ImmutableSet.class, SoundEvent.class);
 	           c.setAccessible(true);
-	           VillagerCraftBaseProfession profession = c.newInstance(p1, p2, p3, p4, p5);
+	           VillagerProfession profession = c.newInstance(p1, p2, p3, p4, p5);
 	           
 	           return profession;
 	       }
@@ -122,9 +138,10 @@ public class VillagerCraftBaseProfession  extends VillagerProfession {
 	 * Register Goals for a profession.
 	 */
 	public static void RegisterVillagerGoals(EntityJoinLevelEvent event) { 
-		VillagerEntity entity = (VillagerEntity)event.getEntity();
-		VillagerGoalBase goal = new VillagerGoalBase(entity);
-		entity.goalSelector.addGoal(1, goal);
-		
+		if (event.getEntity() instanceof Villager) {
+			Villager entity = (Villager)event.getEntity();
+			VillagerGoalBase goal = new VillagerGoalBase(entity);
+			entity.goalSelector.addGoal(1, goal);
+		}
 	}
 }
