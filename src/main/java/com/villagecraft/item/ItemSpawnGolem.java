@@ -13,7 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.Direction;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.common.util.NonNullSupplier;
-import net.neoforged.neoforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.fml.util.ObfuscationReflectionHelper;
 
 import javax.annotation.Nullable;

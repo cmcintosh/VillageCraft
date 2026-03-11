@@ -104,7 +104,7 @@ public class BlockSupplyOffice extends BaseEntityBlock {
 	// @TODO: learn how to do this
 	@Override
 	public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, 
-			InteractionHand handIn, BlockHitResult blockRayTraceResult) {
+			InteractionHand handIn, BlockHitResult blockHitResult) {
 		
 		if (!worldIn.isClientSide) {
             BlockEntity tileEntity = worldIn.getBlockEntity(pos);

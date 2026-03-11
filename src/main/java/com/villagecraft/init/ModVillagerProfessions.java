@@ -31,17 +31,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.item.MerchantOffer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.minecraft.world.level.block.Blocks;
 
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.fml.util.ObfuscationReflectionHelper;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.registries.Registries;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -53,8 +52,8 @@ import net.minecraft.world.item.Items;
 
 public class ModVillagerProfessions {
 
-	public static final DeferredRegister<PoiType> POINTS_OF_INTEREST = DeferredRegister.create(BuiltInRegistries.POI_TYPE, Reference.MODID);
-	public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(BuiltInRegistries.VILLAGER_PROFESSION, Reference.MODID);
+	public static final DeferredRegister<PoiType> POINTS_OF_INTEREST = DeferredRegister.create(net.minecraft.core.registries.Registries.POINT_OF_INTEREST_TYPE, Reference.MODID);
+	public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(net.minecraft.core.registries.Registries.VILLAGER_PROFESSION, Reference.MODID);
 	
 	
 	/**
@@ -86,12 +85,12 @@ public class ModVillagerProfessions {
 	});
 	
 	public static final DeferredHolder<PoiType, PoiType> CRAFTING_TABLE = POINTS_OF_INTEREST.register("village_crafting_table", () -> {
-		PoiType village_crafting_table = new PoiType("village_crafting_table", ModVillagerProfessions.getAllStates(Blocks.CRAFTING_TABLE), 1, 1);
+		PoiType village_crafting_table = new PoiType("village_crafting_table", ModVillagerProfessions.getAllStates(net.minecraft.block.Blocks.CRAFTING_TABLE), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(village_crafting_table);
 	});
 	
 	public static final DeferredHolder<PoiType, PoiType> CHEST = POINTS_OF_INTEREST.register("village_chest", () -> {
-		PoiType village_chest = new PoiType("village_chest", ModVillagerProfessions.getAllStates(Blocks.CHEST), 1, 1);
+		PoiType village_chest = new PoiType("village_chest", ModVillagerProfessions.getAllStates(net.minecraft.block.Blocks.CHEST), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(village_chest);
 	});
 	
@@ -176,7 +175,7 @@ public class ModVillagerProfessions {
 	});
 	
 	public static final DeferredHolder<PoiType, PoiType> BEEHIVE = POINTS_OF_INTEREST.register("beehive", () -> {
-		PoiType beehive = new PoiType("beehive", ModVillagerProfessions.getAllStates(Blocks.BEEHIVE), 1, 1);
+		PoiType beehive = new PoiType("beehive", ModVillagerProfessions.getAllStates(net.minecraft.block.Blocks.BEEHIVE), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(beehive);
 	});
 	
@@ -192,7 +191,7 @@ public class ModVillagerProfessions {
 	
 	// Get All Block States
 	public static Set<BlockState> getAllStates(Block block) {
-	     return ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates());
+	     return ImmutableSet.copyOf(block.getStateContainer().getValidStates());
 	}
 	
 	private static Method blockStatesInjector;
@@ -324,3 +323,19 @@ public class ModVillagerProfessions {
 }
 
 //caravaneer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

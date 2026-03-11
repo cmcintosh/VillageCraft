@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vector3i;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
