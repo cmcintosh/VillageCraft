@@ -25,7 +25,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerHelper;
 
 public abstract class TileBasicVillageBlock extends BlockEntity {
 	
@@ -34,6 +33,14 @@ public abstract class TileBasicVillageBlock extends BlockEntity {
 	protected VillageDataHelper dataHelper;
 	protected String dataType = "GenericVillageBlock";
 
+	public TileBasicVillageBlock(BlockEntityType<?> tileEntityTypeIn, int size, BlockPos pos, BlockState state) {
+		super(tileEntityTypeIn, pos, state);
+		this.size = size;
+		dataHelper = VillageDataHelper.nextDataEntity(dataType);
+		content = NonNullList.withSize(size, ItemStack.EMPTY);
+		
+	}
+	
 	public TileBasicVillageBlock(BlockEntityType<?> tileEntityTypeIn, int size) {
 		super(tileEntityTypeIn, BlockPos.ZERO, null);
 		this.size = size;
@@ -43,17 +50,27 @@ public abstract class TileBasicVillageBlock extends BlockEntity {
 	}
 	
 	@Override
-	public CompoundTag saveWithoutMetadata(CompoundTag compound) {
+	protected void saveAdditional(CompoundTag compound) {
+		super.saveAdditional(compound);
 		this.dataHelper.write(compound);
-		ContainerHelper.saveAllItems(compound, content);
-		return super.saveWithoutMetadata(compound);
+		// Save items manually
+		for (int i = 0; i < content.size(); i++) {
+			if (!content.get(i).isEmpty()) {
+				compound.put("Item" + i, content.get(i).save(new CompoundTag()));
+			}
+		}
 	}
 	
 	@Override
 	public void load(CompoundTag nbt) {
 		super.load(nbt);
 		this.dataHelper.read(nbt);
-		ContainerHelper.loadAllItems(nbt, content);
+		// Load items manually
+		for (int i = 0; i < content.size(); i++) {
+			if (nbt.contains("Item" + i, 10)) { // 10 = CompoundTag type
+				content.set(i, ItemStack.of(nbt.getCompound("Item" + i)));
+			}
+		}
 	}
 
 	public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {

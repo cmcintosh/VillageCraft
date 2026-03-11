@@ -10,8 +10,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -27,11 +25,11 @@ import net.minecraft.world.level.Level;
  * Custom Iron Golem entity for VillageCraft.
  * Uses 1.20.1 compatible API.
  */
-public class VillageIronGolem extends net.minecraft.world.entity.animal.IronGolem implements Saddleable {
+public class IronGolem extends net.minecraft.world.entity.animal.IronGolem implements Saddleable {
 	
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(Items.CARROT, Items.POTATO, Items.BEETROOT);
 	
-	public VillageIronGolem(EntityType<? extends net.minecraft.world.entity.animal.IronGolem> type, Level worldIn) {
+	public IronGolem(EntityType<? extends net.minecraft.world.entity.animal.IronGolem> type, Level worldIn) {
 		super(type, worldIn);
 	}
 	

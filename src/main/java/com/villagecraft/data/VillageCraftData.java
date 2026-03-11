@@ -33,7 +33,7 @@ public class VillageCraftData extends SavedData {
 		super(VillageCraftData.DATA_NAME);
 	}
 	
-	public void setWorld(ServerWorld world) {
+	public void setWorld(ServerLevel world) {
 		if (this.world == null) {
 			this.world = world;
 		}

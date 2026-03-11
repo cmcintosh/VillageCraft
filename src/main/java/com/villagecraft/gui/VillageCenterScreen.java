@@ -9,21 +9,11 @@ import com.villagecraft.container.VillageCenterContainer;
 import com.villagecraft.util.Reference;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiMessage;
-import net.minecraft.client.gui.DialogTexts;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.screen.EditWorldScreen;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.Container;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -32,7 +22,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 // AbstractContainerScreen<VillageCenterContainer>
 
 @OnlyIn(Dist.CLIENT)
-public class VillageCenterScreen extends AbstractContainerMenuScreen<VillageCenterContainer> {
+public class VillageCenterScreen extends AbstractContainerScreen<VillageCenterContainer> {
 	
 	protected VillageCenterContainer container;
 	protected Inventory playerInventory;
@@ -55,10 +45,10 @@ public class VillageCenterScreen extends AbstractContainerMenuScreen<VillageCent
 	/**
 	 * Labels for the UI
 	 */
-	protected TranslatableComponent nationLabel = Component.translatable("village_info.nation");
-	protected TranslatableComponent villageNameLabel = Component.translatable("village_info.village_name");
-	protected TranslatableComponent villagePopulationBeds = Component.translatable("village_info.population_beds");
-	protected TranslatableComponent villageLevelValue = Component.translatable("village_info.level_value");
+	protected Component nationLabel = Component.translatable("village_info.nation");
+	protected Component villageNameLabel = Component.translatable("village_info.village_name");
+	protected Component villagePopulationBeds = Component.translatable("village_info.population_beds");
+	protected Component villageLevelValue = Component.translatable("village_info.level_value");
 	protected EditBox villageNameTxtField;
 	
 	protected Button btnUpdate;
@@ -72,28 +62,28 @@ public class VillageCenterScreen extends AbstractContainerMenuScreen<VillageCent
 	}
 	
 	@Override
-	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(matrixStack);
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
 		
-		int k = (this.width - this.xSize) / 2;
-        int l = (this.height - this.ySize) / 2;
+		int k = (this.width - this.imageWidth) / 2;
+        int l = (this.height - this.imageHeight) / 2;
 		this.villageNameTxtField = new EditBox(this.font, 8, 19, 101, 20, Component.translatable("village_info.village_name")); 
 		
-		this.blit(matrixStack, k, l, 0, 0, this.xSize, this.ySize);
+		this.blit(matrixStack, k, l, 0, 0, this.imageWidth, this.imageHeight);
 	}
 	
 	@Override
-	protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
+	protected void renderBg(PoseStack matrixStack, float partialTicks, int x, int y) {
 		this.renderBackground(matrixStack);
 		this.mousePosx = x;
         this.mousePosY = y;
-        int k = (this.width - this.xSize) / 2;
-        int l = (this.height - this.ySize) / 2;
-        this.getMinecraft().getTextureManager().bindTexture(TEXTURE_BACKDROP);
-        this.blit(matrixStack, k, l, 0, 0, this.xSize, this.ySize);
-        this.getMinecraft().getTextureManager().bindTexture(TEXTURE);
-        this.blit(matrixStack, k, l, 0, 0, this.xSize, this.ySize);
+        int k = (this.width - this.imageWidth) / 2;
+        int l = (this.height - this.imageHeight) / 2;
+        RenderSystem.setShaderTexture(0, TEXTURE_BACKDROP);
+        this.blit(matrixStack, k, l, 0, 0, this.imageWidth, this.imageHeight);
+        RenderSystem.setShaderTexture(0, TEXTURE);
+        this.blit(matrixStack, k, l, 0, 0, this.imageWidth, this.imageHeight);
 	}
 	
 }
@@ -106,4 +96,3 @@ public class VillageCenterScreen extends AbstractContainerMenuScreen<VillageCent
  * btnUpdate = new Button(StartX + 100, StartY + 60, 200, 20, Component.translatable("village_info.update"), new EventVillageNameUpdate(this.container) ); 
  * this.addButton(btnUpdate); 
  */
-
