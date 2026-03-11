@@ -29,7 +29,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.neoforged.neoforge.common.MinecraftForge;
-import net.neoforged.neoforge.event.entity.EntityJoinWorldEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.registries.Registries;
 
@@ -121,7 +121,7 @@ public class VillagerCraftBaseProfession  extends VillagerProfession {
 	/**
 	 * Register Goals for a profession.
 	 */
-	public static void RegisterVillagerGoals(EntityJoinWorldEvent event) { 
+	public static void RegisterVillagerGoals(EntityJoinLevelEvent event) { 
 		VillagerEntity entity = (VillagerEntity)event.getEntity();
 		VillagerGoalBase goal = new VillagerGoalBase(entity);
 		entity.goalSelector.addGoal(1, goal);

@@ -31,7 +31,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.neoforged.neoforge.event.entity.EntityJoinWorldEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 public class BardProfession extends VillagerCraftBaseProfession {
@@ -63,7 +63,7 @@ public class BardProfession extends VillagerCraftBaseProfession {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static void RegisterVillagerGoals(EntityJoinWorldEvent event) { 
+	public static void RegisterVillagerGoals(EntityJoinLevelEvent event) { 
 		Entity entity = event.getEntity();
 		
 		
