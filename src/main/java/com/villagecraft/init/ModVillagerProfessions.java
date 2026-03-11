@@ -52,8 +52,8 @@ import net.minecraft.world.item.Items;
 
 public class ModVillagerProfessions {
 
-	public static final DeferredRegister<PoiType> POINTS_OF_INTEREST = DeferredRegister.create(ForgeRegistries.POI_TYPES, Reference.MODID);
-	public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(ForgeRegistries.PROFESSIONS, Reference.MODID);
+	public static final DeferredRegister<PoiType> POINTS_OF_INTEREST = DeferredRegister.create(net.minecraft.core.registries.Registries.POINT_OF_INTEREST_TYPE, Reference.MODID);
+	public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(net.minecraft.core.registries.Registries.VILLAGER_PROFESSION, Reference.MODID);
 	
 	
 	/**
