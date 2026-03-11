@@ -27,20 +27,20 @@ import net.minecraft.world.level.Level;
  * Custom Iron Golem entity for VillageCraft.
  * Uses 1.20.1 compatible API.
  */
-public class IronGolem extends net.minecraft.world.entity.animal.IronGolem implements Saddleable {
+public class VillageIronGolem extends net.minecraft.world.entity.animal.IronGolem implements Saddleable {
 	
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(Items.CARROT, Items.POTATO, Items.BEETROOT);
 	
-	public IronGolem(EntityType<? extends net.minecraft.world.entity.animal.IronGolem> type, Level worldIn) {
+	public VillageIronGolem(EntityType<? extends net.minecraft.world.entity.animal.IronGolem> type, Level worldIn) {
 		super(type, worldIn);
 	}
 	
 	public static AttributeSupplier.Builder registerAttributes() {
-      return Mob.createMobAttributes()
-    	  .add(Attributes.MAX_HEALTH, 100.0D)
-    	  .add(Attributes.MOVEMENT_SPEED, 0.25D)
-    	  .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
-    	  .add(Attributes.ATTACK_DAMAGE, 15.0D);
+        return Mob.createMobAttributes()
+            .add(Attributes.MAX_HEALTH, 100.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.25D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+            .add(Attributes.ATTACK_DAMAGE, 15.0D);
     }
 	
 	@Override
