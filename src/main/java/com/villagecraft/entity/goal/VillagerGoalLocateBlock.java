@@ -8,7 +8,7 @@ import com.villagecraft.init.ModVillagerProfessions;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.village.PointOfInterestManager;
 import net.minecraft.world.entity.ai.village.poi.PoiType;

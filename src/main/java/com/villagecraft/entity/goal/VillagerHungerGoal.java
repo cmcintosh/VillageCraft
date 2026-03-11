@@ -11,7 +11,7 @@ import com.villagecraft.init.ModVillagerProfessions;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.passive.GolemEntity;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
