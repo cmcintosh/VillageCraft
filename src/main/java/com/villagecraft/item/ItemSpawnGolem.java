@@ -5,7 +5,7 @@ import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnReason;
-import net.minecraft.world.item.ItemGroup;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.Item.Properties;
@@ -36,7 +36,7 @@ public class ItemSpawnGolem extends SpawnEggItem {
 
 	protected static final List<ItemSpawnGolem> UNADDED_EGGS = new ArrayList<>();
 	private final Lazy<? extends EntityType<?>> entityTypeSupplier;
-	public static Properties properties = new Properties().group(ItemGroup.MISC).maxStackSize(64);
+	public static Properties properties = new Properties().tab(CreativeModeTab.TAB_MISC).stacksTo(64);
 	
 	public ItemSpawnGolem(final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int p_i48465_2_, final int p_i48465_3_, final Properties p_i48465_4_) {
 		super(null, p_i48465_2_, p_i48465_3_, p_i48465_4_);

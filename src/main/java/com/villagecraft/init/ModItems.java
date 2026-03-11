@@ -21,7 +21,7 @@ import net.minecraft.world.entity.npc.VillagerEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Food;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemGroup;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraftforge.common.util.NonNullSupplier;
