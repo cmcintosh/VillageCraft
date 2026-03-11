@@ -28,10 +28,10 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.MerchantOffer;
+import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.neoforged.neoforge.event.entity.EntityJoinWorldEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 public class BrawlerProfession extends VillagerCraftBaseProfession {
@@ -62,7 +62,7 @@ public class BrawlerProfession extends VillagerCraftBaseProfession {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static void RegisterVillagerGoals(EntityJoinWorldEvent event) { 
+	public static void RegisterVillagerGoals(EntityJoinLevelEvent event) { 
 		Entity entity = event.getEntity();
 			
 	}

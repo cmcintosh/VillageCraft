@@ -12,8 +12,7 @@ import java.util.Random;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.phys.Vector3i;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 
 import java.util.Queue;
@@ -39,7 +38,7 @@ public abstract class BlockScanner {
 		this.scanBlock = scanBlock;
 		this.scansPerTick = scansPerTick;
 		this.scannedBlocks = new PriorityQueue<>(50, Comparator.comparingInt(
-				a -> (int) a.compareTo( (Vector3i) this.center)
+				a -> (int) a.compareTo( this.center)
 		));
 		this.world = world;
 	}
