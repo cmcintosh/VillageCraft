@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.villagecraft.util.Reference;
 
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.util.TooltipFlag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;

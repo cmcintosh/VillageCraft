@@ -12,7 +12,7 @@ import java.util.Random;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vector3i;
 import net.minecraft.world.level.Level;
 

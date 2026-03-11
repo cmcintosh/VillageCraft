@@ -47,7 +47,7 @@ public class BlockMicrophoneStand extends Block {
 	// When activated we will have the player sit
 	// @TODO: learn how to do this
 	@Override
-	public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult blockRayTraceResult) { 
+	public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult blockHitResult) { 
 		return InteractionResult.SUCCESS;
 	}
 }

@@ -11,7 +11,7 @@ import com.villagecraft.util.Reference;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.util.TooltipFlag;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -24,8 +24,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.util.math.HitResult;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.NonNullSupplier;
 
@@ -65,11 +65,11 @@ public class ItemVillageCenter extends BlockItem {
                 return 0;
 
             // only change color when player has focus on a block
-            if(!Minecraft.getInstance().objectMouseOver.getType().equals(RayTraceResult.Type.BLOCK))
+            if(!Minecraft.getInstance().objectMouseOver.getType().equals(HitResult.Type.BLOCK))
                 return 0;
 
             // get the position where the block *would* be placed if the player places it now
-            BlockRayTraceResult result = ((BlockRayTraceResult) Minecraft.getInstance().objectMouseOver);
+            BlockHitResult result = ((BlockHitResult) Minecraft.getInstance().objectMouseOver);
             BlockPos placePosition = result.getPos().add(result.getFace().getDirectionVec());
 
             int radius = maxChunkRadius(placePosition);
