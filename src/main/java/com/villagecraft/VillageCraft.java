@@ -85,7 +85,7 @@ import net.neoforged.neoforge.eventbus.api.SubscribeEvent;
 import net.neoforged.fml.DeferredWorkQueue;
 import net.neoforged.fml.DistExecutor;
 import net.neoforged.fml.ModLoadingContext;
-import net.neoforged.neoforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.Mod.EventBusSubscriber;
@@ -95,7 +95,7 @@ import net.neoforged.fml.event.server.FMLServerAboutToStartEvent;
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.Registries;
 import net.neoforged.neoforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID)

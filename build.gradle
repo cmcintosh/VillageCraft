@@ -53,7 +53,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'net.neoforged:neoforge:20.2.59-beta'
+    implementation "net.neoforged:neoforge:${neoforge_version}"
 }
 
 tasks.withType(JavaCompile).configureEach {
