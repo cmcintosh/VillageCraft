@@ -1,8 +1,8 @@
 package com.villagecraft.item;
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.SwordItem;
+import net.minecraft.world.item.IItemTier;
+import net.minecraft.world.item.ItemGroup;
+import net.minecraft.world.item.SwordItem;
 
 public class ItemHammer extends SwordItem {
 	

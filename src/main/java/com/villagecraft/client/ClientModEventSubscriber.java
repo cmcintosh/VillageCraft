@@ -2,7 +2,7 @@ package com.villagecraft.client;
 
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -28,15 +28,15 @@ public class ClientModEventSubscriber {
 	 * <p>
 	 * This method will be called by Forge when it is time for the mod to do its client-side setup
 	 * This method will always be called after the Registry events.
-	 * This means that all Blocks, Items, TileEntityTypes, etc. will all have been registered already
+	 * This means that all Blocks, Items, BlockEntityTypes, etc. will all have been registered already
 	 */
 	@SubscribeEvent
 	public static void onFMLClientSetupEvent(final FMLClientSetupEvent event) {
 
-		// Register TileEntity Renderers
-//		ClientRegistry.bindTileEntityRenderer(ModTileEntityTypes.MINI_MODEL.get(), MiniModelTileEntityRenderer::new);
-//		ClientRegistry.bindTileEntityRenderer(ModTileEntityTypes.ELECTRIC_FURNACE.get(), ElectricFurnaceTileEntityRenderer::new);
-		LOGGER.debug("Registered TileEntity Renderers");
+		// Register BlockEntity Renderers
+//		ClientRegistry.bindBlockEntityRenderer(ModBlockEntityTypes.MINI_MODEL.get(), MiniModelBlockEntityRenderer::new);
+//		ClientRegistry.bindBlockEntityRenderer(ModBlockEntityTypes.ELECTRIC_FURNACE.get(), ElectricFurnaceBlockEntityRenderer::new);
+		LOGGER.debug("Registered BlockEntity Renderers");
 
 		// Register Entity Renderers
 //		RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WILD_BOAR.get(), WildBoarRenderer::new);

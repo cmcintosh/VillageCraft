@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Random;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3i;
-import net.minecraft.world.World;
+import net.minecraft.world.phys.Vector3i;
+import net.minecraft.world.level.Level;
 
 import java.util.Queue;
 import java.util.Comparator;
@@ -32,9 +32,9 @@ public abstract class BlockScanner {
 	protected BlockPos center;
 	protected int maxRadius = 100;
 	
-	protected World world;
+	protected Level world;
 	
-	public BlockScanner(Block scanBlock, int scansPerTick, BlockPos center, World world) {
+	public BlockScanner(Block scanBlock, int scansPerTick, BlockPos center, Level world) {
 		
 		this.scanBlock = scanBlock;
 		this.scansPerTick = scansPerTick;
@@ -144,7 +144,7 @@ public abstract class BlockScanner {
 	}
 	
 	
-	public abstract BlockPos testBlock(World paramWorld, BlockPos paramBlockPos);
+	public abstract BlockPos testBlock(Level paramWorld, BlockPos paramBlockPos);
 	
 	protected abstract void scanNearby(BlockPos paramBlockPos);
 }

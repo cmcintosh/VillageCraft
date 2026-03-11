@@ -2,8 +2,8 @@ package com.villagecraft.util;
 
 import java.lang.reflect.Constructor;
 
-import net.minecraft.entity.merchant.villager.VillagerTrades;
-import net.minecraft.item.Item;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.Item;
 
 public class TradeTypes {
 	private static Constructor<?> ctr1;

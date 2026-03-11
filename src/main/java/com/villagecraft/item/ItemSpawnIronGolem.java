@@ -1,20 +1,20 @@
 package com.villagecraft.item;
 
-import net.minecraft.block.DispenserBlock;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.item.Item.Properties;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.SpawnReason;
+import net.minecraft.world.item.ItemGroup;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.Item.Properties;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Direction;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.common.util.NonNullSupplier;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -32,19 +32,19 @@ import java.util.Map;
  *
  * @author Cadiboo
  */
-public class ItemSpawnIronGolem extends SpawnEggItem {
+public class ItemSpawnGolem extends SpawnEggItem {
 
-	protected static final List<ItemSpawnIronGolem> UNADDED_EGGS = new ArrayList<>();
+	protected static final List<ItemSpawnGolem> UNADDED_EGGS = new ArrayList<>();
 	private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 	public static Properties properties = new Properties().group(ItemGroup.MISC).maxStackSize(64);
 	
-	public ItemSpawnIronGolem(final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int p_i48465_2_, final int p_i48465_3_, final Properties p_i48465_4_) {
+	public ItemSpawnGolem(final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int p_i48465_2_, final int p_i48465_3_, final Properties p_i48465_4_) {
 		super(null, p_i48465_2_, p_i48465_3_, p_i48465_4_);
 		this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
 		UNADDED_EGGS.add(this);
 	}
 
-	public ItemSpawnIronGolem(final RegistryObject<? extends EntityType<?>> entityTypeSupplier, final int p_i48465_2_, final int p_i48465_3_, final Properties p_i48465_4_) {
+	public ItemSpawnGolem(final RegistryObject<? extends EntityType<?>> entityTypeSupplier, final int p_i48465_2_, final int p_i48465_3_, final Properties p_i48465_4_) {
 		super(null, p_i48465_2_, p_i48465_3_, p_i48465_4_);
 		this.entityTypeSupplier = Lazy.of(entityTypeSupplier);
 		UNADDED_EGGS.add(this);
@@ -76,7 +76,7 @@ public class ItemSpawnIronGolem extends SpawnEggItem {
 	}
 
 	@Override
-	public EntityType<?> getType(@Nullable final CompoundNBT p_208076_1_) {
+	public EntityType<?> getType(@Nullable final CompoundTag p_208076_1_) {
 		return entityTypeSupplier.get();
 	}
 

@@ -1,6 +1,6 @@
 package com.villagecraft.util;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class Reference {
 	public static final String MODID = "vcm";
@@ -16,13 +16,13 @@ public class Reference {
 	 */
 	public static final int NATION_CHARTER_GUID = 1;
 	
-	protected static TileEntity referenceTe;
+	protected static BlockEntity referenceTe;
 	
-	public static TileEntity getRefrencedTE() {
+	public static BlockEntity getRefrencedTE() {
         return referenceTe;
     }
 	
-	public static void setRefrencedTE(TileEntity tileEntity) {
+	public static void setRefrencedTE(BlockEntity tileEntity) {
 		referenceTe = tileEntity;
 	}
 }

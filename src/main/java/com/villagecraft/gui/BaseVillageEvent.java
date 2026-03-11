@@ -2,8 +2,8 @@ package com.villagecraft.gui;
 
 import com.villagecraft.container.VillageCenterContainer;
 
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.world.inventory.Container;
 
 class BaseVillageEvent implements Button.IPressable { 
 	 protected Container container;

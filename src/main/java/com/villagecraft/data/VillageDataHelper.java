@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import com.villagecraft.VillageCraft;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.WorldSavedData;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.saveddata.SavedData;
 
 /**
  * Data helper for storing and retrieving 
@@ -19,7 +19,7 @@ import net.minecraft.world.storage.WorldSavedData;
  *
  */
 
-public class VillageDataHelper extends WorldSavedData {
+public class VillageDataHelper extends SavedData {
 	public static String DATA_NAME = "VillageCraftData_";
 	public static ArrayList<VillageDataType> data_types = new ArrayList<VillageDataType>(); 
 	protected int id;
@@ -27,7 +27,6 @@ public class VillageDataHelper extends WorldSavedData {
 	protected String message;
 	
 	public VillageDataHelper(int id, String type) { 
-		super(VillageDataHelper.DATA_NAME + type + id);
 		this.id = id;
 		this.type = type;
 	}
@@ -59,7 +58,7 @@ public class VillageDataHelper extends WorldSavedData {
 	 * Stores data
 	 * @param compound
 	 */
-	public CompoundNBT write(CompoundNBT compound) {
+	public CompoundTag write(CompoundTag compound) {
 		return compound; 
 	}
 	
@@ -67,13 +66,15 @@ public class VillageDataHelper extends WorldSavedData {
 	 * 
 	 * @param compound
 	 */
-	public void read(CompoundNBT compound) { }
+	public void read(CompoundTag compound) { }
 	
-	public void displayInfo(PlayerEntity player) { 
-		player.sendMessage(new StringTextComponent("\n\u00A75------------- INFO ------------\n"), player.getUniqueID());
-		player.sendMessage(new StringTextComponent(this.message), player.getUniqueID());
+	public void displayInfo(Player player) { 
+		player.sendSystemMessage(Component.literal("\n§5------------- INFO ------------\n"));
+		player.sendSystemMessage(Component.literal(this.message));
 	}
 
-	
-	
+	@Override
+	public CompoundTag save(CompoundTag compound) {
+		return write(compound);
+	}
 }

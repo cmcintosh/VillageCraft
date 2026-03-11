@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import com.villagecraft.VillageCraft;
 import com.villagecraft.init.ModVillagerProfessions;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.vector.Vector3i;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.phys.Vector3i;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class VillagerGoalDeliverToStorage extends VillagerGoalGoToBlock {
 	
@@ -58,9 +58,9 @@ public class VillagerGoalDeliverToStorage extends VillagerGoalGoToBlock {
 	protected void depositItems() {
 		boolean depositedItems = false;
 		int totalDepositeditems = 0;
-		ChestTileEntity chest = this.getChest();
+		ChestBlockEntity chest = this.getChest();
 		
-		Inventory inventory = villager.getVillagerInventory();
+		SimpleContainer inventory = villager.getVillagerInventory();
 		
 		for (int i = 0; i < inventory.getSizeInventory(); i++) {
 			ItemStack itemStack = villager.getVillagerInventory().getStackInSlot(i);
@@ -124,18 +124,18 @@ public class VillagerGoalDeliverToStorage extends VillagerGoalGoToBlock {
 		
 	}
 	
-	private ChestTileEntity getChest() { 
-		return (ChestTileEntity) this.villager.world.getTileEntity(this.targetBlockPos);
+	private ChestBlockEntity getChest() { 
+		return (ChestBlockEntity) this.villager.world.getBlockEntity(this.targetBlockPos);
 	}
 	
 	private void openChest() { 
-		ChestTileEntity chest = this.getChest();
+		ChestBlockEntity chest = this.getChest();
 		this.villager.world.addBlockEvent(this.targetBlockPos, chest.getBlockState().getBlock(), 1, 1);
 		this.villager.world.notifyNeighborsOfStateChange(this.targetBlockPos, chest.getBlockState().getBlock());
 	}
 	
 	private void closeChest() { 
-		ChestTileEntity chest = this.getChest();
+		ChestBlockEntity chest = this.getChest();
 		this.villager.world.addBlockEvent(this.targetBlockPos, chest.getBlockState().getBlock(), 1, 1);
 		this.villager.world.notifyNeighborsOfStateChange(this.targetBlockPos, chest.getBlockState().getBlock());
 	}

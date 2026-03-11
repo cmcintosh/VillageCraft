@@ -4,29 +4,29 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.villagecraft.data.VillageCraftVillagerData;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.memory.MemoryModuleStatus;
-import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
-import net.minecraft.entity.ai.brain.schedule.Activity;
-import net.minecraft.entity.ai.brain.schedule.Schedule;
-import net.minecraft.entity.ai.brain.task.VillagerTasks;
-import net.minecraft.entity.merchant.villager.VillagerData;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.merchant.villager.VillagerProfession;
-import net.minecraft.entity.villager.IVillagerType;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.brain.Brain;
+import net.minecraft.world.entity.ai.brain.memory.MemoryModuleStatus;
+import net.minecraft.world.entity.ai.brain.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.brain.schedule.Activity;
+import net.minecraft.world.entity.ai.brain.schedule.Schedule;
+import net.minecraft.world.entity.ai.brain.task.VillagerTasks;
+import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.villager.IVillagerType;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 
-public class VillageCraftVillager extends VillagerEntity {
+public class VillageCraftVillager extends Villager {
 	
 	protected VillageCraftVillagerData villageData;
 
-	public VillageCraftVillager(EntityType<? extends VillagerEntity> type, World worldIn, IVillagerType villagerType) {
+	public VillageCraftVillager(EntityType<? extends Villager> type, Level worldIn, IVillagerType villagerType) {
 		super(type, worldIn, villagerType);
 	}
 	
-	public VillageCraftVillager(EntityType<? extends VillagerEntity> type, World worldIn, IVillagerType villagerType, VillageCraftVillagerData data) {
+	public VillageCraftVillager(EntityType<? extends Villager> type, Level worldIn, IVillagerType villagerType, VillageCraftVillagerData data) {
 		super(type, worldIn, villagerType);
 		this.villageData = data;
 	}

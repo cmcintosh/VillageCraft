@@ -1,6 +1,6 @@
 package com.villagecraft.material;
 
-import net.minecraft.block.material.Material;
+// Material removed - use BlockBehaviour
 
 
 public class MaterialBeer {

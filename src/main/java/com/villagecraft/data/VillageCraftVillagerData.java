@@ -5,10 +5,10 @@ import java.util.EnumSet;
 
 import com.villagecraft.VillageCraft;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.world.storage.WorldSavedData;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.saveddata.SavedData;
 
-public class VillageCraftVillagerData extends WorldSavedData {
+public class VillageCraftVillagerData extends SavedData {
 	
 	protected ArrayList<Skill> skills;
 	protected VillageCraftNation nation;
@@ -20,7 +20,7 @@ public class VillageCraftVillagerData extends WorldSavedData {
 	}
 
 	@Override
-	public void read(CompoundNBT nbt) {
+	public void read(CompoundTag nbt) {
 		// load the skills
 		this.skills = new ArrayList<Skill>();
 		EnumSet.allOf(SkillType.class).forEach(t -> {
@@ -35,7 +35,7 @@ public class VillageCraftVillagerData extends WorldSavedData {
 	}
 
 	@Override
-	public CompoundNBT write(CompoundNBT compound) {
+	public CompoundTag write(CompoundTag compound) {
 		// TODO Auto-generated method stub
 		
 		// Save skills

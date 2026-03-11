@@ -2,9 +2,9 @@ package com.villagecraft.capabilities;
 
 
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -35,7 +35,7 @@ public class CapabilityVillagerAttribute {
 		public static class Storage implements Capability.IStorage<IVillagerAttribute> {
 			@Override
 			public INBT writeNBT(Capability<IVillagerAttribute> capability, IVillagerAttribute instance, Direction side) {
-				CompoundNBT tag = new CompoundNBT();
+				CompoundTag tag = new CompoundTag();
 				tag.putInt(instance.getName(), instance.getValue());
 				return tag;
 			}
@@ -43,7 +43,7 @@ public class CapabilityVillagerAttribute {
 			@Override
 			public void readNBT(Capability<IVillagerAttribute> capability, IVillagerAttribute instance, Direction side,
 					INBT nbt) {
-				int value = ((CompoundNBT) nbt).getInt(instance.getName());
+				int value = ((CompoundTag) nbt).getInt(instance.getName());
 				instance.setValue(value);
 				
 			} 
@@ -57,7 +57,7 @@ public class CapabilityVillagerAttribute {
 		public static class HungerStorage implements Capability.IStorage<IVillagerHunger> {
 			@Override
 			public INBT writeNBT(Capability<IVillagerHunger> capability, IVillagerHunger instance, Direction side) {
-				CompoundNBT tag = new CompoundNBT();
+				CompoundTag tag = new CompoundTag();
 				tag.putInt(instance.getName(), instance.getValue());
 				return tag;
 			}
@@ -65,7 +65,7 @@ public class CapabilityVillagerAttribute {
 			@Override
 			public void readNBT(Capability<IVillagerHunger> capability, IVillagerHunger instance, Direction side,
 					INBT nbt) {
-				int value = ((CompoundNBT) nbt).getInt(instance.getName());
+				int value = ((CompoundTag) nbt).getInt(instance.getName());
 				instance.setValue(value);
 				
 			} 
@@ -74,7 +74,7 @@ public class CapabilityVillagerAttribute {
 		public static class HonorStorage implements Capability.IStorage<IVillagerHonor> {
 			@Override
 			public INBT writeNBT(Capability<IVillagerHonor> capability, IVillagerHonor instance, Direction side) {
-				CompoundNBT tag = new CompoundNBT();
+				CompoundTag tag = new CompoundTag();
 				tag.putInt(instance.getName(), instance.getValue());
 				return tag;
 			}
@@ -82,7 +82,7 @@ public class CapabilityVillagerAttribute {
 			@Override
 			public void readNBT(Capability<IVillagerHonor> capability, IVillagerHonor instance, Direction side,
 					INBT nbt) {
-				int value = ((CompoundNBT) nbt).getInt(instance.getName());
+				int value = ((CompoundTag) nbt).getInt(instance.getName());
 				instance.setValue(value);
 				
 			} 

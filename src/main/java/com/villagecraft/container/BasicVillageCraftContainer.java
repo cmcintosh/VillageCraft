@@ -4,25 +4,26 @@ import java.util.Objects;
 
 import com.villagecraft.tile.TileBasicVillageBlock;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
 
-public class BasicVillageCraftContainer extends Container {
+public class BasicVillageCraftContainer extends AbstractContainerMenu {
 	
 	public TileBasicVillageBlock tile;
 	
-	protected BasicVillageCraftContainer(ContainerType<?> type, int id, final TileEntity tile) {
+	protected BasicVillageCraftContainer(MenuType<?> type, int id, final BlockEntity tile) {
 		super(type, id);
 		this.tile = (TileBasicVillageBlock) tile;
 	}
 	
-	protected BasicVillageCraftContainer(ContainerType<?> type, int id, final TileEntity tile, PlayerInventory inv) {
+	protected BasicVillageCraftContainer(MenuType<?> type, int id, final BlockEntity tile, Inventory inv) {
 		super(type, id);
 		this.tile = (TileBasicVillageBlock) tile;
 		for (int i = 0; i < 3; ++i) {
@@ -39,7 +40,7 @@ public class BasicVillageCraftContainer extends Container {
 	
 
 	@Override
-	public boolean canInteractWith(PlayerEntity playerIn) {
+	public boolean stillValid(Player playerIn) {
 		return true;
 	}
 	
@@ -47,10 +48,10 @@ public class BasicVillageCraftContainer extends Container {
 		return tile;
 	}
 	
-	protected static TileBasicVillageBlock getTileEntity(final PlayerInventory playerInventory, final PacketBuffer data) {
+	protected static TileBasicVillageBlock getBlockEntity(final Inventory playerInventory, final FriendlyByteBuf data) {
 		Objects.requireNonNull(playerInventory, "playerInventory cannot be null");
 		Objects.requireNonNull(data, "data cannot be null");
-		final TileEntity tileAtPos = playerInventory.player.world.getTileEntity(data.readBlockPos());
+		final BlockEntity tileAtPos = playerInventory.player.level().getBlockEntity(data.readBlockPos());
 		if (tileAtPos instanceof TileBasicVillageBlock) {
 			return (TileBasicVillageBlock) tileAtPos;
 		}
@@ -58,7 +59,7 @@ public class BasicVillageCraftContainer extends Container {
 	}
 	
 	@Override
-	public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+	public ItemStack quickMoveStack(Player playerIn, int index) {
 		return ItemStack.EMPTY;
 	}
 

@@ -1,8 +1,8 @@
 package com.villagecraft.fluid;
 
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockDisplayReader;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidAttributes.Water;

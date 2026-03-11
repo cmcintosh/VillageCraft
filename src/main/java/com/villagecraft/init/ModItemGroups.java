@@ -7,9 +7,9 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 
 import com.villagecraft.init.ModItems;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 
 /**
@@ -20,15 +20,17 @@ import net.minecraft.item.Items;
  */
 public class ModItemGroups {
 	
-	// public static final ItemGroup MOD_ITEM_GROUP = new ModItemGroup(Reference.MODID, () -> new ItemStack(ModItems.NATION_CHARTER.get()));
+	// public static final CreativeModeTab MOD_ITEM_GROUP = new ModItemGroup(Reference.MODID, () -> new ItemStack(ModItems.NATION_CHARTER.get()));
 
-	public static final class ModItemGroup extends ItemGroup {
+	// TODO: Fix for 1.20.1 - CreativeModeTab now uses Builder pattern
+	public static final class ModItemGroup extends CreativeModeTab {
 
 		@Nonnull
 		private final Supplier<ItemStack> iconSupplier;
 
 		public ModItemGroup(@Nonnull final String name, @Nonnull final Supplier<ItemStack> iconSupplier) {
-			super(name);
+			//super(name); // Old constructor - needs Builder pattern
+			super(CreativeModeTab.Row.BOTTOM, 0);
 			this.iconSupplier = iconSupplier;
 		}
 

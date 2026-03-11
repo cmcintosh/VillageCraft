@@ -2,42 +2,40 @@ package com.villagecraft.gui;
 
 import java.util.ArrayList;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.villagecraft.VillageCraft;
 import com.villagecraft.container.VillageCenterContainer;
 import com.villagecraft.util.Reference;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ChatLine;
+import net.minecraft.client.gui.GuiMessage;
 import net.minecraft.client.gui.DialogTexts;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screen.EditWorldScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Container;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.Color;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.NBTTextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 
-// ContainerScreen<VillageCenterContainer>
+// AbstractContainerScreen<VillageCenterContainer>
 
 @OnlyIn(Dist.CLIENT)
-public class VillageCenterScreen extends ContainerScreen<VillageCenterContainer> {
+public class VillageCenterScreen extends AbstractContainerMenuScreen<VillageCenterContainer> {
 	
 	protected VillageCenterContainer container;
-	protected PlayerInventory playerInventory;
+	protected Inventory playerInventory;
 	
 	// Backgrounds
 	protected static final ResourceLocation TEXTURE = new ResourceLocation("vcm:textures/gui/container/village_info.png");
@@ -57,18 +55,18 @@ public class VillageCenterScreen extends ContainerScreen<VillageCenterContainer>
 	/**
 	 * Labels for the UI
 	 */
-	protected TranslationTextComponent nationLabel = new TranslationTextComponent("village_info.nation");
-	protected TranslationTextComponent villageNameLabel = new TranslationTextComponent("village_info.village_name");
-	protected TranslationTextComponent villagePopulationBeds = new TranslationTextComponent("village_info.population_beds");
-	protected TranslationTextComponent villageLevelValue = new TranslationTextComponent("village_info.level_value");
-	protected TextFieldWidget villageNameTxtField;
+	protected TranslatableComponent nationLabel = Component.translatable("village_info.nation");
+	protected TranslatableComponent villageNameLabel = Component.translatable("village_info.village_name");
+	protected TranslatableComponent villagePopulationBeds = Component.translatable("village_info.population_beds");
+	protected TranslatableComponent villageLevelValue = Component.translatable("village_info.level_value");
+	protected EditBox villageNameTxtField;
 	
 	protected Button btnUpdate;
 	protected Button btnPrevNation;
 	protected Button btnNextNation;
 	
-	public VillageCenterScreen(VillageCenterContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
-		super(screenContainer, inv, new TranslationTextComponent("Village Info"));
+	public VillageCenterScreen(VillageCenterContainer screenContainer, Inventory inv, Component titleIn) {
+		super(screenContainer, inv, Component.translatable("Village Info"));
 		this.container = screenContainer;
 		this.playerInventory = inv;	
 	}
@@ -80,7 +78,7 @@ public class VillageCenterScreen extends ContainerScreen<VillageCenterContainer>
 		
 		int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
-		this.villageNameTxtField = new TextFieldWidget(this.font, 8, 19, 101, 20, new TranslationTextComponent("village_info.village_name")); 
+		this.villageNameTxtField = new EditBox(this.font, 8, 19, 101, 20, Component.translatable("village_info.village_name")); 
 		
 		this.blit(matrixStack, k, l, 0, 0, this.xSize, this.ySize);
 	}
@@ -103,9 +101,9 @@ public class VillageCenterScreen extends ContainerScreen<VillageCenterContainer>
 
 /**
  * Examples:
- * protected TranslationTextComponent nationLabel = new TranslationTextComponent("village_info.nation");
- * this.villageNameTxtField = new TextFieldWidget(this.font, StartX + 100, StartY + 60, 200, 20, new TranslationTextComponent("village_info.village_name")); 
- * btnUpdate = new Button(StartX + 100, StartY + 60, 200, 20, new TranslationTextComponent("village_info.update"), new EventVillageNameUpdate(this.container) ); 
+ * protected TranslatableComponent nationLabel = Component.translatable("village_info.nation");
+ * this.villageNameTxtField = new EditBox(this.font, StartX + 100, StartY + 60, 200, 20, Component.translatable("village_info.village_name")); 
+ * btnUpdate = new Button(StartX + 100, StartY + 60, 200, 20, Component.translatable("village_info.update"), new EventVillageNameUpdate(this.container) ); 
  * this.addButton(btnUpdate); 
  */
 

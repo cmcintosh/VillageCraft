@@ -1,12 +1,12 @@
 package com.villagecraft.capabilities;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class ThirstProvider implements ICapabilitySerializable<CompoundNBT> {
+public class ThirstProvider implements ICapabilitySerializable<CompoundTag> {
 	
 	private DefaultVillagerAttribute attribute = new DefaultVillagerAttribute();
 	private final LazyOptional<IVillagerAttribute> attributeOptional = LazyOptional.of( () -> attribute );
@@ -21,16 +21,16 @@ public class ThirstProvider implements ICapabilitySerializable<CompoundNBT> {
 	}
 
 	@Override
-	public CompoundNBT serializeNBT() {
+	public CompoundTag serializeNBT() {
 		if (CapabilityVillagerAttribute.VILLAGER_THIRST == null) {
-            return new CompoundNBT();
+            return new CompoundTag();
         } else {
-            return (CompoundNBT) CapabilityVillagerAttribute.VILLAGER_THIRST.writeNBT(attribute, null);
+            return (CompoundTag) CapabilityVillagerAttribute.VILLAGER_THIRST.writeNBT(attribute, null);
         }
 	}
 
 	@Override
-	public void deserializeNBT(CompoundNBT nbt) {
+	public void deserializeNBT(CompoundTag nbt) {
 		if (CapabilityVillagerAttribute.VILLAGER_THIRST != null) {
 			CapabilityVillagerAttribute.VILLAGER_THIRST.readNBT(this.attribute, null, nbt);
         }

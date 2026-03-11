@@ -8,25 +8,25 @@ import com.villagecraft.capabilities.IVillagerHonor;
 import com.villagecraft.capabilities.IVillagerHunger;
 import com.villagecraft.init.ModVillagerProfessions;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.passive.GolemEntity;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.BlockPos;
 import net.minecraft.village.PointOfInterestManager.Status;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 
 public class VillagerHungerGoal extends VillagerGoalBase {
 	
 	protected VillagerEntity villager;
-	protected CompoundNBT extraVillagerData;
+	protected CompoundTag extraVillagerData;
 	
 	/**
 	 * @Section
@@ -46,7 +46,7 @@ public class VillagerHungerGoal extends VillagerGoalBase {
 	public VillagerHungerGoal(VillagerEntity entity) { 
 		super(entity);
 		villager = entity;
-		extraVillagerData = new CompoundNBT();
+		extraVillagerData = new CompoundTag();
 	}
 
 	@Override
@@ -111,7 +111,7 @@ public class VillagerHungerGoal extends VillagerGoalBase {
 	BlockPos targetFoodBlock = null;
 	protected boolean foundFoodOnGround = false;
 	protected ItemEntity foodItem;
-	protected ChestTileEntity targetChest = null;
+	protected ChestBlockEntity targetChest = null;
 	
 	protected void eat(IVillagerHunger h) { 
 		eatFromInventory(h);
@@ -289,7 +289,7 @@ public class VillagerHungerGoal extends VillagerGoalBase {
 	protected boolean foodInChest() { 
 		ItemStack food = null;
 		BlockPos targetBlock = this.findClosestBlock(ModVillagerProfessions.CHEST.get(), Status.ANY, this.getVillagerBlockPos());
-		ChestTileEntity chest = (ChestTileEntity) this.villager.world.getTileEntity(targetBlock);
+		ChestBlockEntity chest = (ChestBlockEntity) this.villager.world.getBlockEntity(targetBlock);
 		
 		for (int i = 0; i < chest.getSizeInventory(); i++) {
 			ItemStack check = chest.getStackInSlot(i);

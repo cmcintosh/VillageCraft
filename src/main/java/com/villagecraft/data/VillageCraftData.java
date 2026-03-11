@@ -5,28 +5,28 @@ import java.util.stream.Stream;
 
 import com.villagecraft.VillageCraft;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.WorldSavedData;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.saveddata.SavedData;
 
 /**
 
  * @author chris
  *
  */
-public class VillageCraftData extends WorldSavedData {
+public class VillageCraftData extends SavedData {
 
 	public static final String DATA_NAME = "VillageCraftData";
 	
 	public boolean initialized = false;
 	
-	public CompoundNBT data = new CompoundNBT();
+	public CompoundTag data = new CompoundTag();
 	
 	protected ArrayList<VillageCraftNation> nations;
 	protected ArrayList<VillageCraftVillage> villages;
 	
-	protected ServerWorld world = null;
+	protected ServerLevel world = null;
 	
 	
 	public VillageCraftData() {
@@ -74,7 +74,7 @@ public class VillageCraftData extends WorldSavedData {
 	}
 	
 	@Override
-	public void read(CompoundNBT nbt) {
+	public void read(CompoundTag nbt) {
 		
 		// Read nation data.
 		String nations = nbt.getString("nations");
@@ -100,7 +100,7 @@ public class VillageCraftData extends WorldSavedData {
 	}
 
 	@Override
-	public CompoundNBT write(CompoundNBT compound) {
+	public CompoundTag write(CompoundTag compound) {
 		// TODO Auto-generated method stub
 		VillageCraft.LOGGER.debug("Writing VillagerCraftData!!!!!!!!!!!!!!!!!!!!!!!!!");
 		compound.putString("initialized_test", "true");

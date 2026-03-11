@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.villagecraft.VillageCraft;
 
-import net.minecraft.block.Block;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 public class BlockFinder {
 
@@ -32,7 +32,7 @@ public class BlockFinder {
 		return null;
 	}
 	
-	public void releaseClaim(World world, Block block, BlockPos bp) { 
+	public void releaseClaim(Level world, Block block, BlockPos bp) { 
 		BlockScanner scanner = this.scanners.get(block);
 		if (scanner != null) {
 			scanner.releaseClaim(bp);

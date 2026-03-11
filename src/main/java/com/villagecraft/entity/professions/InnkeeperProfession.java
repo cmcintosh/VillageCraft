@@ -19,18 +19,18 @@ import com.villagecraft.util.RandomTradeBuilder;
 import com.villagecraft.util.TradeTypes;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.merchant.villager.VillagerProfession;
-import net.minecraft.entity.merchant.villager.VillagerTrades;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.MerchantOffer;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.village.PointOfInterestType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.MerchantOffer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 
@@ -43,7 +43,7 @@ public class InnkeeperProfession extends VillagerCraftBaseProfession {
 	/**
 	 * {@inheritDoc}
 	 */
-	public InnkeeperProfession(String nameIn, PointOfInterestType pointOfInterestIn, 
+	public InnkeeperProfession(String nameIn, PoiType pointOfInterestIn, 
 			ImmutableSet<Item> specificItemsIn,
 			ImmutableSet<Block> relatedWorldBlocksIn, 
 			SoundEvent soundIn) {

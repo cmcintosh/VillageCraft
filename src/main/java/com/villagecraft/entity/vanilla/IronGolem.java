@@ -2,131 +2,86 @@ package com.villagecraft.entity.vanilla;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Saddleable;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.Pig;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.BoostHelper;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IEquipable;
-import net.minecraft.entity.IRideable;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierManager;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.entity.passive.GolemEntity;
-import net.minecraft.entity.passive.PigEntity;
-import net.minecraft.entity.passive.horse.AbstractHorseEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
-
-public class IronGolem extends GolemEntity implements IRideable, IEquipable {
+/**
+ * Custom Iron Golem entity for VillageCraft.
+ * Uses 1.20.1 compatible API.
+ */
+public class IronGolem extends net.minecraft.world.entity.animal.IronGolem implements Saddleable {
 	
-    private static final DataParameter<Boolean> SADDLED = EntityDataManager.createKey(PigEntity.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Integer> BOOST_TIME = EntityDataManager.createKey(PigEntity.class, DataSerializers.VARINT);
-	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.CARROT, Items.POTATO, Items.BEETROOT);
-	private final BoostHelper field_234214_bx_ = new BoostHelper(this.dataManager, BOOST_TIME, SADDLED);
-	private final AttributeModifierManager attributes;
+    private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(Items.CARROT, Items.POTATO, Items.BEETROOT);
 	
-	public IronGolem(EntityType<? extends GolemEntity> type, World worldIn) {
+	public IronGolem(EntityType<? extends net.minecraft.world.entity.animal.IronGolem> type, Level worldIn) {
 		super(type, worldIn);
-		AttributeModifierMap.MutableAttribute map = IronGolem.registerAttributes();
-		this.attributes = new AttributeModifierManager(GlobalEntityTypeAttributes.getAttributesForEntity(type));
-		
-		final double baseSpeed = this.attributes.getAttributeValue(Attributes.MOVEMENT_SPEED);
-		final double baseHealth = this.attributes.getAttributeValue(Attributes.MAX_HEALTH);
-		
-		// Multiply base health and base speed by one and a half
-		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(baseSpeed * 1.5D);
-		this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(baseHealth * 1.5D);
-		this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(2);
-		this.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(128D);
-		
 	}
 	
-	public static AttributeModifierMap.MutableAttribute registerAttributes() {
-      return AttributeModifierMap.func_233803_a_()
-    		  .createMutableAttribute(Attributes.MAX_HEALTH)
-    		  .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE)
-    		  .createMutableAttribute(Attributes.MOVEMENT_SPEED)
-    		  .createMutableAttribute(Attributes.ARMOR)
-    		  .createMutableAttribute(Attributes.ARMOR_TOUGHNESS)
-    		  .createMutableAttribute(net.minecraftforge.common.ForgeMod.SWIM_SPEED.get())
-    		  .createMutableAttribute(net.minecraftforge.common.ForgeMod.NAMETAG_DISTANCE.get())
-    		  .createMutableAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
+	public static AttributeSupplier.Builder registerAttributes() {
+      return Mob.createMobAttributes()
+    	  .add(Attributes.MAX_HEALTH, 100.0D)
+    	  .add(Attributes.MOVEMENT_SPEED, 0.25D)
+    	  .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+    	  .add(Attributes.ATTACK_DAMAGE, 15.0D);
     }
 	
+	@Override
+	protected void dropCustomDeathLoot() {
+		super.dropCustomDeathLoot();
+	}
 	
-	
+	protected boolean shouldDropExperience() {
+		return true;
+	}
+
+	@Nullable
+	@Override
+	public AgeableMob getBreedOffspring() {
+		return null;
+	}
+
+	@Override
+	public boolean isSaddled() {
+		return false;
+	}
+
+	@Override
+	public boolean isSaddleable() {
+		return false;
+	}
+
+	@Override
+	public void equipSaddle(SoundSource soundSource) {
 		
-	@Override
-	public boolean func_230264_L__() {
-		// TODO Auto-generated method stub
-		return this.isAlive() && !this.isChild();
 	}
 
-	@Override
-	public void func_230266_a_(SoundCategory p_230266_1_) {
-	  this.field_234214_bx_.setSaddledFromBoolean(true);
-      if (p_230266_1_ != null) {
-         this.world.playMovingSound((PlayerEntity)null, this, SoundEvents.ENTITY_IRON_GOLEM_STEP, p_230266_1_, 0.5F, 1.0F);
-      }		
-	}
-
-	@Override
-	public boolean isHorseSaddled() {
-		// TODO Auto-generated method stub
-		return this.field_234214_bx_.getSaddled();
-	}
-
-	@Override
-	public boolean boost() {
-		// TODO Auto-generated method stub
-		return this.field_234214_bx_.boost(this.getRNG());
-	}
-
-	@Override
-	public void travelTowards(Vector3d travelVec) {
-		super.travel(travelVec);
-	}
-
-	@Override
-	public float getMountedSpeed() {
-		// TODO Auto-generated method stub
-		return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.225F;
+	/**
+	 * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle.
+	 */
+	@Nullable
+	public Player getControllingPassenger() {
+		return this.getPassengers().isEmpty() ? null : (Player) this.getPassengers().get(0);
 	}
 	
-	/**
-	  * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
-	  * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
-	  */
-	 @Nullable
-	 public Entity getControllingPassenger() {
-	    return this.getPassengers().isEmpty() ? null : this.getPassengers().get(0);
-	 }
-	 
-	 /**
-	    * returns true if all the conditions for steering the entity are met. For pigs, this is true if it is being ridden
-	    * by a player and the player is holding a carrot-on-a-stick
-	    */
-	   public boolean canBeSteered() {
-	      Entity entity = this.getControllingPassenger();
-	      if (!(entity instanceof PlayerEntity)) {
-	         return false;
-	      } else {
-	         PlayerEntity playerentity = (PlayerEntity)entity;
-	         return playerentity.getHeldItemMainhand().getItem() == Items.IRON_SWORD || playerentity.getHeldItemOffhand().getItem() == Items.IRON_SWORD;
-	      }
-	      
-	   }
-	   
+	public Vec3 getDismountLocationForPassenger() {
+		return super.getDismountLocationForPassenger();
+	}
 }

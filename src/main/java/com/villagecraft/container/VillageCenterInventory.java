@@ -2,18 +2,18 @@ package com.villagecraft.container;
 
 import com.villagecraft.VillageCraft;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.SimpleContainer;
+// TODO: ContainerHelper - use ContainerHelper in 1.20;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
 
-public class VillageCenterInventory extends Inventory implements ISidedInventory {
+public class VillageCenterInventory extends SimpleContainer implements WorldlyContainer {
 	public ItemStack itemStack;
     private NonNullList<ItemStack> items;
     
@@ -26,7 +26,7 @@ public class VillageCenterInventory extends Inventory implements ISidedInventory
         this.itemStack = itemStack;
         
         if (!this.itemStack.hasTag()) {
-        	this.itemStack.setTag(new CompoundNBT());
+        	this.itemStack.setTag(new CompoundTag());
         }
         readFromNBT(this.itemStack.getTag());
     }
@@ -36,12 +36,12 @@ public class VillageCenterInventory extends Inventory implements ISidedInventory
 		this.items = NonNullList.withSize(9, stack);
 	}
 
-	private void readFromNBT(CompoundNBT tagCompound) {
+	private void readFromNBT(CompoundTag tagCompound) {
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         ItemStackHelper.loadAllItems(tagCompound, this.items);
     }
 
-    private void writeToNBT(CompoundNBT tagCompound) {
+    private void writeToNBT(CompoundTag tagCompound) {
         ItemStackHelper.saveAllItems(tagCompound, this.items);
     }
     
@@ -85,13 +85,13 @@ public class VillageCenterInventory extends Inventory implements ISidedInventory
     }
     
     @Override
-    public void openInventory(PlayerEntity player) {
+    public void openInventory(Player player) {
     }
 
     @Override
-    public void closeInventory(PlayerEntity player) {
+    public void closeInventory(Player player) {
         if (!itemStack.hasTag()) {
-        	itemStack.setTag(new CompoundNBT());
+        	itemStack.setTag(new CompoundTag());
         }
         writeToNBT(itemStack.getTag());
     }
@@ -101,7 +101,7 @@ public class VillageCenterInventory extends Inventory implements ISidedInventory
         this.items.clear();
     }
 
-    public ITextComponent getDisplayName() {
+    public Component getDisplayName() {
         return itemStack.getTextComponent();
     }
 

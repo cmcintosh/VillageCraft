@@ -6,14 +6,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.INBTType;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.WorldSavedData;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.saveddata.SavedData;
 
-public class VillageCraftNation extends WorldSavedData implements Serializable {
+public class VillageCraftNation extends SavedData implements Serializable {
 
 	protected String name;
 	protected ArrayList<String> players; // player names.
@@ -158,13 +158,13 @@ public class VillageCraftNation extends WorldSavedData implements Serializable {
 	 }
 
 	@Override
-	public void read(CompoundNBT nbt) {
+	public void read(CompoundTag nbt) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public CompoundNBT write(CompoundNBT compound) {
+	public CompoundTag write(CompoundTag compound) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -3,8 +3,8 @@ package com.villagecraft.capabilities;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.util.INBTSerializable;
 
 @ParametersAreNonnullByDefault

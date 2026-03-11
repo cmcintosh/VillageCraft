@@ -6,14 +6,14 @@ import com.villagecraft.VillageCraft;
 import com.villagecraft.init.ModBlocks;
 import com.villagecraft.init.ModVillagerProfessions;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.village.PointOfInterestManager;
-import net.minecraft.village.PointOfInterestType;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 
 public class VillagerGoalLocateBlock extends VillagerGoalBase {
 	
@@ -21,7 +21,7 @@ public class VillagerGoalLocateBlock extends VillagerGoalBase {
 	protected Block targetBlock;
 	protected BlockPos center;
 	
-	protected PointOfInterestType poiType;
+	protected PoiType poiType;
 	
 	protected int lastTick = 0;
 	protected int cooldownTicks = 10;
@@ -30,7 +30,7 @@ public class VillagerGoalLocateBlock extends VillagerGoalBase {
 		super(entity);
 		this.targetBlock = block;
 		this.center = center;
-		poiType = new PointOfInterestType(block.toString(), ModVillagerProfessions.getAllStates(block), 1, 1);
+		poiType = new PoiType(block.toString(), ModVillagerProfessions.getAllStates(block), 1, 1);
 	}
 	
 	public boolean shouldExecute() { 

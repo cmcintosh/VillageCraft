@@ -26,19 +26,19 @@ import com.villagecraft.util.ProfessionUtils;
 import com.villagecraft.util.RandomTradeBuilder;
 import com.villagecraft.util.Reference;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.merchant.villager.VillagerProfession;
-import net.minecraft.entity.merchant.villager.VillagerTrades;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.MerchantOffer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.village.PointOfInterestType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.MerchantOffer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 
 import net.minecraftforge.event.village.VillagerTradesEvent;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -47,135 +47,135 @@ import java.lang.reflect.Method;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.Items;
 
 
 public class ModVillagerProfessions {
 
-	public static final DeferredRegister<PointOfInterestType> POINTS_OF_INTEREST = DeferredRegister.create(ForgeRegistries.POI_TYPES, Reference.MODID);
+	public static final DeferredRegister<PoiType> POINTS_OF_INTEREST = DeferredRegister.create(ForgeRegistries.POI_TYPES, Reference.MODID);
 	public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(ForgeRegistries.PROFESSIONS, Reference.MODID);
 	
 	
 	/**
 	 * Points of interests
 	 */
-	public static final RegistryObject<PointOfInterestType> ALCHEMIST_TABLE = POINTS_OF_INTEREST.register("alchemist", () -> { 	
-		PointOfInterestType alchemist_table = new PointOfInterestType("alchemist_table", ModVillagerProfessions.getAllStates(ModBlocks.BLOCK_ALCHEMIST_TABLE.get()), 1, 1);
+	public static final RegistryObject<PoiType> ALCHEMIST_TABLE = POINTS_OF_INTEREST.register("alchemist", () -> { 	
+		PoiType alchemist_table = new PoiType("alchemist_table", ModVillagerProfessions.getAllStates(ModBlocks.BLOCK_ALCHEMIST_TABLE.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(alchemist_table);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> BARD_CHAIR = POINTS_OF_INTEREST.register("bard", () -> { 	
-		PointOfInterestType bardPlace = new PointOfInterestType("bard_stand", ModVillagerProfessions.getAllStates(ModBlocks.BARD_STAND.get()), 1, 1);
+	public static final RegistryObject<PoiType> BARD_CHAIR = POINTS_OF_INTEREST.register("bard", () -> { 	
+		PoiType bardPlace = new PoiType("bard_stand", ModVillagerProfessions.getAllStates(ModBlocks.BARD_STAND.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(bardPlace);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> ORE_BOX = POINTS_OF_INTEREST.register("ore_box", () -> {
-		PointOfInterestType minerWorkplace = new PointOfInterestType("ore_box", ModVillagerProfessions.getAllStates(ModBlocks.ORE_BOX.get()), 1, 1);
+	public static final RegistryObject<PoiType> ORE_BOX = POINTS_OF_INTEREST.register("ore_box", () -> {
+		PoiType minerWorkplace = new PoiType("ore_box", ModVillagerProfessions.getAllStates(ModBlocks.ORE_BOX.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(minerWorkplace);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> DRAFTING_TABLE = POINTS_OF_INTEREST.register("drafting_table", () -> {
-		PointOfInterestType draftingTable = new PointOfInterestType("drafting_table", ModVillagerProfessions.getAllStates(ModBlocks.DRAFTING_TABLE.get()), 1, 1);
+	public static final RegistryObject<PoiType> DRAFTING_TABLE = POINTS_OF_INTEREST.register("drafting_table", () -> {
+		PoiType draftingTable = new PoiType("drafting_table", ModVillagerProfessions.getAllStates(ModBlocks.DRAFTING_TABLE.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(draftingTable);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> TRADESMAN_HELMET = POINTS_OF_INTEREST.register("tradesman_helmet", () -> {
-		PointOfInterestType tradesman_helmet = new PointOfInterestType("tradesman_helmet", ModVillagerProfessions.getAllStates(ModBlocks.TRADESMAN_HELMET.get()), 1, 1);
+	public static final RegistryObject<PoiType> TRADESMAN_HELMET = POINTS_OF_INTEREST.register("tradesman_helmet", () -> {
+		PoiType tradesman_helmet = new PoiType("tradesman_helmet", ModVillagerProfessions.getAllStates(ModBlocks.TRADESMAN_HELMET.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(tradesman_helmet);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> CRAFTING_TABLE = POINTS_OF_INTEREST.register("village_crafting_table", () -> {
-		PointOfInterestType village_crafting_table = new PointOfInterestType("village_crafting_table", ModVillagerProfessions.getAllStates(net.minecraft.block.Blocks.CRAFTING_TABLE), 1, 1);
+	public static final RegistryObject<PoiType> CRAFTING_TABLE = POINTS_OF_INTEREST.register("village_crafting_table", () -> {
+		PoiType village_crafting_table = new PoiType("village_crafting_table", ModVillagerProfessions.getAllStates(net.minecraft.block.Blocks.CRAFTING_TABLE), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(village_crafting_table);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> CHEST = POINTS_OF_INTEREST.register("village_chest", () -> {
-		PointOfInterestType village_chest = new PointOfInterestType("village_chest", ModVillagerProfessions.getAllStates(net.minecraft.block.Blocks.CHEST), 1, 1);
+	public static final RegistryObject<PoiType> CHEST = POINTS_OF_INTEREST.register("village_chest", () -> {
+		PoiType village_chest = new PoiType("village_chest", ModVillagerProfessions.getAllStates(net.minecraft.block.Blocks.CHEST), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(village_chest);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> BRAWLER_BOX = POINTS_OF_INTEREST.register("brawler_box", () -> {
-		PointOfInterestType village_chest = new PointOfInterestType("brawler_box", ModVillagerProfessions.getAllStates(ModBlocks.BRAWLER_BOX.get()), 1, 1);
+	public static final RegistryObject<PoiType> BRAWLER_BOX = POINTS_OF_INTEREST.register("brawler_box", () -> {
+		PoiType village_chest = new PoiType("brawler_box", ModVillagerProfessions.getAllStates(ModBlocks.BRAWLER_BOX.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(village_chest);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> BAR = POINTS_OF_INTEREST.register("bar", () -> {
-		PointOfInterestType village_chest = new PointOfInterestType("bar", ModVillagerProfessions.getAllStates(ModBlocks.BAR.get()), 1, 1);
+	public static final RegistryObject<PoiType> BAR = POINTS_OF_INTEREST.register("bar", () -> {
+		PoiType village_chest = new PoiType("bar", ModVillagerProfessions.getAllStates(ModBlocks.BAR.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(village_chest);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> DRUMS = POINTS_OF_INTEREST.register("drums", () -> {
-		PointOfInterestType village_chest = new PointOfInterestType("drums", ModVillagerProfessions.getAllStates(ModBlocks.DRUMS.get()), 1, 1);
+	public static final RegistryObject<PoiType> DRUMS = POINTS_OF_INTEREST.register("drums", () -> {
+		PoiType village_chest = new PoiType("drums", ModVillagerProfessions.getAllStates(ModBlocks.DRUMS.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(village_chest);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> MICROPHONE_STAND = POINTS_OF_INTEREST.register("microphone_stand", () -> {
-		PointOfInterestType village_chest = new PointOfInterestType("microphone_stand", ModVillagerProfessions.getAllStates(ModBlocks.MICROPHONE_STAND.get()), 1, 1);
+	public static final RegistryObject<PoiType> MICROPHONE_STAND = POINTS_OF_INTEREST.register("microphone_stand", () -> {
+		PoiType village_chest = new PoiType("microphone_stand", ModVillagerProfessions.getAllStates(ModBlocks.MICROPHONE_STAND.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(village_chest);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> GUITAR_STAND = POINTS_OF_INTEREST.register("guitar_stand", () -> {
-		PointOfInterestType village_chest = new PointOfInterestType("guitar_stand", ModVillagerProfessions.getAllStates(ModBlocks.GUITAR_STAND.get()), 1, 1);
+	public static final RegistryObject<PoiType> GUITAR_STAND = POINTS_OF_INTEREST.register("guitar_stand", () -> {
+		PoiType village_chest = new PoiType("guitar_stand", ModVillagerProfessions.getAllStates(ModBlocks.GUITAR_STAND.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(village_chest);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> AUCTION_HOUSE = POINTS_OF_INTEREST.register("auction_house", () -> {
-		PointOfInterestType auction_house = new PointOfInterestType("auction_house", ModVillagerProfessions.getAllStates(ModBlocks.AUCTION_HOUSE.get()), 1, 1);
+	public static final RegistryObject<PoiType> AUCTION_HOUSE = POINTS_OF_INTEREST.register("auction_house", () -> {
+		PoiType auction_house = new PoiType("auction_house", ModVillagerProfessions.getAllStates(ModBlocks.AUCTION_HOUSE.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(auction_house);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> PYROTECHNIC_TABLE = POINTS_OF_INTEREST.register("pyrotechnic_worktable", () -> {
-		PointOfInterestType pyrotechnic_worktable = new PointOfInterestType("pyrotechnic_worktable", ModVillagerProfessions.getAllStates(ModBlocks.PYROTECHNIC_TABLE.get()), 1, 1);
+	public static final RegistryObject<PoiType> PYROTECHNIC_TABLE = POINTS_OF_INTEREST.register("pyrotechnic_worktable", () -> {
+		PoiType pyrotechnic_worktable = new PoiType("pyrotechnic_worktable", ModVillagerProfessions.getAllStates(ModBlocks.PYROTECHNIC_TABLE.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(pyrotechnic_worktable);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> CARAVAN_STOP = POINTS_OF_INTEREST.register("caravan_stop", () -> {
-		PointOfInterestType caravan_stop = new PointOfInterestType("caravan_stop", ModVillagerProfessions.getAllStates(ModBlocks.CARAVAN_STOP.get()), 1, 1);
+	public static final RegistryObject<PoiType> CARAVAN_STOP = POINTS_OF_INTEREST.register("caravan_stop", () -> {
+		PoiType caravan_stop = new PoiType("caravan_stop", ModVillagerProfessions.getAllStates(ModBlocks.CARAVAN_STOP.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(caravan_stop);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> EMBASSY = POINTS_OF_INTEREST.register("embassy", () -> {
-		PointOfInterestType embassy = new PointOfInterestType("embassy", ModVillagerProfessions.getAllStates(ModBlocks.EMBASSY.get()), 1, 1);
+	public static final RegistryObject<PoiType> EMBASSY = POINTS_OF_INTEREST.register("embassy", () -> {
+		PoiType embassy = new PoiType("embassy", ModVillagerProfessions.getAllStates(ModBlocks.EMBASSY.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(embassy);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> VILLAGE_MANAGEMENT = POINTS_OF_INTEREST.register("village_management", () -> {
-		PointOfInterestType village_management = new PointOfInterestType("village_management", ModVillagerProfessions.getAllStates(ModBlocks.VILLAGE_MANAGER.get()), 1, 1);
+	public static final RegistryObject<PoiType> VILLAGE_MANAGEMENT = POINTS_OF_INTEREST.register("village_management", () -> {
+		PoiType village_management = new PoiType("village_management", ModVillagerProfessions.getAllStates(ModBlocks.VILLAGE_MANAGER.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(village_management);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> SUPPLY_OFFICE = POINTS_OF_INTEREST.register("supply_office", () -> {
-		PointOfInterestType supply_office = new PointOfInterestType("supply_office", ModVillagerProfessions.getAllStates(ModBlocks.SUPPLY_OFFICE.get()), 1, 1);
+	public static final RegistryObject<PoiType> SUPPLY_OFFICE = POINTS_OF_INTEREST.register("supply_office", () -> {
+		PoiType supply_office = new PoiType("supply_office", ModVillagerProfessions.getAllStates(ModBlocks.SUPPLY_OFFICE.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(supply_office);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> TOWN_HALL = POINTS_OF_INTEREST.register("town_hall", () -> {
-		PointOfInterestType town_hall = new PointOfInterestType("town_hall", ModVillagerProfessions.getAllStates(ModBlocks.TOWN_HALL.get()), 1, 1);
+	public static final RegistryObject<PoiType> TOWN_HALL = POINTS_OF_INTEREST.register("town_hall", () -> {
+		PoiType town_hall = new PoiType("town_hall", ModVillagerProfessions.getAllStates(ModBlocks.TOWN_HALL.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(town_hall);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> INN = POINTS_OF_INTEREST.register("inn", () -> {
-		PointOfInterestType inn = new PointOfInterestType("inn", ModVillagerProfessions.getAllStates(ModBlocks.INN.get()), 1, 1);
+	public static final RegistryObject<PoiType> INN = POINTS_OF_INTEREST.register("inn", () -> {
+		PoiType inn = new PoiType("inn", ModVillagerProfessions.getAllStates(ModBlocks.INN.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(inn);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> TITLE_OFFICE = POINTS_OF_INTEREST.register("title_office", () -> {
-		PointOfInterestType title_office = new PointOfInterestType("title_office", ModVillagerProfessions.getAllStates(ModBlocks.TITLE_OFFICE.get()), 1, 1);
+	public static final RegistryObject<PoiType> TITLE_OFFICE = POINTS_OF_INTEREST.register("title_office", () -> {
+		PoiType title_office = new PoiType("title_office", ModVillagerProfessions.getAllStates(ModBlocks.TITLE_OFFICE.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(title_office);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> POTTERS_WHEEL = POINTS_OF_INTEREST.register("potter_wheel", () -> {
-		PointOfInterestType potter_wheel = new PointOfInterestType("potter_wheel", ModVillagerProfessions.getAllStates(ModBlocks.POTTERS_WHEEL.get()), 1, 1);
+	public static final RegistryObject<PoiType> POTTERS_WHEEL = POINTS_OF_INTEREST.register("potter_wheel", () -> {
+		PoiType potter_wheel = new PoiType("potter_wheel", ModVillagerProfessions.getAllStates(ModBlocks.POTTERS_WHEEL.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(potter_wheel);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> BUILDERS_CHEST = POINTS_OF_INTEREST.register("builders_chest", () -> {
-		PointOfInterestType builders_chest = new PointOfInterestType("builders_chest", ModVillagerProfessions.getAllStates(ModBlocks.BUILDERS_CHEST.get()), 1, 1);
+	public static final RegistryObject<PoiType> BUILDERS_CHEST = POINTS_OF_INTEREST.register("builders_chest", () -> {
+		PoiType builders_chest = new PoiType("builders_chest", ModVillagerProfessions.getAllStates(ModBlocks.BUILDERS_CHEST.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(builders_chest);
 	});
 	
-	public static final RegistryObject<PointOfInterestType> BEEHIVE = POINTS_OF_INTEREST.register("beehive", () -> {
-		PointOfInterestType beehive = new PointOfInterestType("beehive", ModVillagerProfessions.getAllStates(net.minecraft.block.Blocks.BEEHIVE), 1, 1);
+	public static final RegistryObject<PoiType> BEEHIVE = POINTS_OF_INTEREST.register("beehive", () -> {
+		PoiType beehive = new PoiType("beehive", ModVillagerProfessions.getAllStates(net.minecraft.block.Blocks.BEEHIVE), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(beehive);
 	});
 	
@@ -184,8 +184,8 @@ public class ModVillagerProfessions {
 	 * @param block
 	 * @return
 	 */
-	public static final RegistryObject<PointOfInterestType> VILLAGE_CENTER = POINTS_OF_INTEREST.register("village_center", () ->{
-		PointOfInterestType tradesman_helmet = new PointOfInterestType("village_center", ModVillagerProfessions.getAllStates(ModBlocks.BLOCK_VILLAGE_CENTER.get()), 1, 1);
+	public static final RegistryObject<PoiType> VILLAGE_CENTER = POINTS_OF_INTEREST.register("village_center", () ->{
+		PoiType tradesman_helmet = new PoiType("village_center", ModVillagerProfessions.getAllStates(ModBlocks.BLOCK_VILLAGE_CENTER.get()), 1, 1);
 		return ModVillagerProfessions.fixPOITypeBlockStates(tradesman_helmet);
 	});
 	
@@ -196,9 +196,9 @@ public class ModVillagerProfessions {
 	
 	private static Method blockStatesInjector;
     
-    public static PointOfInterestType fixPOITypeBlockStates(PointOfInterestType poiType) {
+    public static PoiType fixPOITypeBlockStates(PoiType poiType) {
     	try {
-	    	Method func_221052_a = ObfuscationReflectionHelper.findMethod(PointOfInterestType.class, "func_221052_a", PointOfInterestType.class);
+	    	Method func_221052_a = ObfuscationReflectionHelper.findMethod(PoiType.class, "func_221052_a", PoiType.class);
 	        func_221052_a.invoke(null, poiType);
     	} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			// TODO Auto-generated catch block

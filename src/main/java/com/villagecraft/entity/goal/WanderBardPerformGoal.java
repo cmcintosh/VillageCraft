@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.villagecraft.init.ModVillagerProfessions;
 
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.passive.GolemEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 
 public class WanderBardPerformGoal extends VillagerGoalBase {
 

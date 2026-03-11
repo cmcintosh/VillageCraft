@@ -32,11 +32,11 @@ import com.villagecraft.block.BlockVillageManager;
 import com.villagecraft.block.TradesmanHelmet;
 import com.villagecraft.util.Reference;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+// Material removed - use BlockBehaviour
+import net.minecraft.core.BlockPos;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 

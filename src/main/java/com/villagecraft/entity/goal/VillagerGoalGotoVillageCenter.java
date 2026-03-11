@@ -8,17 +8,17 @@ import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.util.BlockScanner;
 import com.villagecraft.util.VillageCenterBlockScanner;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.world.entity.npc.VillagerEntity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.Vector3i;
 import net.minecraft.village.PointOfInterestManager;
-import net.minecraft.village.PointOfInterestType;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 
 public class VillagerGoalGotoVillageCenter extends VillagerGoalGoToBlock {
 	

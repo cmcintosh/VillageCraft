@@ -6,20 +6,20 @@ import java.util.List;
 import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.util.Reference;
 
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.merchant.villager.VillagerProfession;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.passive.GolemEntity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 
 public class HealGolemGoal extends VillagerGoalBase {
 	
-	public IronGolemEntity golem;
+	public GolemEntity golem;
 
 	public HealGolemGoal(VillagerEntity entity) {
 		super(entity);
@@ -29,9 +29,9 @@ public class HealGolemGoal extends VillagerGoalBase {
 	@Override
 	public boolean shouldExecute() {
 		
-		List<IronGolemEntity> list = this.villager.world.getEntitiesWithinAABB(IronGolemEntity.class, this.villager.getBoundingBox().grow((double)100.0D));
+		List<GolemEntity> list = this.villager.world.getEntitiesWithinAABB(GolemEntity.class, this.villager.getBoundingBox().grow((double)100.0D));
 	    if (!list.isEmpty()) {
-	       for(IronGolemEntity golem : list) {
+	       for(GolemEntity golem : list) {
 	          if (!golem.isInvisible()) {
 	              this.golem = golem;
 	              if (golem.getHealth() < golem.getMaxHealth()) {		                   

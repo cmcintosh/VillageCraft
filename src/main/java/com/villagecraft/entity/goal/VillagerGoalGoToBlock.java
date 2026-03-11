@@ -2,14 +2,14 @@ package com.villagecraft.entity.goal;
 
 import com.villagecraft.VillageCraft;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.entity.npc.VillagerEntity;
 import net.minecraft.pathfinding.PathNavigator;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.Vector3i;
 import net.minecraft.village.PointOfInterestManager;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public abstract class VillagerGoalGoToBlock extends VillagerGoalLocateBlock {
 	

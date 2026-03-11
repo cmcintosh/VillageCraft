@@ -1,9 +1,9 @@
 package com.villagecraft.item;
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.SwordItem;
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.IItemTier;
+import net.minecraft.world.item.ItemGroup;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Item.Properties;
 
 public class ItemLute extends SwordItem {
 	public static Properties properties = new Properties().group(ItemGroup.TOOLS).maxStackSize(1);

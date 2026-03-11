@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import javax.annotation.Nonnull;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.villagecraft.VillageCraft;
 import com.villagecraft.init.ModBlocks;
 import com.villagecraft.init.ModContainer;
@@ -14,43 +13,37 @@ import com.villagecraft.tile.TileBasicVillageBlock;
 import com.villagecraft.tile.TileEntityVillageCenter;
 import com.villagecraft.util.Reference;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.EnchantmentContainer;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.BannerItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.EnchantmentMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.BannerItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.Direction;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import net.minecraft.client.gui.screen.inventory.ChestScreen;
 
 public class VillageCenterContainer extends BasicVillageCraftContainer {
 	
-	public VillageCenterContainer(final int windowId, final PlayerInventory playerInventory, final PacketBuffer data) {
-		this(windowId, playerInventory, getTileEntity(playerInventory, data));
-		
+	public VillageCenterContainer(int windowId, Inventory playerInventory, FriendlyByteBuf data) {
+		this(windowId, playerInventory, getBlockEntity(playerInventory, data));
 	}
 	
 	protected void mainInventory() { 
@@ -63,37 +56,23 @@ public class VillageCenterContainer extends BasicVillageCraftContainer {
 				this.addSlot(new Slot(this.tile, ( (row * 3) + column), 
 						startX + (column * slotSizePlus2), 
 						startY + (row * slotSizePlus2)) {
-		            public void onSlotChanged() {
-		                this.inventory.markDirty();
-		            }
+	            public void setChanged() {
+	                this.container.setChanged();
+	            }
 
-		            @Override
-		            public boolean isItemValid(ItemStack stack) {
-		                return super.isItemValid(stack);
-		            }
-		        });
+	            @Override
+	            public boolean mayPlace(ItemStack stack) {
+	                return super.mayPlace(stack);
+	            }
+	        });
 			}
 		}
 	}
 	
 
-	public VillageCenterContainer(int id, PlayerInventory inv, final TileEntity tile) {
+	public VillageCenterContainer(int id, Inventory inv, final BlockEntity tile) {
 		super(ModContainer.VILLAGE_CENTER_CONTAINER.get(), id, tile, inv);
-		
-		// @TODO add multiple slots here.
-		
-//		this.addSlot(new Slot((TileBasicVillageBlock) tile, 0, 80, 35));
 		mainInventory();
-	}
-	
-	@Override
-	public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-		ItemStack itemstack = ItemStack.EMPTY;
-		Slot slot = this.inventorySlots.get(index);
-			if (!this.mergeItemStack(slot.getStack(), 0, 36, false)) {
-				return itemstack;
-			}
-		return itemstack;
 	}
 	
 }

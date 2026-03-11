@@ -1,13 +1,12 @@
 package com.villagecraft.tile;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
-public class DesignatorTileEntity extends TileEntity {
+public class DesignatorTileEntity extends BlockEntity {
 
-	public DesignatorTileEntity(TileEntityType<?> tileEntityTypeIn) {
-		super(tileEntityTypeIn);
-		// TODO Auto-generated constructor stub
+	public DesignatorTileEntity(BlockEntityType<?> tileEntityTypeIn) {
+		super(tileEntityTypeIn, null, null);
 	}
 
 }

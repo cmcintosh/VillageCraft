@@ -6,32 +6,36 @@ import com.villagecraft.data.VillageCraftNation;
 import com.villagecraft.data.VillageCraftVillage;
 import com.villagecraft.data.VillageDataHelper;
 
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.TickingBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
-public abstract class TileBasicVillageBlock extends TileEntity implements ITickableTileEntity, INamedContainerProvider, IInventory {
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerHelper;
+
+public abstract class TileBasicVillageBlock extends BlockEntity {
 	
 	protected int size;
 	public NonNullList<ItemStack> content;
 	protected VillageDataHelper dataHelper;
 	protected String dataType = "GenericVillageBlock";
 
-	public TileBasicVillageBlock(TileEntityType<?> tileEntityTypeIn, int size) {
-		super(tileEntityTypeIn);
+	public TileBasicVillageBlock(BlockEntityType<?> tileEntityTypeIn, int size) {
+		super(tileEntityTypeIn, BlockPos.ZERO, null);
 		this.size = size;
 		dataHelper = VillageDataHelper.nextDataEntity(dataType);
 		content = NonNullList.withSize(size, ItemStack.EMPTY);
@@ -39,66 +43,54 @@ public abstract class TileBasicVillageBlock extends TileEntity implements ITicka
 	}
 	
 	@Override
-	public CompoundNBT write(CompoundNBT compound) {
+	public CompoundTag saveWithoutMetadata(CompoundTag compound) {
 		this.dataHelper.write(compound);
-		ItemStackHelper.saveAllItems(compound, content);
-		return super.write(compound);
+		ContainerHelper.saveAllItems(compound, content);
+		return super.saveWithoutMetadata(compound);
 	}
 	
 	@Override
-	public void read(BlockState blockState, CompoundNBT nbt) {
-		super.read(blockState, nbt);
+	public void load(CompoundTag nbt) {
+		super.load(nbt);
 		this.dataHelper.read(nbt);
-		ItemStackHelper.loadAllItems(nbt, content);
+		ContainerHelper.loadAllItems(nbt, content);
 	}
 
-
-	@Override
-	public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
-		// TODO Auto-generated method stub
+	public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
 		return null;
 	}
 
-	@Override
-	public void clear() {
+	public void clearContent() {
 		content.clear();
-		
 	}
 
-	@Override
-	public int getSizeInventory() {
-		// TODO Auto-generated method stub
+	public int getContainerSize() {
 		return size;
 	}
 
-	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
-	public ItemStack getStackInSlot(int index) {
+	public ItemStack getItem(int index) {
 		if (index > size - 1)
 			return ItemStack.EMPTY;
 		return content.get(index);
 	}
 
-	@Override
-	public ItemStack decrStackSize(int index, int count) {
+	public ItemStack removeItem(int index, int count) {
 		if (index > size - 1)
 			return ItemStack.EMPTY;
 		ItemStack stack = content.get(index);
 		if (count >= stack.getCount())
-			return removeStackFromSlot(index);
+			return removeItemNoUpdate(index);
 		else {
 			stack.shrink(count);
 			return new ItemStack(stack.getItem(), count);
 		}
 	}
 
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
+	public ItemStack removeItemNoUpdate(int index) {
 		if (index > size - 1)
 			return ItemStack.EMPTY;
 		ItemStack stack = content.get(index).copy();
@@ -106,32 +98,28 @@ public abstract class TileBasicVillageBlock extends TileEntity implements ITicka
 		return stack;
 	}
 
-	@Override
-	public void setInventorySlotContents(int index, ItemStack stack) {
+	public void setItem(int index, ItemStack stack) {
 		if (index > size - 1)
 			return;
 		content.set(index, stack);
 	}
 
-	@Override
-	public boolean isUsableByPlayer(PlayerEntity player) {
-		if (this.world.getTileEntity(this.pos) != this) {
+	public boolean stillValid(Player player) {
+		Level level = this.getLevel();
+		if (level == null) return false;
+		if (level.getBlockEntity(this.getBlockPos()) != this) {
 			return false;
 		} else {
-			return !(player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
-					(double) this.pos.getZ() + 0.5D) > 64.0D);
+			return !(player.distanceToSqr((double) this.getBlockPos().getX() + 0.5D, (double) this.getBlockPos().getY() + 0.5D,
+					(double) this.getBlockPos().getZ() + 0.5D) > 64.0D);
 		}
 	}
 
-	@Override
-	public ITextComponent getDisplayName() {
-		// TODO Auto-generated method stub
+	public Component getDisplayName() {
 		return null;
 	}
 
-	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
 		
 	}
 

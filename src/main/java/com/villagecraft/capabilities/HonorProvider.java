@@ -1,12 +1,12 @@
 package com.villagecraft.capabilities;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class HonorProvider implements ICapabilitySerializable<CompoundNBT> {
+public class HonorProvider implements ICapabilitySerializable<CompoundTag> {
 	
 	private VillagerHonorAttribute attribute = new VillagerHonorAttribute(); 
 	private final LazyOptional<IVillagerHonor> attributeOptional = LazyOptional.of( () -> attribute ); 
@@ -21,16 +21,16 @@ public class HonorProvider implements ICapabilitySerializable<CompoundNBT> {
 	}
 
 	@Override
-	public CompoundNBT serializeNBT() {
+	public CompoundTag serializeNBT() {
 		if (CapabilityVillagerAttribute.VILLAGER_HONOR == null) {
-            return new CompoundNBT();
+            return new CompoundTag();
         } else {
-            return (CompoundNBT) CapabilityVillagerAttribute.VILLAGER_HONOR.writeNBT(attribute, null);
+            return (CompoundTag) CapabilityVillagerAttribute.VILLAGER_HONOR.writeNBT(attribute, null);
         }
 	}
 
 	@Override
-	public void deserializeNBT(CompoundNBT nbt) {
+	public void deserializeNBT(CompoundTag nbt) {
 		if (CapabilityVillagerAttribute.VILLAGER_HONOR != null) {
 			CapabilityVillagerAttribute.VILLAGER_HONOR.readNBT(this.attribute, null, nbt);
         }

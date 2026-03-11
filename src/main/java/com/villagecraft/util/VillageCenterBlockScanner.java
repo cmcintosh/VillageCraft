@@ -3,26 +3,26 @@ package com.villagecraft.util;
 import com.villagecraft.VillageCraft;
 import com.villagecraft.init.ModBlocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 public class VillageCenterBlockScanner extends BlockScanner {
 	
 	protected int maxRadius = 100;
 	
-	public VillageCenterBlockScanner(BlockPos center, World world) { 
+	public VillageCenterBlockScanner(BlockPos center, Level world) { 
 		super(ModBlocks.BLOCK_VILLAGE_CENTER.get(), 150, center, world);
 	}
 
-	public VillageCenterBlockScanner(Block scanBlock, int scansPerTick, BlockPos center, World world) {
+	public VillageCenterBlockScanner(Block scanBlock, int scansPerTick, BlockPos center, Level world) {
 		super(scanBlock, scansPerTick, center, world);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public BlockPos testBlock(World world, BlockPos bp) {
+	public BlockPos testBlock(Level world, BlockPos bp) {
 		// TODO Auto-generated method stub
 		BlockState state = world.getBlockState(bp);
 		

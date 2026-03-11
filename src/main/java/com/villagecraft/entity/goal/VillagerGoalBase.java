@@ -14,24 +14,24 @@ import com.villagecraft.capabilities.VillagerHungerAttribute;
 import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.item.profession_tokens.ItemProfessionToken;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.merchant.villager.VillagerData;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.brain.Brain;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.passive.GolemEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.BlockPos;
 import net.minecraft.village.PointOfInterestManager;
-import net.minecraft.village.PointOfInterestType;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.util.LazyOptional;
 
 public class VillagerGoalBase extends Goal {
@@ -51,7 +51,7 @@ public class VillagerGoalBase extends Goal {
 	protected Block targetBlockType;
 	protected BlockPos targetPosition;
 	
-	protected CompoundNBT extraVillagerData;
+	protected CompoundTag extraVillagerData;
 	protected ItemProfessionToken token;
 	
 	protected IVillagerHunger hunger;
@@ -62,7 +62,7 @@ public class VillagerGoalBase extends Goal {
 		villager = entity;
 		ServerWorld world = (ServerWorld) entity.getEntityWorld();
 		poiManager = world.getPointOfInterestManager();
-		extraVillagerData = new CompoundNBT();
+		extraVillagerData = new CompoundTag();
 	
 	}
 	
@@ -158,7 +158,7 @@ public class VillagerGoalBase extends Goal {
 	 * Locate a entity of type
 	 */
 	protected List findLivingEntitiesWithinAABB(Class entityType) { 
-		List<IronGolemEntity> list = this.villager.world
+		List<GolemEntity> list = this.villager.world
 				.getEntitiesWithinAABB(entityType, 
 						this.villager.getBoundingBox().grow(maxScanRange)
 				);
@@ -175,14 +175,14 @@ public class VillagerGoalBase extends Goal {
 	}
 	
 	// Return all blocks of a Poi type, and meet our block filters.
-	protected Stream<BlockPos> findAllBlocks(PointOfInterestType poi, PointOfInterestManager.Status status) {
+	protected Stream<BlockPos> findAllBlocks(PoiType poi, PointOfInterestManager.Status status) {
 		return poiManager.findAll(poi.getPredicate(), new BlockFilter(), this.getVillagerBlockPos(), (int) this.maxScanRange, status);	
 	}
 	
 	// Return the closest block of a Poi type.
 	protected BlockPos closestTargetPos;
 	protected double lastClosest;
-	protected BlockPos findClosestBlock(PointOfInterestType poi, PointOfInterestManager.Status status, BlockPos center) { 
+	protected BlockPos findClosestBlock(PoiType poi, PointOfInterestManager.Status status, BlockPos center) { 
 		Stream<BlockPos> blocks = this.findAllBlocks(poi, status);
 		BlockPos min = null;
 		blocks.forEach(b -> {

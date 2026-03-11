@@ -5,9 +5,9 @@ import org.apache.logging.log4j.Logger;
 
 import com.villagecraft.util.Reference;
 
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.Item;
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.ItemGroup;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.Properties;
 
 public class ItemHeart extends Item {
 	

@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.world.storage.WorldSavedData;
+import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.saveddata.SavedData;
 
-public class VillageCraftVillage extends WorldSavedData implements Serializable {
+public class VillageCraftVillage extends SavedData implements Serializable {
 	
 	public VillageCraftVillage(String name) {
 		super(name + "_village");
@@ -63,13 +63,13 @@ public class VillageCraftVillage extends WorldSavedData implements Serializable 
 	}
 
 	@Override
-	public void read(CompoundNBT nbt) {
+	public void read(CompoundTag nbt) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public CompoundNBT write(CompoundNBT compound) {
+	public CompoundTag write(CompoundTag compound) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,18 +1,18 @@
 package com.villagecraft.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.villagecraft.container.VillageCenterContainer;
 
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Container;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 
-public class BaseVillageCraftScreen<T> extends ContainerScreen {
+public class BaseVillageCraftScreen<T> extends AbstractContainerMenuScreen {
 	
 	protected Container container;
-	protected PlayerInventory playerInventory;
+	protected Inventory playerInventory;
 	
 	// Backgrounds
 	protected static ResourceLocation TEXTURE = new ResourceLocation("vcm:textures/gui/container/village_info.png");
@@ -30,7 +30,7 @@ public class BaseVillageCraftScreen<T> extends ContainerScreen {
 	protected int PaddingY = 20;
 
 	
-	public BaseVillageCraftScreen(Container screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+	public BaseVillageCraftScreen(Container screenContainer, Inventory inv, Component titleIn) {
 		super(screenContainer, inv, titleIn);
 		this.container = screenContainer;
 		this.playerInventory = inv;
