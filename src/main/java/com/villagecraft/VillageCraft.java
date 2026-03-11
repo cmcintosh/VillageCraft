@@ -49,17 +49,14 @@ import net.minecraft.client.renderer.entity.VillagerRenderer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.entity.npc.VillagerTrades.ITrade;
-import net.minecraft.world.entity.animal.Golem;
-import net.minecraft.world.inventory.Container;
-// TODO: MenuType import;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemModelsProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MerchantOffer;
@@ -72,9 +69,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.MinecraftForge;
 import net.neoforged.neoforge.common.VillagerTradingManager;
 import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
-// Removed - use DeferredRegister;
-import net.neoforged.neoforge.event.entity.EntityEvent;
-import net.neoforged.neoforge.event.entity.EntityJoinWorldEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
@@ -85,7 +80,6 @@ import net.neoforged.neoforge.eventbus.api.SubscribeEvent;
 import net.neoforged.fml.DeferredWorkQueue;
 import net.neoforged.fml.DistExecutor;
 import net.neoforged.fml.ModLoadingContext;
-import net.neoforged.neoforge.registries.RegistryObject;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.Mod.EventBusSubscriber;
@@ -94,9 +88,6 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.server.FMLServerAboutToStartEvent;
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLPaths;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import net.neoforged.neoforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID)
 @Mod(Reference.MODID)
@@ -151,7 +142,7 @@ public class VillageCraft {
 		// Registering the villager trades
 		MinecraftForge.EVENT_BUS.addListener(this::villagerTrades);
 		MinecraftForge.EVENT_BUS.addListener(this::wandererTrades);
-		MinecraftForge.EVENT_BUS.addListener(this::entityJoinWorldEvent);
+		MinecraftForge.EVENT_BUS.addListener(this::entityJoinLevelEvent);
 		MinecraftForge.EVENT_BUS.addListener(this::onAttachCapabilitiesEvent);
 
 
@@ -159,7 +150,7 @@ public class VillageCraft {
 		// Register GUI handlers
 		MinecraftForge.EVENT_BUS.register(this);
 
-		// EntityJoinWorldEvent
+		// EntityJoinLevelEvent
 		this.LOGGER.debug(this.data.getName() + " Is created");
 	}
 
@@ -167,7 +158,7 @@ public class VillageCraft {
 	 * Register Capabilities hook.
 	 */
 	public void onAttachCapabilitiesEvent(AttachCapabilitiesEvent<Entity> e) {
-		if (e.getObject() instanceof VillagerEntity) {
+		if (e.getObject() instanceof Villager) {
 			HungerProvider hProvider = new HungerProvider();
 			e.addCapability(new ResourceLocation(Reference.MODID, "hunger"), hProvider);
 			e.addListener(hProvider::invalidate);
@@ -199,23 +190,23 @@ public class VillageCraft {
 	 */
     public void wandererTrades(WandererTradesEvent event)
     {
-        List<ITrade> genericList = event.getGenericTrades();
+        List<VillagerTrades.ItemListing> genericList = event.getGenericTrades();
         RandomTradeBuilder.forEachWanderer((tradeBuild) -> genericList.add(tradeBuild.build()));
 
-        List<ITrade> rareList = event.getRareTrades();
+        List<VillagerTrades.ItemListing> rareList = event.getRareTrades();
         RandomTradeBuilder.forEachWandererRare((tradeBuild) -> rareList.add(tradeBuild.build()));
     }
 
 
     @SubscribeEvent
-    public void entityJoinWorldEvent(EntityJoinWorldEvent event) {
+    public void entityJoinLevelEvent(EntityJoinLevelEvent event) {
   	  Entity entity = event.getEntity();
-  	  	if (entity instanceof GolemEntity && !(entity instanceof Golem) ) {
+  	  	if (entity instanceof IronGolem && !(entity instanceof Golem) ) {
 
   	  	}
 
-        if (entity instanceof VillagerEntity) {
-          VillagerEntity villager = (VillagerEntity)event.getEntity();
+        if (entity instanceof Villager) {
+          Villager villager = (Villager)event.getEntity();
 
       	  if (!villager.level().isClientSide()) {
       		if (this.data.initialized == false) {
