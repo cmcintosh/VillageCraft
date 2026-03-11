@@ -1,8 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '6.+'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'net.neoforged.gradle.userdev' version '7.0.145'
 }
 
 group = 'com.villagecraft'
@@ -18,50 +17,33 @@ java {
     }
 }
 
-minecraft {
-    mappings channel: 'parchment', version: '2023.09.03-1.20.1'
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+// NeoForge runs configuration
+runs {
+    client {
+        systemProperty 'forge.logging.markers', 'REGISTRIES'
+        systemProperty 'forge.logging.console.level', 'debug'
+    }
 
-    runs {
-        client {
-            workingDirectory file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            mods {
-                villagecraft {
-                    source sourceSets.main
-                }
-            }
-        }
+    server {
+        systemProperty 'forge.logging.markers', 'REGISTRIES'
+        systemProperty 'forge.logging.console.level', 'debug'
+        programArgument '--nogui'
+    }
 
-        server {
-            workingDirectory file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            mods {
-                villagecraft {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            args '--mod', 'villagecraft', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-            mods {
-                villagecraft {
-                    source sourceSets.main
-                }
-            }
-        }
+    data {
+        systemProperty 'forge.logging.markers', 'REGISTRIES'
+        systemProperty 'forge.logging.console.level', 'debug'
+        programArguments '--mod', 'villagecraft', '--all', '--output', file('src/generated/resources/').absolutePath, '--existing', file('src/main/resources/').absolutePath
     }
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    maven {
+        name = 'NeoForge'
+        url = 'https://maven.neoforged.net/releases/'
+    }
     maven {
         name = 'ParchmentMC'
         url = 'https://maven.parchmentmc.org'
@@ -71,7 +53,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.1-47.1.3'
+    implementation 'net.neoforged:neoforge:20.2.59-beta'
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -91,8 +73,6 @@ jar {
         ])
     }
 }
-
-jar.finalizedBy('reobfJar')
 
 publishing {
     publications {
