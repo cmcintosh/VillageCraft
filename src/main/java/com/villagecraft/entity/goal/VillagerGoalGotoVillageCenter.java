@@ -10,7 +10,7 @@ import com.villagecraft.util.VillageCenterBlockScanner;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;

@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.villagecraft.util.*;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.neoforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 
 /**
  * Subscribe to events from the MOD EventBus that should be handled on the PHYSICAL CLIENT side in this class

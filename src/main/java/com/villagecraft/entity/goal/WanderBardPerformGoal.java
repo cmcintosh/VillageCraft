@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.villagecraft.init.ModVillagerProfessions;
 
-import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.passive.GolemEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;

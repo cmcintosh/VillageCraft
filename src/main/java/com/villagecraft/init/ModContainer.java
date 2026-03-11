@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.common.extensions.IForgeMenuType;
-import net.neoforged.neoforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.DeferredRegister;

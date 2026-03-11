@@ -21,7 +21,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.brain.Brain;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.npc.VillagerData;
-import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.passive.GolemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.nbt.CompoundTag;

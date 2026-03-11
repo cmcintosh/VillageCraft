@@ -7,7 +7,7 @@ import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.util.Reference;
 
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.passive.GolemEntity;
 import net.minecraft.world.entity.EquipmentSlot;

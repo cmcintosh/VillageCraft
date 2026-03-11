@@ -3,7 +3,7 @@ package com.villagecraft.entity.goal;
 import com.villagecraft.init.ModVillagerProfessions;
 
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.core.BlockPos;
 
 public class VillagerGoalLocateEntity extends Goal {

@@ -3,7 +3,7 @@ package com.villagecraft.entity.goal;
 import com.villagecraft.VillageCraft;
 
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
