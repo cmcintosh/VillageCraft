@@ -5,9 +5,9 @@ package com.villagecraft.capabilities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.INBT;
 import net.minecraft.core.Direction;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.CapabilityInject;
+import net.neoforged.neoforge.common.capabilities.CapabilityManager;
 
 public class CapabilityVillagerAttribute {
 	

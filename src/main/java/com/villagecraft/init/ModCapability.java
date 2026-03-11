@@ -2,8 +2,8 @@ package com.villagecraft.init;
 
 import com.villagecraft.capabilities.IVillagerAttribute;
 
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.CapabilityInject;
 
 public class ModCapability {
 	

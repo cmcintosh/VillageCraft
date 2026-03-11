@@ -1,7 +1,7 @@
 package com.villagecraft.gui;
 
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.RenderGameOverlayEvent;
+import net.neoforged.neoforge.eventbus.api.SubscribeEvent;
 
 public class RenderVillageCenter {
 	

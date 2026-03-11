@@ -11,10 +11,10 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.Direction;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.common.util.NonNullSupplier;
-import net.minecraftforge.registries.RegistryObject;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import net.neoforged.neoforge.common.util.Lazy;
+import net.neoforged.neoforge.common.util.NonNullSupplier;
+import net.neoforged.neoforge.registries.RegistryObject;
+import net.neoforged.fml.util.ObfuscationReflectionHelper;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

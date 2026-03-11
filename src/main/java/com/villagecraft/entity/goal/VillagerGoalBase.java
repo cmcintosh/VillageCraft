@@ -32,7 +32,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.village.PointOfInterestManager;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.common.util.LazyOptional;
+import net.neoforged.neoforge.common.util.LazyOptional;
 
 public class VillagerGoalBase extends Goal {
 	

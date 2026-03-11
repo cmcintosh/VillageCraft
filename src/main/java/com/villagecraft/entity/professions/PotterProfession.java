@@ -31,8 +31,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MerchantOffer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinWorldEvent;
+import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 public class PotterProfession extends VillagerCraftBaseProfession {
 	

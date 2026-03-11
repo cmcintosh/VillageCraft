@@ -52,9 +52,9 @@ import net.minecraft.network.chat.TextFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.network.NetworkHooks;
 
 public class BlockVillageCenter extends AbstractContainerMenuBlock {
 	
