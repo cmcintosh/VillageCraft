@@ -46,14 +46,15 @@ public class TileEntityVillageCenter extends TileBasicVillageBlock {
 	private final String UUID_TAG = "UUID_TAG";
     private final String ENABLED_TAG = "VILLAGE_ENABLED_TAG";
 	
-	// Constructor for BlockEntityType.Builder
+	// Constructor for BlockEntityType.Builder - now matches 1.20.2 signature
 	public TileEntityVillageCenter(BlockPos pos, BlockState state) {
-		super(ModTiles.TILE_VILLAGE_CENTER.get(), 9, pos, state);
+		super(ModTiles.TILE_VILLAGE_CENTER.get(), 9);
+		// BlockEntity constructor automatically stores pos and state
 	}
 	
 	// Default constructor for manual creation
 	public TileEntityVillageCenter() {
-		super(ModTiles.TILE_VILLAGE_CENTER.get(), 9, BlockPos.ZERO, null);
+		super(ModTiles.TILE_VILLAGE_CENTER.get(), 9);
 	}
 
 	@Nullable

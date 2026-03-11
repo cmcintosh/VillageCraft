@@ -7,8 +7,8 @@ import com.villagecraft.util.Reference;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.extensions.IForgeMenuType;
-import net.neoforged.neoforge.eventbus.api.SubscribeEvent;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -22,5 +22,5 @@ public class ModContainer {
 	public static final DeferredRegister<MenuType<?>> CONTAINER_TYPE = DeferredRegister.create(BuiltInRegistries.MENU, Reference.MODID);
 	
 	public static final DeferredHolder<MenuType<?>, MenuType<VillageCenterContainer>> VILLAGE_CENTER_CONTAINER = CONTAINER_TYPE.register("village_center", 
-			() -> IForgeMenuType.create(VillageCenterContainer::new));
+			() -> IMenuTypeExtension.create(VillageCenterContainer::new));
 }

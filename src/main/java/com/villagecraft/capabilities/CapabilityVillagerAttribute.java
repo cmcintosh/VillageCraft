@@ -3,49 +3,47 @@ package com.villagecraft.capabilities;
 
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.Tag;
 import net.minecraft.core.Direction;
 import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.CapabilityInject;
 import net.neoforged.neoforge.common.capabilities.CapabilityManager;
+import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.capabilities.AutoRegisterCapability;
 
+@AutoRegisterCapability
 public class CapabilityVillagerAttribute {
 	
-	@CapabilityInject(IVillagerHonor.class)
-	public static Capability<IVillagerHonor> VILLAGER_HONOR = null;
-	
-	@CapabilityInject(IVillagerHunger.class)
-	public static Capability<IVillagerHunger> VILLAGER_HUNGER = null;
-	
-	@CapabilityInject(IVillagerAttribute.class)
-	public static Capability<IVillagerAttribute> VILLAGER_THIRST = null;
-	
-	@CapabilityInject(IVillagerAttribute.class)
-	public static Capability<IVillagerAttribute> VILLAGER_DESIRE = null;
+	public static Capability<IVillagerHonor> VILLAGER_HONOR = CapabilityManager.get(new Capability.Token<>());
+	public static Capability<IVillagerHunger> VILLAGER_HUNGER = CapabilityManager.get(new Capability.Token<>());
+	public static Capability<IVillagerAttribute> VILLAGER_THIRST = CapabilityManager.get(new Capability.Token<>());
+	public static Capability<IVillagerAttribute> VILLAGER_DESIRE = CapabilityManager.get(new Capability.Token<>());
 	
 	
 	public static void register() {
-		CapabilityManager.INSTANCE.register(IVillagerAttribute.class, new Storage(), DefaultVillagerAttribute::new);
-		CapabilityManager.INSTANCE.register(IVillagerHunger.class, new HungerStorage(), VillagerHungerAttribute::new);
-		CapabilityManager.INSTANCE.register(IVillagerHonor.class, new HonorStorage(), VillagerHonorAttribute::new);
-		
+		// Capabilities are auto-registered in 1.20.2 with @AutoRegisterCapability
 	}
 
 	
-		public static class Storage implements Capability.IStorage<IVillagerAttribute> {
+		public static class Storage implements INBTSerializable<CompoundTag> {
+			private IVillagerAttribute instance;
+			
+			public Storage(IVillagerAttribute instance) {
+				this.instance = instance;
+			}
+			
 			@Override
-			public INBT writeNBT(Capability<IVillagerAttribute> capability, IVillagerAttribute instance, Direction side) {
+			public CompoundTag serializeNBT() {
 				CompoundTag tag = new CompoundTag();
 				tag.putInt(instance.getName(), instance.getValue());
 				return tag;
 			}
 
 			@Override
-			public void readNBT(Capability<IVillagerAttribute> capability, IVillagerAttribute instance, Direction side,
-					INBT nbt) {
-				int value = ((CompoundTag) nbt).getInt(instance.getName());
-				instance.setValue(value);
-				
+			public void deserializeNBT(CompoundTag nbt) {
+				if (nbt.contains(instance.getName())) {
+					instance.setValue(nbt.getInt(instance.getName()));
+				}
 			} 
 		}
 		
@@ -54,37 +52,48 @@ public class CapabilityVillagerAttribute {
 		 * @author chris
 		 *
 		 */
-		public static class HungerStorage implements Capability.IStorage<IVillagerHunger> {
+		public static class HungerStorage implements INBTSerializable<CompoundTag> {
+			private IVillagerHunger instance;
+			
+			public HungerStorage(IVillagerHunger instance) {
+				this.instance = instance;
+			}
+			
 			@Override
-			public INBT writeNBT(Capability<IVillagerHunger> capability, IVillagerHunger instance, Direction side) {
+			public CompoundTag serializeNBT() {
 				CompoundTag tag = new CompoundTag();
 				tag.putInt(instance.getName(), instance.getValue());
 				return tag;
 			}
 
 			@Override
-			public void readNBT(Capability<IVillagerHunger> capability, IVillagerHunger instance, Direction side,
-					INBT nbt) {
-				int value = ((CompoundTag) nbt).getInt(instance.getName());
-				instance.setValue(value);
-				
+			public void deserializeNBT(CompoundTag nbt) {
+				if (nbt.contains(instance.getName())) {
+					instance.setValue(nbt.getInt(instance.getName()));
+				}
 			} 
 		}
 		
-		public static class HonorStorage implements Capability.IStorage<IVillagerHonor> {
+		public static class HonorStorage implements INBTSerializable<CompoundTag> {
+			private IVillagerHonor instance;
+			
+			public HonorStorage(IVillagerHonor instance) {
+				this.instance = instance;
+			}
+			
 			@Override
-			public INBT writeNBT(Capability<IVillagerHonor> capability, IVillagerHonor instance, Direction side) {
+			
+			public CompoundTag serializeNBT() {
 				CompoundTag tag = new CompoundTag();
 				tag.putInt(instance.getName(), instance.getValue());
 				return tag;
 			}
 
 			@Override
-			public void readNBT(Capability<IVillagerHonor> capability, IVillagerHonor instance, Direction side,
-					INBT nbt) {
-				int value = ((CompoundTag) nbt).getInt(instance.getName());
-				instance.setValue(value);
-				
+			public void deserializeNBT(CompoundTag nbt) {
+				if (nbt.contains(instance.getName())) {
+					instance.setValue(nbt.getInt(instance.getName()));
+				}
 			} 
 		}
 }

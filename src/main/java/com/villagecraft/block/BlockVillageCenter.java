@@ -5,142 +5,131 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.villagecraft.VillageCraft;
-import com.villagecraft.container.VillageCenterContainer;
-import com.villagecraft.init.ModContainer;
 import com.villagecraft.init.ModTiles;
-import com.villagecraft.tile.BlockEntityVillageCenter;
+import com.villagecraft.tile.TileBasicVillageBlock;
 import com.villagecraft.util.Reference;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BlockRenderType;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.ChestBlock;
-import net.minecraft.world.level.block.ContainerBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.AbstractBlock.Properties;
-// Material removed - use BlockBehaviour
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.gui.screens.Screen;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.ServerPlayer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainerHelper;
-import net.minecraft.world.inventory.Container;
-// TODO: MenuType import;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.item.BlockItemUseContext;
-import net.minecraft.world.item.ItemGroup;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.network.chat.TextFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.ChatFormatting;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.fml.network.NetworkHooks;
 
-public class BlockVillageCenter extends AbstractContainerMenuBlock {
+public class BlockVillageCenter extends BaseEntityBlock {
 	
-	public static Properties properties = Properties.create(Material.WOOD).hardnessAndResistance(3.5F).sound(SoundType.CLOTH).notSolid();
+	public static BlockBehaviour.Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.WOOD).noOcclusion();
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-	public static net.minecraft.item.Item.Properties item_properties = new net.minecraft.item.Item.Properties().group(ItemGroup.DECORATIONS).maxStackSize(64);
-	private static final VoxelShape AABB = Block.makeCuboidShape(0, 0, 0, 16, 18, 16);
+	public static net.minecraft.world.item.Item.Properties item_properties = new net.minecraft.world.item.Item.Properties().tab(net.minecraft.world.item.CreativeModeTabs.BUILDING_BLOCKS).stacksTo(64);
+	private static final VoxelShape AABB = Block.box(0, 0, 0, 16, 18, 16);
 	
-	public BlockVillageCenter(Properties properties) {
+	public BlockVillageCenter(BlockBehaviour.Properties properties) {
 		super(properties);
-		setDefaultState(getStateContainer().getBaseState().with(FACING, Direction.NORTH));	
+		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));	
 	}
 	
 	
 	
-	public void onReplaced(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        BlockEntity tileentity = worldIn.getBlockEntity(pos);
-        
-        if (tileentity instanceof BlockEntityVillageCenter) {
-        	InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
-        	worldIn.updateComparatorOutputLevel(pos, this);
-        }
+	public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+		if (state.getBlock() != newState.getBlock()) {
+			BlockEntity tileentity = worldIn.getBlockEntity(pos);
+				
+			if (tileentity instanceof TileBasicVillageBlock) {
+				net.minecraft.world.Containers.dropContents(worldIn, pos, ((TileBasicVillageBlock) tileentity).content);
+				worldIn.updateNeighbourForOutputSignal(pos, this);
+			}
+			
+			super.onRemove(state, worldIn, pos, newState, isMoving);
+		}
     }
 	
 	@OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<Component> tooltip, ITooltipFlag flagIn) {
-//        tooltip.add(Component.translatable("block.vcm.village_center.desc0").func_240699_a_(TextFormatting.GRAY));
-//        tooltip.add(Component.translatable("block.vcm.village_center.desc1").func_240699_a_(TextFormatting.GRAY));
+    public void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, net.minecraft.world.item.TooltipFlag flagIn) {
+//        tooltip.add(Component.translatable("block.vcm.village_center.desc0").withStyle(ChatFormatting.GRAY));
+//        tooltip.add(Component.translatable("block.vcm.village_center.desc1").withStyle(ChatFormatting.GRAY));
     }
 	
 	// Defines the properties needed for the blockstate
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) { 
-		super.fillStateContainer(builder);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) { 
+		super.createBlockStateDefinition(builder);
 		builder.add(FACING);
 	}
 	
 	@Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 	
-	public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+	@Override
+	public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 	
 	// When activated we will have the player sit
 	// @TODO: learn how to do this
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, Level worldIn, BlockPos pos, Player player, 
-			Hand handIn, BlockRayTraceResult blockRayTraceResult) {
+	public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, 
+			InteractionHand handIn, BlockHitResult blockRayTraceResult) {
 		
-		if (!worldIn.isRemote) {
+		if (!worldIn.isClientSide) {
             BlockEntity tileEntity = worldIn.getBlockEntity(pos);
-            if (tileEntity instanceof INamedContainerProvider) {
-                NetworkHooks.openGui((ServerPlayer) player, (INamedContainerProvider) tileEntity, tileEntity.getPos());
+            if (tileEntity instanceof MenuProvider) {
+                ((ServerPlayer) player).openMenu((MenuProvider) tileEntity);
             } else {
                 throw new IllegalStateException("Our named container provider is missing!");
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
-		return ActionResultType.FAIL;
+		return InteractionResult.FAIL;
 	}
 		
-	protected BlockEntityVillageCenter tile;
+	protected TileBasicVillageBlock tile;
 	
 	public BlockEntity getBlockEntity() { 
 		return this.tile;
 	}
 
 	@Override
-	public boolean hasBlockEntity(BlockState state) {
+	public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int id, int param) {
 		return true;
 	}
 
+	@Nullable
 	@Override
-	public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
-		BlockEntityVillageCenter tile = ModTiles.TILE_VILLAGE_CENTER.get().create();
-		
-		return tile;
-	}
-
-	@Override
-	public BlockEntity createNewBlockEntity(IBlockReader worldIn) {
-		return ModTiles.TILE_VILLAGE_CENTER.get().create();
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return ModTiles.TILE_VILLAGE_CENTER.get().create(pos, state);
 	}
 	
 	

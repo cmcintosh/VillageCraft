@@ -2,13 +2,11 @@ package com.villagecraft.capabilities;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public interface IVillagerAttribute {
 	
 	/**
@@ -48,5 +46,3 @@ public interface IVillagerAttribute {
 
 	
 }
-
-

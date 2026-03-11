@@ -2,7 +2,7 @@ package com.villagecraft.init;
 
 import com.villagecraft.util.Reference;
 
-import net.minecraft.world.item.FoodProperties;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.effect.MobEffectInstance;

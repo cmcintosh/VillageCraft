@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.saveddata.SavedData;
 
@@ -16,7 +16,7 @@ public class VillageCraftVillage extends SavedData implements Serializable {
 	
 
 	protected String name;
-	protected ArrayList<VillagerEntity> villagers; 
+	protected ArrayList<Villager> villagers; 
 		
 	/**
 	 * Gets the villages name
@@ -37,28 +37,28 @@ public class VillageCraftVillage extends SavedData implements Serializable {
 	/**
 	 * Returns the villagers
 	 */
-	public Stream<VillagerEntity> getVillagers() {
+	public Stream<Villager> getVillagers() {
 		return this.villagers.stream();
 	}
 	
 	/**
 	 * Sets the villagers.
 	 */
-	public void setVillagers(ArrayList<VillagerEntity> villagers) {
+	public void setVillagers(ArrayList<Villager> villagers) {
 		this.villagers = villagers;
 	}
 	
 	/**
 	 * Adds a villager
 	 */
-	public void addVillager(VillagerEntity entity) {
+	public void addVillager(Villager entity) {
 		this.villagers.add(entity);
 	}
 	
 	/**
 	 * Removes a villager
 	 */
-	public void removeVillager(VillagerEntity entity) {
+	public void removeVillager(Villager entity) {
 		this.villagers.remove(entity);
 	}
 
