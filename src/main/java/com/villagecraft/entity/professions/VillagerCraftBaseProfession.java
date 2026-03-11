@@ -11,6 +11,9 @@ import com.google.common.collect.ImmutableSet;
 import com.villagecraft.VillageCraft;
 import com.villagecraft.entity.goal.VillagerGoalBase;
 import com.villagecraft.entity.goal.VillagerGoalDeliverToStorage;
+import com.villagecraft.entity.goal.VillagerGoalEat;
+import com.villagecraft.entity.goal.VillagerGoalSleep;
+import com.villagecraft.entity.goal.VillagerGoalWork;
 import com.villagecraft.init.ModFoods;
 import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.util.TradeTypes;
@@ -121,10 +124,29 @@ public class VillagerCraftBaseProfession  extends VillagerProfession {
 	/**
 	 * Register Goals for a profession.
 	 */
-	public static void RegisterVillagerGoals(EntityJoinWorldEvent event) { 
+	public static void RegisterVillagerGoals(EntityJoinWorldEvent event) {
+		if (!(event.getEntity() instanceof VillagerEntity)) {
+			return;
+		}
+
 		VillagerEntity entity = (VillagerEntity)event.getEntity();
-		VillagerGoalBase goal = new VillagerGoalBase(entity);
-		entity.goalSelector.addGoal(1, goal);
-		
+
+		// Register base goal for behavior state machine (lower priority)
+		VillagerGoalBase baseGoal = new VillagerGoalBase(entity);
+		entity.goalSelector.addGoal(5, baseGoal);
+
+		// Register eating goal (high priority - eating is essential)
+		VillagerGoalEat eatGoal = new VillagerGoalEat(entity);
+		entity.goalSelector.addGoal(2, eatGoal);
+
+		// Register sleep goal (medium priority)
+		VillagerGoalSleep sleepGoal = new VillagerGoalSleep(entity);
+		entity.goalSelector.addGoal(4, sleepGoal);
+
+		// Register work goal (medium-high priority)
+		VillagerGoalWork workGoal = new VillagerGoalWork(entity);
+		entity.goalSelector.addGoal(3, workGoal);
+
+		VillageCraft.LOGGER.debug("Registered VillageCraft AI goals for villager " + entity.getUniqueID());
 	}
 }
