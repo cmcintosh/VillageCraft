@@ -35,12 +35,13 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
-import net.neoforged.neoforge.registries.Registries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 public class WorkerProfession extends VillagerCraftBaseProfession {
 	
-	public static final ImmutableSet<Item> PROFESSION_ITEM = ImmutableSet.copyOf(ForgeRegistries.ITEMS);
-	public static final ImmutableSet<Block> PROFESSION_BLOCK = ImmutableSet.copyOf(ForgeRegistries.BLOCKS);
+	public static final ImmutableSet<Item> PROFESSION_ITEM = ImmutableSet.copyOf(BuiltInRegistries.ITEM);
+	public static final ImmutableSet<Block> PROFESSION_BLOCK = ImmutableSet.copyOf(BuiltInRegistries.BLOCK);
 	public VillagerProfession PROFESSION = ModVillagerProfessions.WORKER.get();
 	
 	/**
@@ -65,7 +66,9 @@ public class WorkerProfession extends VillagerCraftBaseProfession {
 	 * {@inheritDoc}
 	 */
 	public static void RegisterVillagerGoals(EntityJoinLevelEvent event) { 
-		VillagerEntity entity = (VillagerEntity)event.getEntity();
+		if (event.getEntity() instanceof Villager) {
+			Villager entity = (Villager)event.getEntity();
+		}
 	}
 
 }
