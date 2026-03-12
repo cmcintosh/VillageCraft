@@ -2,34 +2,18 @@ package com.villagecraft.datagen;
 
 import com.villagecraft.util.Reference;
 
-import net.minecraft.data.BlockStateProvider;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ExistingFileHelper;
-import net.neoforged.neoforge.common.model.Models;
+import net.minecraft.data.PackOutput;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class BlockStates extends BlockStateProvider {
 
-	public BlockStates(DataGenerator gen, ExistingFileHelper exFileHelper) {
-		super(gen);
+	public BlockStates(PackOutput output, ExistingFileHelper exFileHelper) {
+		super(output, Reference.MODID, exFileHelper);
 	}
 	
 	@Override
-	public void act(DirectoryCache cache) { 
-		super.act(cache);
-		// Register states for our Chair
-		registerChairBlock(cache);
-		
+	protected void registerStatesAndModels() { 
+		// TODO: Register block states
 	}
-	
-	/**
-	 * Registers the Chair block states
-	 * @param cache
-	 */
-	private void registerChairBlock(DirectoryCache cache) { 
-		ResourceLocation txt = new ResourceLocation(Reference.MODID, "block/chair");
-	}
-
 }

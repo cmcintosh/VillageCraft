@@ -3,17 +3,12 @@ package com.villagecraft.gui;
 import com.villagecraft.container.VillageCenterContainer;
 
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.world.inventory.Container;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 
-class BaseVillageEvent implements Button.IPressable { 
-	 protected Container container;
+class BaseVillageEvent { 
+	 protected AbstractContainerMenu container;
 	 
-	 public BaseVillageEvent(Container container) { 
+	 public BaseVillageEvent(AbstractContainerMenu container) { 
 		 this.container = container;
 	 }
-
-	@Override
-	public void onPress(Button p_onPress_1_) {
-		
-	} 
 }
