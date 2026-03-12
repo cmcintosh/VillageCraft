@@ -3,25 +3,23 @@ package com.villagecraft.capabilities;
 
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.core.Direction;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.CapabilityManager;
-import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.common.capabilities.AutoRegisterCapability;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
+// TODO: Reimplement Capabilities for NeoForge 1.20.2
+// Capabilities API changed significantly - now use DeferredRegister pattern
 @AutoRegisterCapability
 public class CapabilityVillagerAttribute {
 	
-	public static Capability<IVillagerHonor> VILLAGER_HONOR = CapabilityManager.get(new Capability.Token<>());
-	public static Capability<IVillagerHunger> VILLAGER_HUNGER = CapabilityManager.get(new Capability.Token<>());
-	public static Capability<IVillagerAttribute> VILLAGER_THIRST = CapabilityManager.get(new Capability.Token<>());
-	public static Capability<IVillagerAttribute> VILLAGER_DESIRE = CapabilityManager.get(new Capability.Token<>());
+	// TODO: Reimplement Capability registration
+	// public static Capability<IVillagerHonor> VILLAGER_HONOR;
+	// public static Capability<IVillagerHunger> VILLAGER_HUNGER;
+	// public static Capability<IVillagerAttribute> VILLAGER_THIRST;
+	// public static Capability<IVillagerAttribute> VILLAGER_DESIRE;
 	
 	
 	public static void register() {
-		// Capabilities are auto-registered in 1.20.2 with @AutoRegisterCapability
+		// TODO: Register capabilities using new 1.20.2 API
 	}
 
 	
@@ -47,11 +45,6 @@ public class CapabilityVillagerAttribute {
 			} 
 		}
 		
-		/**
-		 * Creates storage to track villager hunger
-		 * @author chris
-		 *
-		 */
 		public static class HungerStorage implements INBTSerializable<CompoundTag> {
 			private IVillagerHunger instance;
 			
@@ -82,7 +75,6 @@ public class CapabilityVillagerAttribute {
 			}
 			
 			@Override
-			
 			public CompoundTag serializeNBT() {
 				CompoundTag tag = new CompoundTag();
 				tag.putInt(instance.getName(), instance.getValue());
