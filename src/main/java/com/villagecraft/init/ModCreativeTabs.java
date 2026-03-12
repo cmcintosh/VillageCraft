@@ -12,9 +12,10 @@ public class ModCreativeTabs {
     @SubscribeEvent
     public static void buildContents(BuildCreativeModeTabContentsEvent event) {
         // Register items to their appropriate creative tabs
+        // TabKeys are now ResourceLocations, not constants
         
         // Building Blocks tab
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+        if (event.getTab() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(ModItems.VILLAGE_CENTER);
             event.accept(ModItems.TITLE_OFFICE);
             event.accept(ModItems.TOWN_HALL);
@@ -40,27 +41,27 @@ public class ModCreativeTabs {
         }
         
         // Functional Blocks tab (Decorations)
-        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+        if (event.getTab() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             // Add functional blocks here if needed
         }
         
         // Combat/Weapons tab
-        if (event.getTabKey() == CreativeModeTabs.COMBAT) {
+        if (event.getTab() == CreativeModeTabs.COMBAT) {
             // Add combat items here if needed
         }
         
         // Food tab
-        if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
+        if (event.getTab() == CreativeModeTabs.FOOD_AND_DRINKS) {
             event.accept(ModItems.BEER_BUCKET);
         }
         
         // Ingredients tab
-        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+        if (event.getTab() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.WORT);
         }
         
         // Spawn Eggs tab
-        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
+        if (event.getTab() == CreativeModeTabs.SPAWN_EGGS) {
             // Add spawn eggs here if needed
         }
     }
