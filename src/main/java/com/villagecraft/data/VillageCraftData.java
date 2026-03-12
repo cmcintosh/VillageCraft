@@ -1,30 +1,27 @@
 package com.villagecraft.data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.saveddata.SavedData;
 
 /**
  * VillageCraft World Data Storage
  * Manages all villages and nations in the world.
+ * Updated for NeoForge 1.20.2
  */
-public class VillageCraftData extends SavedData {
+public class VillageCraftData {
 
 	public static final String DATA_NAME = "VillageCraftData";
 	
 	public boolean initialized = false;
 	public int nextVillageId = 1;
 	
-	protected Map<Integer, VillageCraftVillage> villagesById;
-	protected Map<String, VillageCraftNation> nationsByName;
+	protected HashMap<Integer, VillageCraftVillage> villagesById;
+	protected HashMap<String, VillageCraftNation> nationsByName;
 	
 	public VillageCraftData() {
-		super();
 		this.villagesById = new HashMap<>();
 		this.nationsByName = new HashMap<>();
 	}
@@ -33,21 +30,10 @@ public class VillageCraftData extends SavedData {
 		return DATA_NAME;
 	}
 	
-	/**
-	 * Load data from world storage
-	 */
-	public static VillageCraftData load(ServerLevel level) {
-		// TODO: 1.20.2 computeIfAbsent signature changed - using createIfAbsent pattern
-		// return level.getDataStorage().computeIfAbsent(
-		// 	TYPE, DATA_NAME
-		// );
-		// For now, use a static instance
-		return new VillageCraftData();
-	}
-	
 	public void initialize() {
-		this.initialized = true;
-		this.setDirty();
+		if (!this.initialized) {
+			this.initialized = true;
+		}
 	}
 	
 	/**
@@ -69,7 +55,6 @@ public class VillageCraftData extends SavedData {
 	 */
 	public void addVillage(VillageCraftVillage village) {
 		this.villagesById.put(this.nextVillageId++, village);
-		this.setDirty();
 	}
 	
 	/**
@@ -78,11 +63,12 @@ public class VillageCraftData extends SavedData {
 	public int getNextVillageId() {
 		int id = this.nextVillageId;
 		this.nextVillageId++;
-		this.setDirty();
 		return id;
 	}
 	
-	@Override
+	/**
+	 * Save to NBT
+	 */
 	public CompoundTag save(CompoundTag compound) {
 		compound.putBoolean("initialized", this.initialized);
 		compound.putInt("nextVillageId", this.nextVillageId);
@@ -98,9 +84,10 @@ public class VillageCraftData extends SavedData {
 	}
 	
 	/**
-	 * Load from NBT
+	 * Load from NBT - used during deserialization
+	 * For now, use static instance pattern to handle server world data
 	 */
-	public static VillageCraftData load(CompoundTag tag) {
+	public static VillageCraftData loadFromNBT(CompoundTag tag) {
 		VillageCraftData data = new VillageCraftData();
 		data.initialized = tag.getBoolean("initialized");
 		data.nextVillageId = tag.getInt("nextVillageId");
@@ -118,7 +105,7 @@ public class VillageCraftData extends SavedData {
 		return data;
 	}
 	
-	// Nation methods - TODO: Full implementation
+	// Nation methods
 	
 	public VillageCraftNation getNation(String name) {
 		return this.nationsByName.get(name);
@@ -126,7 +113,6 @@ public class VillageCraftData extends SavedData {
 	
 	public void addNation(VillageCraftNation nation) {
 		this.nationsByName.put(nation.getName(), nation);
-		this.setDirty();
 	}
 	
 }

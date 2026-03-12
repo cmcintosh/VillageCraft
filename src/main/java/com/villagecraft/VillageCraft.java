@@ -7,6 +7,9 @@ import com.villagecraft.capabilities.CapabilityVillagerAttribute;
 import com.villagecraft.capabilities.HonorProvider;
 import com.villagecraft.capabilities.HungerProvider;
 import com.villagecraft.capabilities.ThirstProvider;
+import com.villagecraft.capabilities.VillagerHungerAttribute;
+import com.villagecraft.capabilities.VillagerHungerAttribute.ActivityLevel;
+import com.villagecraft.capabilities.IVillagerHunger;
 import com.villagecraft.data.VillageCraftData;
 import com.villagecraft.init.ModBlocks;
 import com.villagecraft.init.ModContainer;
@@ -91,6 +94,7 @@ public class VillageCraft {
 		NeoForge.EVENT_BUS.addListener(LandlordProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(this::entityJoinWorldEvent);
 		NeoForge.EVENT_BUS.addListener(this::onAttachCapabilitiesEvent);
+		NeoForge.EVENT_BUS.addListener(this::onVillagerTick);
 
 		this.LOGGER.debug(this.data.getName() + " Is created");
 	}
@@ -119,31 +123,68 @@ public class VillageCraft {
 	public void entityJoinWorldEvent(net.neoforged.neoforge.event.entity.EntityJoinLevelEvent event) {
 		Entity entity = event.getEntity();
 		if (entity instanceof IronGolem) {
-			// Iron golem spawn logic - TODO
+			// Iron golem spawn logic - TODO for Phase 2
 		}
 
 		if (entity instanceof Villager) {
 			Villager villager = (Villager) event.getEntity();
 
 			if (!villager.level().isClientSide()) {
-				// TODO: Reimplement data storage initialization for 1.20.2
-				// SavedData.computeIfAbsent() signature changed
-				/*
-				if (this.data.initialized == false) {
-					ServerLevel world = (ServerLevel) villager.level();
-					world.getDataStorage().computeIfAbsent(() -> {
-						VillageCraft.data.setWorld(world);
-						return VillageCraft.data;
-					}, "VillageCraftData");
+				// NeoForge 1.20.2: Initialize data storage
+				// For now, use static instance - full SavedData.Factory integration TODO
+				if (!VillageCraft.data.initialized) {
 					VillageCraft.data.initialize();
 				}
-				*/
-				VillageCraft.data.initialize();
-
+				
 				// TODO: Reimplement AI goals for 1.20.2
 				// villager.goalSelector.addGoal(1, new VillagerGoalBase(villager));
 				// villager.goalSelector.addGoal(1, new VillagerHungerGoal(villager));
 			}
 		}
+	}
+	
+	/**
+	 * Tick event for villagers - handles hunger decay and starvation
+	 */
+	@SubscribeEvent
+	public void onVillagerTick(net.neoforged.neoforge.event.entity.living.LivingEvent.LivingTickEvent event) {
+		if (event.getEntity() instanceof Villager villager) {
+			if (villager.level().isClientSide()) return;
+			
+			// Get hunger capability
+			var hungerCap = villager.getCapability(CapabilityVillagerAttribute.VILLAGER_HUNGER);
+			hungerCap.ifPresent(hunger -> {
+				if (hunger instanceof VillagerHungerAttribute hungerAttr) {
+					// Determine activity level based on villager state
+					ActivityLevel activity = determineActivityLevel(villager);
+					
+					// Tick hunger with activity-based decay
+					hungerAttr.tick(villager, activity);
+				}
+			});
+		}
+	}
+	
+	/**
+	 * Determine the current activity level of a villager
+	 */
+	private ActivityLevel determineActivityLevel(Villager villager) {
+		// Check if villager has a target (combat or fleeing)
+		if (villager.getTarget() != null) {
+			return ActivityLevel.COMBAT;
+		}
+		
+		// Check if villager is trading/working
+		if (villager.isTrading()) {
+			return ActivityLevel.WORKING;
+		}
+		
+		// Check if villager is moving
+		if (villager.getDeltaMovement().lengthSqr() > 0.001) {
+			return ActivityLevel.WALKING;
+		}
+		
+		// Default to idle
+		return ActivityLevel.IDLE;
 	}
 }
