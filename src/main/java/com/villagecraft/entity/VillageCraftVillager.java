@@ -7,6 +7,10 @@ import com.villagecraft.entity.goal.VillagerHungerGoal;
 import com.villagecraft.entity.goal.VillagerGoalGotoVillageCenter;
 import com.villagecraft.entity.goal.HealGolemGoal;
 import com.villagecraft.entity.goal.WanderBardPerformGoal;
+import com.villagecraft.entity.goal.WanderSingerPerformGoal;
+import com.villagecraft.entity.goal.WanderDrummerPerformGoal;
+import com.villagecraft.entity.goal.BassistPerformGoal;
+import com.villagecraft.init.ModVillagerProfessions;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
@@ -77,9 +81,21 @@ public class VillageCraftVillager extends Villager {
 			this.goalSelector.addGoal(3, new VillagerGoalGotoVillageCenter(this));
 		}
 		
-		// Priority 4: Bard entertainment (all employed villagers can perform for the village)
-		// This represents village entertainment - everyone can contribute to morale
-		this.goalSelector.addGoal(4, new WanderBardPerformGoal(this));
+		// Priority 4: Musical performance goals (profession-specific)
+		// Musicians have unique performance behaviors
+		if (this.getVillagerData().getProfession() == ModVillagerProfessions.BARD.get()) {
+			this.goalSelector.addGoal(4, new WanderBardPerformGoal(this));
+		} else if (this.getVillagerData().getProfession() == ModVillagerProfessions.SINGER.get()) {
+			this.goalSelector.addGoal(4, new WanderSingerPerformGoal(this));
+		} else if (this.getVillagerData().getProfession() == ModVillagerProfessions.DRUMMER.get()) {
+			this.goalSelector.addGoal(4, new WanderDrummerPerformGoal(this));
+		} else if (this.getVillagerData().getProfession() == ModVillagerProfessions.BASSIST.get()) {
+			this.goalSelector.addGoal(4, new BassistPerformGoal(this));
+		} else if (this.getVillagerData().getProfession() != VillagerProfession.NITWIT &&
+		           this.getVillagerData().getProfession() != VillagerProfession.NONE) {
+			// Non-musicians can still perform basic bard style (representing village morale)
+			this.goalSelector.addGoal(4, new WanderBardPerformGoal(this));
+		}
 		
 		VillageCraft.LOGGER.debug("VillageCraftVillager registered custom goals for profession {}", 
 			this.getVillagerData().getProfession());
