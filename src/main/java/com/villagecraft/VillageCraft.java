@@ -86,13 +86,8 @@ public class VillageCraft {
 		NeoForge.EVENT_BUS.addListener(MayorProfession::registerTrades);
 		
 		// Goals registered only for professions that have custom goal implementations
-		NeoForge.EVENT_BUS.addListener(WorkerProfession::registerGoals);
-		NeoForge.EVENT_BUS.addListener(AlchemistProfession::registerGoals);
-		NeoForge.EVENT_BUS.addListener(MayorProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(InnkeeperProfession::registerTrades);
-		NeoForge.EVENT_BUS.addListener(InnkeeperProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(LandlordProfession::registerTrades);
-		NeoForge.EVENT_BUS.addListener(LandlordProfession::registerGoals);
 		
 		// Musical Ensemble professions
 		NeoForge.EVENT_BUS.addListener(BardProfession::registerTrades);

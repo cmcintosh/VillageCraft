@@ -18,16 +18,20 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
  * Profession class for Merchant villagers.
  *
  * The Merchant is the entry-level economic profession, providing basic
- * resource trades for early village income. They sell raw materials and
- * buy common items, but at less favorable prices than the Trader.
+ * resource trades for early village income. They buy raw materials from
+ * players and sell basic building supplies.
  *
- * Economic Progression:
- * - Merchant (Level 3) + Manager Notebook → Trader (via promotion)
- * - Trader (Level 3) + Diamond Block → Manager (via promotion)
- * - Manager → later progression chain
+ * How to Create:
+ * Give an unemployed villager a crafted Merchant Ledger.
  *
- * The Merchant primarily sells basic resources needed for village construction
- * and maintenance. They are the starting point for the economic tree.
+ * Economic Progression Chain:
+ * - Merchant (Level 3) + Emerald Block → Trader
+ *
+ * The Merchant gives fair prices for basic resources. Level them up
+ * quickly to access better trades as a Trader.
+ *
+ * Note: Merchants do NOT sell profession tokens. Those are crafted
+ * by players and given directly to unemployed villagers.
  */
 public class MerchantProfession {
 
@@ -50,45 +54,44 @@ public class MerchantProfession {
                 }
             }
 
-            // Tier 1 (Novice) - Very basic goods, higher prices
-            // The merchant gives worse deals - that's why you level them up
+            // Tier 1 (Novice) - Basic economic goods
+            // Buy from players, sell basic supplies
             trades.get(1).addAll(Arrays.asList(
-                // Sell saplings (village expansion)
+                // Buy oak logs (player gathering)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.OAK_LOG, 16),
+                    new ItemStack(Items.EMERALD, 1),
+                    16, 2, 0.05f
+                ),
+                // Buy wheat (player farming)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.WHEAT, 20),
+                    new ItemStack(Items.EMERALD, 1),
+                    12, 2, 0.05f
+                ),
+                // Sell oak saplings (village expansion)
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD, 3),
                     new ItemStack(Items.OAK_SAPLING, 4),
                     12, 2, 0.05f
-                ),
-                // Buy seeds (valuable to merchant)
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.WHEAT_SEEDS, 24),
-                    new ItemStack(Items.EMERALD, 1),
-                    10, 2, 0.05f
-                ),
-                // Sell sticks (basic resource)
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 2),
-                    new ItemStack(Items.STICK, 16),
-                    8, 2, 0.05f
                 )
             ));
 
-            // Tier 2 (Apprentice) - Better materials
-            // Still basic, but useful for village building
+            // Tier 2 (Apprentice) - Building materials
             trades.get(2).addAll(Arrays.asList(
-                // Sell sand (building material)
+                // Buy cobblestone (player mining)
                 (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 2),
-                    new ItemStack(Items.SAND, 16),
-                    10, 5, 0.05f
+                    new ItemStack(Items.COBBLESTONE, 32),
+                    new ItemStack(Items.EMERALD, 1),
+                    16, 5, 0.05f
                 ),
-                // Buy leather (from village hunters)
+                // Buy leather (player hunting)
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.LEATHER, 8),
                     new ItemStack(Items.EMERALD, 2),
                     6, 5, 0.05f
                 ),
-                // Sell arrows (defense/hunting)
+                // Sell arrows (defense)
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD, 4),
                     new ItemStack(Items.ARROW, 8),
@@ -96,78 +99,75 @@ public class MerchantProfession {
                 )
             ));
 
-            // Tier 3 (Journeyman) - Essential village needs
-            // Torches, basic tools, and lanterns
+            // Tier 3 (Journeyman) - Village needs
             trades.get(3).addAll(Arrays.asList(
+                // Buy string (spider drops)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.STRING, 16),
+                    new ItemStack(Items.EMERALD, 2),
+                    8, 10, 0.05f
+                ),
                 // Sell torches (lighting)
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD, 3),
                     new ItemStack(Items.TORCH, 32),
                     12, 10, 0.05f
                 ),
-                // Buy wool (from village shepherds)
+                // Sell bread (food)
                 (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.WHITE_WOOL, 16),
-                    new ItemStack(Items.EMERALD, 2),
+                    new ItemStack(Items.EMERALD, 3),
+                    new ItemStack(Items.BREAD, 4),
                     8, 10, 0.05f
-                ),
-                // Sell lanterns (decorative lighting)
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 6),
-                    new ItemStack(Items.LANTERN, 4),
-                    6, 10, 0.05f
                 )
             ));
 
             // Tier 4 (Expert) - Better materials
-            // Glass, iron bars, building blocks
             trades.get(4).addAll(Arrays.asList(
+                // Buy wool (player shearing)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.WHITE_WOOL, 16),
+                    new ItemStack(Items.EMERALD, 2),
+                    8, 15, 0.05f
+                ),
                 // Sell glass (windows)
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD, 4),
                     new ItemStack(Items.GLASS, 8),
                     8, 15, 0.05f
                 ),
-                // Buy clay (from village gatherers)
+                // Sell lanterns (decorative)
                 (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.CLAY_BALL, 24),
-                    new ItemStack(Items.EMERALD, 2),
+                    new ItemStack(Items.EMERALD, 6),
+                    new ItemStack(Items.LANTERN, 4),
                     6, 15, 0.05f
-                ),
-                // Sell iron bars (decoration/fortification)
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 8),
-                    new ItemStack(Items.IRON_BARS, 16),
-                    4, 15, 0.05f
                 )
             ));
 
-            // Tier 5 (Master) - Best merchant items
-            // Still not as good as Trader, but reasonable
+            // Tier 5 (Master) - Advanced goods
             trades.get(5).addAll(Arrays.asList(
-                // Sell redstone (automation)
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 5),
-                    new ItemStack(Items.REDSTONE, 16),
-                    6, 30, 0.05f
-                ),
                 // Buy copper (new resource)
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.COPPER_INGOT, 8),
                     new ItemStack(Items.EMERALD, 2),
                     8, 30, 0.05f
                 ),
-                // Sell minecarts (transportation)
+                // Sell redstone
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 5),
+                    new ItemStack(Items.REDSTONE, 16),
+                    6, 30, 0.05f
+                ),
+                // Sell iron bars (decoration)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 8),
+                    new ItemStack(Items.IRON_BARS, 16),
+                    4, 30, 0.05f
+                ),
+                // Sell minecarts (transport)
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD, 12),
                     new ItemStack(Items.MINECART, 1),
                     2, 30, 0.05f
-                ),
-                // Sell rail (village transport)
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 16),
-                    new ItemStack(Items.RAIL, 32),
-                    3, 30, 0.05f
                 )
             ));
 
