@@ -78,12 +78,12 @@ public class ModItems {
     /**
      * Professions buildings
      */
-    public static final DeferredHolder<Item, Item> TITLE_OFFICE = ITEMS.register("title_office", () -> ( (new BlockItem(  ModBlocks.BLOCK_TITLE_OFFICE.get(), ModBlocks.BLOCK_TITLE_OFFICE.get().item_properties))) );
-    public static final DeferredHolder<Item, Item> TOWN_HALL = ITEMS.register("town_hall", () -> ( (new BlockItem(  ModBlocks.BLOCK_TOWN_HALL.get(), ModBlocks.BLOCK_TOWN_HALL.get().item_properties))) );
+    public static final DeferredHolder<Item, Item> TITLE_OFFICE = ITEMS.register("title_office", () -> ( (new BlockItem(  ModBlocks.TITLE_OFFICE.get(), ModBlocks.TITLE_OFFICE.get().item_properties))) );
+    public static final DeferredHolder<Item, Item> TOWN_HALL = ITEMS.register("town_hall", () -> ( (new BlockItem(  ModBlocks.TOWN_HALL.get(), ModBlocks.TOWN_HALL.get().item_properties))) );
     // public static final DeferredHolder<Item, Item> SUPPLY_OFFICE = ITEMS.register("supply_office", () -> ( (new BlockItem(  ModBlocks.BLOCK_SUPPLY_OFFICE.get(), ModBlocks.BLOCK_SUPPLY_OFFICE.get().item_properties))) );
-    public static final DeferredHolder<Item, Item> EMBASSY = ITEMS.register("embassy", () -> ( (new BlockItem(  ModBlocks.BLOCK_EMBASSY.get(), ModBlocks.BLOCK_EMBASSY.get().item_properties))) );
-    public static final DeferredHolder<Item, Item> INN = ITEMS.register("inn", () -> ( (new BlockItem(  ModBlocks.BLOCK_INN.get(), ModBlocks.BLOCK_INN.get().item_properties))) );
-    public static final DeferredHolder<Item, Item> PYROTECHNIC = ITEMS.register("pyrotechnic_worktable", () -> ( (new BlockItem(  ModBlocks.BLOCK_PYROTECHNIC_TABLE.get(), ModBlocks.BLOCK_PYROTECHNIC_TABLE.get().item_properties))) );
+    public static final DeferredHolder<Item, Item> EMBASSY = ITEMS.register("embassy", () -> ( (new BlockItem(  ModBlocks.EMBASSY.get(), ModBlocks.EMBASSY.get().item_properties))) );
+    public static final DeferredHolder<Item, Item> INN = ITEMS.register("inn", () -> ( (new BlockItem(  ModBlocks.INN.get(), ModBlocks.INN.get().item_properties))) );
+    public static final DeferredHolder<Item, Item> PYROTECHNIC = ITEMS.register("pyrotechnic_worktable", () -> ( (new BlockItem(  ModBlocks.PYROTECHNIC_TABLE.get(), ModBlocks.PYROTECHNIC_TABLE.get().item_properties))) );
     public static final DeferredHolder<Item, Item> AUCTION_HOUSE = ITEMS.register("auction_house", () -> ( (new BlockItem(  ModBlocks.BLOCK_AUCTION_HOUSE.get(), ModBlocks.BLOCK_AUCTION_HOUSE.get().item_properties))) );
     public static final DeferredHolder<Item, Item> GUITAR_STAND = ITEMS.register("guitar_stand", () -> ( (new BlockItem(  ModBlocks.GUITAR_STAND.get(), ModBlocks.GUITAR_STAND.get().item_properties))) );
     public static final DeferredHolder<Item, Item> MICROPHONE_STAND = ITEMS.register("microphone_stand", () -> ( (new BlockItem(  ModBlocks.MICROPHONE_STAND.get(), ModBlocks.MICROPHONE_STAND.get().item_properties))) );
