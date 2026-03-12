@@ -4,23 +4,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.level.saveddata.SavedData;
 
 public class VillageCraftVillage extends SavedData implements Serializable {
 	
 	public VillageCraftVillage(String name) {
-		super(name + "_village");
+		super();
+		this.name = name;
 	}
-	
 
 	protected String name;
-	protected ArrayList<Villager> villagers; 
-		
+	protected ArrayList<Villager> villagers;
+	
 	/**
-	 * Gets the villages name
-	 * @return
+	 * Gets the village name
 	 */
 	public String getName() {
 		return this.name;
@@ -28,7 +27,6 @@ public class VillageCraftVillage extends SavedData implements Serializable {
 	
 	/**
 	 * Sets the village name
-	 * @param name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -63,16 +61,14 @@ public class VillageCraftVillage extends SavedData implements Serializable {
 	}
 
 	@Override
-	public void read(CompoundTag nbt) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public CompoundTag write(CompoundTag compound) {
-		// TODO Auto-generated method stub
-		return null;
+	public CompoundTag save(CompoundTag compound) {
+		// TODO: Reimplement for 1.20.2
+		return compound;
 	}
 	
-	
+	// TODO: Add static load() factory for 1.20.2
+	public static VillageCraftVillage load(CompoundTag tag) {
+		VillageCraftVillage village = new VillageCraftVillage("<unnamed>");
+		return village;
+	}
 }
