@@ -49,32 +49,32 @@ import net.minecraft.client.renderer.entity.VillagerRenderer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.npc.VillagerEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
-import net.minecraft.world.entity.animal.Golem;
-import net.minecraft.world.inventory.Container;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 // TODO: MenuType import;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemModelsProperties;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.MerchantOffer;
+import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.VillagerTradingManager;
 import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
 // Removed - use DeferredRegister;
 import net.neoforged.neoforge.event.entity.EntityEvent;
-import net.neoforged.neoforge.event.entity.EntityJoinWorldEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
@@ -91,7 +91,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.Mod.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig.Type;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.event.lifecycle.FMLServerAboutToStartEvent;
+// Removed in NeoForge 1.20.2 - use LifecycleEvent equivalent
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -149,15 +149,10 @@ public class VillageCraft {
 		ModEntity.ENTITY_TYPES.register(modEventBus);
 
 		// Registering the villager trades
-		MinecraftForge.EVENT_BUS.addListener(this::villagerTrades);
-		MinecraftForge.EVENT_BUS.addListener(this::wandererTrades);
-		MinecraftForge.EVENT_BUS.addListener(this::entityJoinWorldEvent);
-		MinecraftForge.EVENT_BUS.addListener(this::onAttachCapabilitiesEvent);
-
-
-
-		// Register GUI handlers
-		MinecraftForge.EVENT_BUS.register(this);
+		NeoForge.EVENT_BUS.addListener(this::villagerTrades);
+		NeoForge.EVENT_BUS.addListener(this::wandererTrades);
+		NeoForge.EVENT_BUS.addListener(this::entityJoinWorldEvent);
+		NeoForge.EVENT_BUS.addListener(this::onAttachCapabilitiesEvent);
 
 		// EntityJoinWorldEvent
 		this.LOGGER.debug(this.data.getName() + " Is created");
@@ -167,7 +162,7 @@ public class VillageCraft {
 	 * Register Capabilities hook.
 	 */
 	public void onAttachCapabilitiesEvent(AttachCapabilitiesEvent<Entity> e) {
-		if (e.getObject() instanceof VillagerEntity) {
+		if (e.getObject() instanceof Villager) {
 			HungerProvider hProvider = new HungerProvider();
 			e.addCapability(new ResourceLocation(Reference.MODID, "hunger"), hProvider);
 			e.addListener(hProvider::invalidate);
@@ -208,14 +203,14 @@ public class VillageCraft {
 
 
     @SubscribeEvent
-    public void entityJoinWorldEvent(EntityJoinWorldEvent event) {
+    public void entityJoinWorldEvent(EntityJoinLevelEvent event) {
   	  Entity entity = event.getEntity();
-  	  	if (entity instanceof GolemEntity && !(entity instanceof Golem) ) {
+  	  	if (entity instanceof IronGolem) {
+  	  		// Iron golem spawn logic
+  	  }
 
-  	  	}
-
-        if (entity instanceof VillagerEntity) {
-          VillagerEntity villager = (VillagerEntity)event.getEntity();
+        if (entity instanceof Villager) {
+          Villager villager = (Villager)event.getEntity();
 
       	  if (!villager.level().isClientSide()) {
       		if (this.data.initialized == false) {
@@ -258,8 +253,8 @@ public class VillageCraft {
             		VillageCenterScreen::new
             );
             
-            event.enqueueWork(() -> {
-                ItemModelsProperties.func_239418_a_( 
+            			event.enqueueWork(() -> {
+                ItemProperties.register( 
                 		ModItems.VILLAGE_CENTER.get(), 
                 		new ResourceLocation(Reference.MODID, "location"), 
                 		new ItemVillageCenter.LocationProperty()

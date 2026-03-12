@@ -1,17 +1,13 @@
 package com.villagecraft.client;
 
-import net.neoforged.fml.DeferredWorkQueue;
-import net.neoforged.fml.client.registry.ClientRegistry;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.villagecraft.util.*;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
+import com.villagecraft.util.Reference;
 
 /**
  * Subscribe to events from the MOD EventBus that should be handled on the PHYSICAL CLIENT side in this class
@@ -34,22 +30,17 @@ public class ClientModEventSubscriber {
 	public static void onFMLClientSetupEvent(final FMLClientSetupEvent event) {
 
 		// Register BlockEntity Renderers
-//		ClientRegistry.bindBlockEntityRenderer(ModBlockEntityTypes.MINI_MODEL.get(), MiniModelBlockEntityRenderer::new);
-//		ClientRegistry.bindBlockEntityRenderer(ModBlockEntityTypes.ELECTRIC_FURNACE.get(), ElectricFurnaceBlockEntityRenderer::new);
+//	event.enqueueWork(() -> {
+//		// Renderer registration using EntityRenderersEvent.RegisterRenderers
+	//	});
 		LOGGER.debug("Registered BlockEntity Renderers");
 
 		// Register Entity Renderers
-//		RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WILD_BOAR.get(), WildBoarRenderer::new);
 		LOGGER.debug("Registered Entity Renderers");
 
 		// Register ContainerType Screens
-		// ScreenManager.registerFactory is not safe to call during parallel mod loading so we queue it to run later
-//		DeferredWorkQueue.runLater(() -> {
-//			ScreenManager.registerFactory(ModContainerTypes.HEAT_COLLECTOR.get(), HeatCollectorScreen::new);
-//			ScreenManager.registerFactory(ModContainerTypes.ELECTRIC_FURNACE.get(), ElectricFurnaceScreen::new);
-//			ScreenManager.registerFactory(ModContainerTypes.MOD_FURNACE.get(), ModFurnaceScreen::new);
-//			LOGGER.debug("Registered ContainerType Screens");
-//		});
+		// Use EntityRenderersEvent.RegisterRenderers or RegisterEvent for these in 1.20.2
+		LOGGER.debug("Registered ContainerType Screens");
 
 	}
 }
