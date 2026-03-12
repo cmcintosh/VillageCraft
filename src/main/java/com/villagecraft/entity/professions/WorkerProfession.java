@@ -65,15 +65,19 @@ public class WorkerProfession extends VillagerCraftBaseProfession {
 	
 	/**
 	 * Register Worker goals - go to work site, gather resources
+	 * 
+	 * Note: Core goals are registered in VillageCraftVillager.registerGoals()
+	 * including HealGolemGoal and VillagerGoalGotoVillageCenter.
+	 * Worker-specific resource gathering and delivery goals can be
+	 * added here if needed for advanced behavior.
 	 */
 	public static void registerGoals(EntityJoinLevelEvent event) { 
 		if (event.getEntity() instanceof Villager villager) {
 			// Check if this villager is a worker
 			if (villager.getVillagerData().getProfession() == ModVillagerProfessions.WORKER.get()) {
-				// TODO: Add worker-specific goals
-				// - Go to village center/work station
-				// - Deliver items to storage
-				// - Rest when tired
+				// Worker goals are handled by VillageCraftVillager.registerGoals()
+				// Additional worker-specific behaviors (resource gathering, tool use)
+				// can be registered here if needed
 			}
 		}
 	}
