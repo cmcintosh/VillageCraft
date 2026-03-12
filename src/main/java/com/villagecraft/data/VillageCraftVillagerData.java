@@ -3,8 +3,6 @@ package com.villagecraft.data;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
-import com.villagecraft.VillageCraft;
-
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.saveddata.SavedData;
 
@@ -16,39 +14,19 @@ public class VillageCraftVillagerData extends SavedData {
 	
 
 	public VillageCraftVillagerData() {
-		super("VillagerCraftVillagerData");
+		super();
 	}
-
-	@Override
-	public void read(CompoundTag nbt) {
-		// load the skills
-		this.skills = new ArrayList<Skill>();
-		EnumSet.allOf(SkillType.class).forEach(t -> {
-			Skill s = new Skill(t, nbt.getInt(t + "_skill"));
-			this.skills.add(s);
-		});
-		
-		// Load the village name
-		this.nation = VillageCraft.data.getNation(nbt.getString("nation"));
-		this.village = this.nation.getVillage(nbt.getString("village"));
-		
+	
+	// TODO: Implement load factory for 1.20.2
+	public static VillageCraftVillagerData load(CompoundTag tag) {
+		VillageCraftVillagerData data = new VillageCraftVillagerData();
+		return data;
 	}
-
+	
 	@Override
-	public CompoundTag write(CompoundTag compound) {
-		// TODO Auto-generated method stub
-		
-		// Save skills
-		this.skills.forEach(s -> {
-			compound.putInt(s.getType() + "_skill", s.getExp());
-		});
-		
-		// Save Nation name
-		compound.putString("nation", this.nation.getName());
-		
-		// Save Village name.
-		compound.putString("village", this.village.getName());
-		
+	public CompoundTag save(CompoundTag compound) {
+		// 1.20.2: save() method
+		// TODO: Reimplement skill saving
 		return compound;
 	}
 
