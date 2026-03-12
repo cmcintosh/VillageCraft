@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import com.villagecraft.capabilities.CapabilityVillagerAttribute;
 import com.villagecraft.capabilities.HonorProvider;
 import com.villagecraft.capabilities.HungerProvider;
+import com.villagecraft.capabilities.ThirstProvider;
 import com.villagecraft.data.VillageCraftData;
 import com.villagecraft.init.ModBlocks;
 import com.villagecraft.init.ModContainer;
@@ -96,19 +97,22 @@ public class VillageCraft {
 
 	/**
 	 * Register Capabilities hook.
-	 * TODO: Reimplement for NeoForge 1.20.2 - Capability API changed
+	 * Updated for NeoForge 1.20.2
 	 */
 	public void onAttachCapabilitiesEvent(AttachCapabilitiesEvent<Entity> e) {
-		// Commented - Capability API changed in 1.20.2
-		// if (e.getObject() instanceof Villager) {
-		// 	HungerProvider hProvider = new HungerProvider();
-		// 	e.addCapability(new ResourceLocation(Reference.MODID, "hunger"), hProvider);
-		// 	e.addListener(hProvider::invalidate);
-		//
-		// 	HonorProvider provider = new HonorProvider();
-		// 	e.addCapability(new ResourceLocation(Reference.MODID, "honor"), provider);
-		// 	e.addListener(provider::invalidate);
-		// }
+		if (e.getObject() instanceof Villager) {
+			HungerProvider hProvider = new HungerProvider();
+			e.addCapability(new ResourceLocation(Reference.MODID, "hunger"), hProvider);
+			e.addListener(hProvider::invalidate);
+
+			HonorProvider provider = new HonorProvider();
+			e.addCapability(new ResourceLocation(Reference.MODID, "honor"), provider);
+			e.addListener(provider::invalidate);
+			
+			ThirstProvider tProvider = new ThirstProvider();
+			e.addCapability(new ResourceLocation(Reference.MODID, "thirst"), tProvider);
+			e.addListener(tProvider::invalidate);
+		}
 	}
 
 	@SubscribeEvent

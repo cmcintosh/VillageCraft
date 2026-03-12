@@ -1,27 +1,51 @@
 package com.villagecraft.capabilities;
 
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.LazyOptional;
 
-// TODO: Reimplement for NeoForge 1.20.2 - Capability API changed
-public class HonorProvider {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+/**
+ * Honor capability provider for NeoForge 1.20.2
+ */
+public class HonorProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
 	
-	private VillagerHonorAttribute attribute = new VillagerHonorAttribute(); 
+	private final VillagerHonorAttribute attribute = new VillagerHonorAttribute();
+	private final LazyOptional<IVillagerHonor> optional = LazyOptional.of(() -> attribute);
+
+	@Nonnull
+	@Override
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+		if (cap == CapabilityVillagerAttribute.VILLAGER_HONOR) {
+			return optional.cast();
+		}
+		return LazyOptional.empty();
+	}
 
 	public void invalidate() {
-		// TODO: LazyOptional removed - use new API
+		optional.invalidate();
 	}
 	
-	// TODO: Reimplement getCapability with new API
-	public <T> Object getCapability(Object cap, Object side) {
-		return null;
+	public IVillagerHonor getAttribute() {
+		return attribute;
 	}
 
+	@Override
 	public CompoundTag serializeNBT() {
-		// TODO: writeNBT method changed
-		return new CompoundTag();
+		CompoundTag tag = new CompoundTag();
+		tag.putInt("honor", attribute.getValue());
+		return tag;
 	}
 
+	@Override
 	public void deserializeNBT(CompoundTag nbt) {
-		// TODO: readNBT method changed
+		if (nbt.contains("honor")) {
+			attribute.setValue(nbt.getInt("honor"));
+		}
 	}
 }
