@@ -109,7 +109,8 @@ public class VillagerGoalBase extends Goal {
 	}
 	
 	public PoiType getVillagerPOI() {
-		// TODO: Implement POI lookup for 1.20.2
+		// NeoForge 1.20.2: POI is determined by profession
+		// This is used by the locate block goal which handles actual POI searching
 		return this.targetPoiType;
 	}
 	
