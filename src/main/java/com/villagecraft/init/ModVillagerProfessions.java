@@ -76,6 +76,17 @@ public class ModVillagerProfessions {
 					null
 			));
 	
+	// BUILDER profession - referenced by BuilderProfession.java
+	public static final DeferredHolder\<VillagerProfession, VillagerProfession\> BUILDER = PROFESSIONS.register("builder",
+			() -> new VillagerProfession(
+					"builder",
+					(holder) -> holder.value() == VILLAGE_CENTER.get(),
+					(holder) -> holder.value() == VILLAGE_CENTER.get(),
+					ImmutableSet.of(),
+					ImmutableSet.of(),
+					null
+			));
+	
 	// Helper method
 	public static Set<BlockState> getAllStates(Block block) {
 		return ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates());
