@@ -193,19 +193,17 @@ public class VillageCraft {
 	 * @param event
 	 */
     // public void wandererTrades(WandererTradesEvent event)
-    {
-/*
-        List<ITrade> genericList = event.getGenericTrades();
-        RandomTradeBuilder.forEachWanderer((tradeBuild) -> genericList.add(tradeBuild.build()));
-
-        List<ITrade> rareList = event.getRareTrades();
-        RandomTradeBuilder.forEachWandererRare((tradeBuild) -> rareList.add(tradeBuild.build()));
-    }
+    // {
+    //    List<VillagerTrades.ItemListing> genericList = event.getGenericTrades();
+    //    RandomTradeBuilder.forEachWanderer((tradeBuild) -> genericList.add(tradeBuild.build()));
+    //
+    //    List<VillagerTrades.ItemListing> rareList = event.getRareTrades();
+    //    RandomTradeBuilder.forEachWandererRare((tradeBuild) -> rareList.add(tradeBuild.build()));
+    // }
 
 
     @SubscribeEvent
-    public void entityJoinWorldEvent(EntityJoinLevelEvent event) \{
-/*
+    public void entityJoinWorldEvent(EntityJoinLevelEvent event) {
   	  Entity entity = event.getEntity();
   	  	if (entity instanceof IronGolem) {
   	  		// Iron golem spawn logic
@@ -231,7 +229,6 @@ public class VillageCraft {
         	BardProfession.RegisterVillagerGoals(event);
 
       	  }
-*/
         }
     }
 
