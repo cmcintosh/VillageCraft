@@ -18,6 +18,6 @@ public class ModFoods {
 	@SuppressWarnings("deprecation")
 	public static final DeferredHolder<Item, Item> BEER = ITEMS.register("beer",
 			() -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1)
-					.saturationModifier(1.2f).effect(new MobEffectInstance(MobEffects.CONFUSION, 3000, 5), 0.7f).build())));
+					.saturationMod(1.2f).effect(new MobEffectInstance(MobEffects.CONFUSION, 3000, 5), 0.7f).build())));
 	
 }

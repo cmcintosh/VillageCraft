@@ -87,7 +87,7 @@ public final class ModBlocks {
 	// caravaneer
 	// Utility function
 	public static final Set<BlockState> getAllStates(Block block) { 
-		ImmutableList states = block.getStateContainer().getValidStates();
+		ImmutableList states = block.getStateDefinition().getPossibleStates();
 		return ImmutableSet.copyOf(states);
 	}
 }
