@@ -21,6 +21,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -30,21 +31,21 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class ModItems {
 	//The ITEMS deferred register in which you can register items.
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Reference.MODID);
-	
+
 	/**
 	 * Village interaction Items
 	 */
 	public static final DeferredHolder<Item, Item> VILLAGE_CENTER = ITEMS.register("village_center", () -> ( (new ItemVillageCenter(  ModBlocks.BLOCK_VILLAGE_CENTER.get(), new Item.Properties()))) );
 	public static final DeferredHolder<Item, Item> NATION_CHARTER = ITEMS.register("nationcharter", () -> (Item) new ItemNationCharter(ItemNationCharter.properties) );
     public static final DeferredHolder<Item, Item> VILLAGECRAFT_CHAIR = ITEMS.register("chair", () -> ( (new BlockItem(  ModBlocks.BLOCK_CHAIR.get(), new Item.Properties()))) );
-    
-    
+
+
     /**
      * Crafting components
      */
     public static final DeferredHolder<Item, Item> WORT = ITEMS.register("wort", () -> (Item) new ItemWort(ItemWort.properties) );
     public static final DeferredHolder<Item, Item> BEER_BUCKET = ITEMS.register("beer_bucket", () -> (Item) new ItemBeerBucket(ItemBeerBucket.properties) );
-    
+
 
     /**
      * Professions
@@ -93,18 +94,27 @@ public class ModItems {
     public static final DeferredHolder<Item, Item> VILLAGE_MANAGER = ITEMS.register("village_manager", () -> ( (new BlockItem(  ModBlocks.VILLAGE_MANAGER.get(), new Item.Properties()))) );
     public static final DeferredHolder<Item, Item> AUCTION_HOUSE_ITEM = ITEMS.register("auction_house", () -> ( (new BlockItem(  ModBlocks.AUCTION_HOUSE.get(), new Item.Properties()))) );
     public static final DeferredHolder<Item, Item> AUCTION_HOUSE_BLOCK = ITEMS.register("auction_house_block", () -> ( (new BlockItem(  ModBlocks.AUCTION_HOUSE.get(), new Item.Properties()))) );
-    
+
     public static final DeferredHolder<Item, Item> INN_BLOCK = ITEMS.register("inn_block", () -> ( (new BlockItem(  ModBlocks.INN.get(), new Item.Properties()))) );
-    public static final DeferredHolder<Item, Item> INN_ITEM = ITEMS.register("inn_item", () -> ( (new BlockItem(  ModBlocks.INN.get(), new Item.Properties()))) );    
-    
+    public static final DeferredHolder<Item, Item> INN_ITEM = ITEMS.register("inn_item", () -> ( (new BlockItem(  ModBlocks.INN.get(), new Item.Properties()))) );
+
     public static final DeferredHolder<Item, Item> EMSSY_BLOCK = ITEMS.register("emssy_block", () -> ( (new BlockItem(  ModBlocks.EMBASSY.get(), new Item.Properties()))) );
     public static final DeferredHolder<Item, Item> EMBASSY_ITEM = ITEMS.register("embassy_item", () -> ( (new BlockItem(  ModBlocks.EMBASSY.get(), new Item.Properties()))) );
-    
-    public static final DeferredHolder<Item, Item> TOWN_HALL_BLOCK = ITEMS.register("town_hall_block", () -> ( (new BlockItem(  ModBlocks.TOWN_HALL.get(), new Item.Properties()))) );
-    public static final DeferredHolder<Item, Item> TOWN_HALL_ITEM = ITEMS.register("town_hall_item", () -> ( (new BlockItem(  ModBlocks.TOWN_HALL.get(), new Item.Properties()))) );    
 
+    public static final DeferredHolder<Item, Item> TOWN_HALL_BLOCK = ITEMS.register("town_hall_block", () -> ( (new BlockItem(  ModBlocks.TOWN_HALL.get(), new Item.Properties()))) );
+    public static final DeferredHolder<Item, Item> TOWN_HALL_ITEM = ITEMS.register("town_hall_item", () -> ( (new BlockItem(  ModBlocks.TOWN_HALL.get(), new Item.Properties()))) );
+    
     public static final DeferredHolder<Item, Item> CARAVAN_STOP = ITEMS.register("caravan_stop", () -> ( (new BlockItem(  ModBlocks.CARAVAN_STOP.get(), new Item.Properties()))) );
 
+    /**
+     * Spawn Eggs
+     */
+    // VillageCraftVillager spawn egg - primary color: farmer brown (0x8B7355), secondary: lime green (0x9ACD32)
+    public static final DeferredHolder<Item, Item> VILLAGECRAFT_VILLAGER_SPAWN_EGG = ITEMS.register("villagecraft_villager_spawn_egg", 
+            () -> new SpawnEggItem(ModEntity.VILLAGECRAFT_VILLAGER.get(), 0x8B7355, 0x9ACD32, new Item.Properties()));
     
+    // Iron Golem spawn egg - primary: iron gray (0xC0C0C0), secondary: red (0xFF0000)
+    public static final DeferredHolder<Item, Item> VILLAGECRAFT_GOLEM_SPAWN_EGG = ITEMS.register("villagecraft_golem_spawn_egg", 
+            () -> new SpawnEggItem(ModEntity.GOLEM.get(), 0xC0C0C0, 0xFF0000, new Item.Properties()));
 
 }
