@@ -1,19 +1,14 @@
 package com.villagecraft.data;
 
 import java.util.ArrayList;
-import java.util.stream.Stream;
-
-import com.villagecraft.VillageCraft;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.saveddata.SavedData;
 
 /**
-
- * @author chris
- *
+ * VillageCraft World Data Storage
+ * TODO: Update for 1.20.2 SavedData API changes
  */
 public class VillageCraftData extends SavedData {
 
@@ -28,9 +23,9 @@ public class VillageCraftData extends SavedData {
 	
 	protected ServerLevel world = null;
 	
-	
 	public VillageCraftData() {
-		super(VillageCraftData.DATA_NAME);
+		// No-arg constructor required in 1.20.2
+		super();
 	}
 	
 	public void setWorld(ServerLevel world) {
@@ -40,72 +35,56 @@ public class VillageCraftData extends SavedData {
 	}
 	
 	public void initialize() {
-		
 		this.initialized = true;
+		this.setDirty();
+	}
+	
+	public String getName() {
+		return DATA_NAME;
 	}
 	
 	public VillageCraftNation getNation(String nation) {
-		VillageCraftNation nations;
-		return (VillageCraftNation) this.nations.stream().filter(a -> { return a.getName() == nation; });
+		// TODO: Filter implementation
+		return null;
 	}
 	
-	protected VillageCraftNation loadNation(String nation) { 
-		return world.getSavedData().getOrCreate(() -> { return new VillageCraftNation(nation); }, nation +"_nation");
+	protected VillageCraftNation loadNation(String nation) {
+		// TODO: Implement with new SavedData API
+		return new VillageCraftNation(nation);
 	}
 	
 	public VillageCraftVillage getVillage(String village) {
-		VillageCraftVillage villages;
-		return (VillageCraftVillage) this.villages.stream().filter(a -> { return a.getName() == village; });
+		// TODO: Filter implementation
+		return null;
 	}
 	
-	protected VillageCraftVillage loadVillage(String village) { 
-		return world.getSavedData().getOrCreate(() -> { return new VillageCraftVillage(village); }, village +"_village");
+	protected VillageCraftVillage loadVillage(String village) {
+		// TODO: Implement with new SavedData API
+		return new VillageCraftVillage(village);
 	}
 	
 	/**
-	 * Generates an returns the next village id.
-	 * This is allows the tile / inventoyr to be generated as well.
+	 * Generates and returns the next village id.
 	 */
 	public int getNextVillageId() { 
 		VillageCraftVillage village = new VillageCraftVillage("<no name>");
 		this.villages.add(village);
-		this.markDirty();
+		this.setDirty();
 		return this.villages.size();
 	}
 	
 	@Override
-	public void read(CompoundTag nbt) {
-		
-		// Read nation data.
-		String nations = nbt.getString("nations");
-		this.nations = new ArrayList<VillageCraftNation>();
-		if (nations != null) {
-			String[] array = nations.split("\\|", -1);
-			for (String nation : array) { 
-				VillageCraftNation nationData = this.loadNation(nation);
-				this.nations.add(nationData);
-			}			
-		}
-		
-		String villages = nbt.getString("villages");
-		this.villages = new ArrayList<VillageCraftVillage>();
-		if (villages != null) { 
-			String[] array = villages.split("\\|", -1);
-			for (String village : array) { 
-				VillageCraftVillage villageData = this.loadVillage(village);
-				this.villages.add(villageData);
-			}
-		}
-		
-	}
-
-	@Override
-	public CompoundTag write(CompoundTag compound) {
-		// TODO Auto-generated method stub
-		VillageCraft.LOGGER.debug("Writing VillagerCraftData!!!!!!!!!!!!!!!!!!!!!!!!!");
+	public CompoundTag save(CompoundTag compound) {
+		// 1.20.2: save() instead of write()
 		compound.putString("initialized_test", "true");
 		return compound;
 	}
 	
-
+	// TODO: Implement static load() factory method for 1.20.2
+	public static VillageCraftData load(CompoundTag tag) {
+		VillageCraftData data = new VillageCraftData();
+		// Read nation data from tag
+		return data;
+	}
+	
 }
