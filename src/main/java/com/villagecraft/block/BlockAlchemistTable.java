@@ -8,7 +8,6 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -23,7 +22,7 @@ public class BlockAlchemistTable extends Block {
 	
 	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-	public static net.minecraft.world.item.Item.Properties item_properties = new net.minecraft.world.item.Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS).stacksTo(64);
+	public static net.minecraft.world.item.Item.Properties item_properties = new net.minecraft.world.item.Item.Properties().stacksTo(64);
 
 	public BlockAlchemistTable(Properties properties) {
 		super(properties);
