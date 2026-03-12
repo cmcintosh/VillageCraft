@@ -20,7 +20,7 @@ public class VillagerGoalLocateEntity extends Goal {
 	
 	protected BlockPos getVillagerBlockPos() { 
 		if (this.villager != null) {
-			return new BlockPos(this.villager.getX(), this.villager.getY(), this.villager.getZ());
+			return new BlockPos((int)this.villager.getX(), (int)this.villager.getY(), (int)this.villager.getZ());
 		}
 		return null;
 	}
