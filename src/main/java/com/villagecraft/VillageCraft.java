@@ -70,17 +70,19 @@ public class VillageCraft {
 
 	/**
 	 * Register Capabilities hook.
+	 * TODO: Reimplement for NeoForge 1.20.2 - Capability API changed
 	 */
 	public void onAttachCapabilitiesEvent(AttachCapabilitiesEvent<Entity> e) {
-		if (e.getObject() instanceof Villager) {
-			HungerProvider hProvider = new HungerProvider();
-			e.addCapability(new ResourceLocation(Reference.MODID, "hunger"), hProvider);
-			e.addListener(hProvider::invalidate);
-
-			HonorProvider provider = new HonorProvider();
-			e.addCapability(new ResourceLocation(Reference.MODID, "honor"), provider);
-			e.addListener(provider::invalidate);
-		}
+		// Commented - Capability API changed in 1.20.2
+		// if (e.getObject() instanceof Villager) {
+		// 	HungerProvider hProvider = new HungerProvider();
+		// 	e.addCapability(new ResourceLocation(Reference.MODID, "hunger"), hProvider);
+		// 	e.addListener(hProvider::invalidate);
+		//
+		// 	HonorProvider provider = new HonorProvider();
+		// 	e.addCapability(new ResourceLocation(Reference.MODID, "honor"), provider);
+		// 	e.addListener(provider::invalidate);
+		// }
 	}
 
 	@SubscribeEvent
@@ -94,6 +96,9 @@ public class VillageCraft {
 			Villager villager = (Villager) event.getEntity();
 
 			if (!villager.level().isClientSide()) {
+				// TODO: Reimplement data storage initialization for 1.20.2
+				// SavedData.computeIfAbsent() signature changed
+				/*
 				if (this.data.initialized == false) {
 					ServerLevel world = (ServerLevel) villager.level();
 					world.getDataStorage().computeIfAbsent(() -> {
@@ -102,6 +107,8 @@ public class VillageCraft {
 					}, "VillageCraftData");
 					VillageCraft.data.initialize();
 				}
+				*/
+				VillageCraft.data.initialize();
 
 				// TODO: Reimplement AI goals for 1.20.2
 				// villager.goalSelector.addGoal(1, new VillagerGoalBase(villager));
