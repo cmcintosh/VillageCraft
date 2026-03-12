@@ -11,28 +11,23 @@ import com.villagecraft.util.Reference;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.util.TooltipFlag;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.IItemPropertyGetter;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemGroup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item.Properties;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.util.math.HitResult;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.neoforged.neoforge.common.util.NonNullSupplier;
-
 
 public class ItemVillageCenter extends BlockItem {
 	
-	public static Properties properties = new Properties().group(ItemGroup.MISC).maxStackSize(1);
+	// ItemGroup.MISC removed in 1.20.2 - need to use CREATIVE_MODE_TABS registration
+	public static Properties properties = new Properties().stacksTo(1);
 	private static final Logger LOGGER = LogManager.getLogger(Reference.MODID + " Client Mod Event Subscriber");
 	
 	public ItemVillageCenter(Block block, Properties properties) {
@@ -49,39 +44,14 @@ public class ItemVillageCenter extends BlockItem {
         return Math.min(Math.min(15-x, x), Math.min(15-z, z));
     }
 	
+	// TODO: Reimplement LocationProperty for 1.20.2 - ItemPropertyFunction API changed
+	/*
 	public static class LocationProperty implements IItemPropertyGetter {
         @Override
-        public float call(ItemStack stack, ClientWorld world, LivingEntity entity) {
-            // dont evaluate placement if the maximal radius isn't limited to half chunk size
-            if(10 > 7)
-                return 0;
-
-            // only change color when this method is called from a player entity
-            if(entity == null || !(stack.getItem() instanceof ItemVillageCenter) || !entity.equals(Minecraft.getInstance().player))
-                return 0;
-
-            // only change color when the item is held by the player
-            if(!Minecraft.getInstance().player.getHeldItemMainhand().equals(stack) && !Minecraft.getInstance().player.getHeldItemOffhand().equals(stack))
-                return 0;
-
-            // only change color when player has focus on a block
-            if(!Minecraft.getInstance().objectMouseOver.getType().equals(HitResult.Type.BLOCK))
-                return 0;
-
-            // get the position where the block *would* be placed if the player places it now
-            BlockHitResult result = ((BlockHitResult) Minecraft.getInstance().objectMouseOver);
-            BlockPos placePosition = result.getPos().add(result.getFace().getDirectionVec());
-
-            int radius = maxChunkRadius(placePosition);
-
-            if(radius < 10)
-                return 1;
-
-            if(radius <= 10)
-                return 2;
-
-            return 3;
+        public float call(ItemStack stack, ClientLevel world, LivingEntity entity) {
+            // ... implementation needs BlockHitResult and InteractionHand update
         }
     }
+    */
 	
 }
