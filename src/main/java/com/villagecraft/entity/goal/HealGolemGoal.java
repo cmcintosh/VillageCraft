@@ -3,71 +3,47 @@ package com.villagecraft.entity.goal;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.villagecraft.init.ModVillagerProfessions;
-import com.villagecraft.util.Reference;
-
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.entity.passive.GolemEntity;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.util.Hand;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.InteractionHand;
 
 public class HealGolemGoal extends VillagerGoalBase {
 	
-	public GolemEntity golem;
+	public IronGolem golem;
 
-	public HealGolemGoal(VillagerEntity entity) {
+	public HealGolemGoal(Villager entity) {
 		super(entity);
 		this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
 	}
 
 	@Override
-	public boolean shouldExecute() {
-		
-		List<GolemEntity> list = this.villager.world.getEntitiesWithinAABB(GolemEntity.class, this.villager.getBoundingBox().grow((double)100.0D));
-	    if (!list.isEmpty()) {
-	       for(GolemEntity golem : list) {
-	          if (!golem.isInvisible()) {
-	              this.golem = golem;
-	              if (golem.getHealth() < golem.getMaxHealth()) {		                   
-				   this.healGolem();
-	              }
-	              return true;
-	            }
-	         }
-	      }
+	public boolean canUse() {
+		// TODO: Reimplement golem detection for 1.20.2
 		return false;
 	}
 	
-	
 	@Override
-	public void resetTask()
+	public void stop()
 	{
-		super.resetTask();
+		super.stop();
 	}
 	
 	@Override
 	public void tick()
 	{
-		if (golem.getHealth() < golem.getMaxHealth())
-		{
-			this.healGolem();
-		}
+		// TODO: Reimplement healing logic
 	}
 	
 	public void healGolem()
 	{
-		if (villager.getDistance(golem) <= 2.0D)
-		{
-			villager.swingArm(Hand.MAIN_HAND);
-			golem.heal(15.0F);
-			villager.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.IRON_INGOT));	 
-		}
+		// TODO: Reimplement healing for 1.20.2
+		// - swing() instead of swingArm()
+		// - distanceTo() instead of getDistance()
+		// - setItemInHand() instead of setItemStackToSlot()
 	}
 	
 }
