@@ -142,6 +142,11 @@ public class WanderBardPerformGoal extends VillagerGoalBase {
 			playSong();
 		}
 		
+		// Spawn ambient performance particles around bard
+		if (villager.tickCount % 5 == 0) {
+			spawnPerformanceAura();
+		}
+		
 		// Sing lyrics periodically
 		if (performanceTicks >= nextLyricTick && songLineIndex < currentSong.lyrics.length) {
 			singLyric();
@@ -478,6 +483,65 @@ public class WanderBardPerformGoal extends VillagerGoalBase {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Spawn performance aura particles around bard
+	 * Green and yellow particles indicate active performance
+	 */
+	private void spawnPerformanceAura() {
+		if (villager.level().isClientSide()) {
+			return;
+		}
+		
+		// Determine which particles to spawn based on current tick
+		boolean greenPhase = (villager.tickCount / 10) % 2 == 0;
+		
+		// Spawn 3-5 particles
+		int particleCount = 3 + villager.getRandom().nextInt(3);
+		
+		for (int i = 0; i < particleCount; i++) {
+			// Calculate position in a circle around the bard
+			double angle = (villager.tickCount * 0.1 + i * (Math.PI * 2 / particleCount));
+			double radius = 0.5 + villager.getRandom().nextDouble() * 0.5;
+			
+			double offsetX = Math.cos(angle) * radius;
+			double offsetZ = Math.sin(angle) * radius;
+			double offsetY = villager.getRandom().nextDouble() * 0.5;
+			
+			double x = villager.getX() + offsetX;
+			double y = villager.getY() + offsetY;
+			double z = villager.getZ() + offsetZ;
+			
+			if (greenPhase) {
+				// Green happy villager particles - positive vibes
+				villager.level().addParticle(
+					net.minecraft.core.particles.ParticleTypes.HAPPY_VILLAGER,
+					x, y, z,
+					0, 0.05, 0 // Gentle upward motion
+				);
+			} else {
+				// Yellow/gold glow particles - musical energy
+				villager.level().addParticle(
+					net.minecraft.core.particles.ParticleTypes.GLOW,
+					x, y, z,
+					0, 0.02, 0 // Slow drift
+				);
+			}
+		}
+		
+		// Occasionally spawn a heart to show love for the music
+		if (villager.getRandom().nextFloat() < 0.1) {
+			double x = villager.getX() + (villager.getRandom().nextDouble() - 0.5) * 0.5;
+			double y = villager.getY() + villager.getEyeHeight() + 0.5;
+			double z = villager.getZ() + (villager.getRandom().nextDouble() - 0.5) * 0.5;
+			
+			villager.level().addParticle(
+				net.minecraft.core.particles.ParticleTypes.HEART,
+				x, y, z,
+				0, 0.1, 0
+			);
+		}
 	}
 	
 	/**
