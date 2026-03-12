@@ -9,7 +9,7 @@ import net.minecraft.core.BlockPos;
 public class VillagerGoalGotoVillageCenter extends VillagerGoalGoToBlock {
 	
 	public VillagerGoalGotoVillageCenter(Villager entity) {
-		super(entity, ModBlocks.VILLAGE_CENTER.get(), true, 10);
+		super(entity, ModBlocks.BLOCK_VILLAGE_CENTER.get(), true, 10);
 		// TODO: POI system changed - reimplement poiType
 	}
 	

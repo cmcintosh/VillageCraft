@@ -1,13 +1,9 @@
 package com.villagecraft.entity.goal;
 
 import com.villagecraft.VillageCraft;
-import com.villagecraft.capabilities.CapabilityVillagerAttribute;
-import com.villagecraft.capabilities.IVillagerHunger;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 
 public class VillagerHungerGoal extends VillagerGoalBase {
 	
@@ -27,7 +23,7 @@ public class VillagerHungerGoal extends VillagerGoalBase {
 	@Override
 	public boolean canUse() {
 		lastHungerTick++;
-		if (lastHungerTicks == maxHungerTicks) {
+		if (lastHungerTick == maxHungerTicks) {
 			lastHungerTick = 0;
 			return true;
 		}

@@ -1,6 +1,5 @@
 package com.villagecraft.entity.goal;
 
-import java.util.EnumSet;
 import java.util.List;
 
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -17,7 +16,8 @@ public class HealGolemGoal extends VillagerGoalBase {
 
 	public HealGolemGoal(Villager entity) {
 		super(entity);
-		this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+		// TODO: setMutexFlags API changed
+		// this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
 	}
 
 	@Override

@@ -13,10 +13,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 
-/**
- * Custom Iron Golem entity for VillageCraft.
- * TODO: Complete 1.20.2 migration
- */
 public class IronGolem extends net.minecraft.world.entity.animal.IronGolem implements Saddleable {
 	
 	public IronGolem(EntityType<? extends net.minecraft.world.entity.animal.IronGolem> type, Level worldIn) {
@@ -31,12 +27,9 @@ public class IronGolem extends net.minecraft.world.entity.animal.IronGolem imple
             .add(Attributes.ATTACK_DAMAGE, 15.0D);
     }
 	
-	// TODO: Reimplement overrides for 1.20.2 - dropCustomDeathLoot signature changed
-	// TODO: Reimplement getDismountLocationForPassenger - signature changed
-	// TODO: Reimplement shouldDropExperience - signature changed
+	// TODO: Reimplement for 1.20.2 - override method signatures changed
 	
 	@Nullable
-	@Override
 	public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
 		return null;
 	}
@@ -48,12 +41,10 @@ public class IronGolem extends net.minecraft.world.entity.animal.IronGolem imple
 	
 	@Override
 	public void equipSaddle(@Nullable SoundSource source) {
-		// Saddle implementation
 	}
 	
 	@Override
 	public boolean isSaddled() {
 		return false;
 	}
-
 }
