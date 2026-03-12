@@ -1,5 +1,6 @@
 package com.villagecraft.init;
 
+import java.util.Optional;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
@@ -27,9 +28,16 @@ public class ModVillagerProfessions {
 	public static final DeferredHolder<PoiType, PoiType> VILLAGE_CENTER = POINTS_OF_INTEREST.register("village_center", 
 			() -> new PoiType(getAllStates(ModBlocks.BLOCK_VILLAGE_CENTER.get()), 1, 1));
 	
-	// Professions - simplified for now
+	// Professions - simplified for now - VillagerProfessional is a record in 1.20.2
+	// Constructor: VillagerProfession(ResourceLocation id, PoiType heldItem, Set<Item> secondaryItems, Set<PoiType> secondaryPois, Optional<SoundEvent> workSound)
 	public static final DeferredHolder<VillagerProfession, VillagerProfession> WORKER = PROFESSIONS.register("worker", 
-			() -> new VillagerProfession("worker", VILLAGE_CENTER.get(), ImmutableSet.of(), ImmutableSet.of(), SoundEvent.createVariableRangeEvent(new ResourceLocation("entity.villager.ambient"))));
+			() -> new VillagerProfession(
+					new ResourceLocation(Reference.MODID, "worker"),
+					VILLAGE_CENTER.getHolder().get(),
+					ImmutableSet.of(),
+					ImmutableSet.of(),
+					Optional.empty()
+			));
 	
 	// Helper method
 	public static Set<BlockState> getAllStates(Block block) {
