@@ -1,6 +1,9 @@
 package com.villagecraft.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -8,30 +11,38 @@ import net.minecraft.world.level.saveddata.SavedData;
 
 /**
  * VillageCraft World Data Storage
- * TODO: Update for 1.20.2 SavedData API changes
+ * Manages all villages and nations in the world.
  */
 public class VillageCraftData extends SavedData {
 
 	public static final String DATA_NAME = "VillageCraftData";
 	
 	public boolean initialized = false;
+	public int nextVillageId = 1;
 	
-	public CompoundTag data = new CompoundTag();
-	
-	protected ArrayList<VillageCraftNation> nations;
-	protected ArrayList<VillageCraftVillage> villages;
-	
-	protected ServerLevel world = null;
+	protected Map<Integer, VillageCraftVillage> villagesById;
+	protected Map<String, VillageCraftNation> nationsByName;
 	
 	public VillageCraftData() {
-		// No-arg constructor required in 1.20.2
 		super();
+		this.villagesById = new HashMap<>();
+		this.nationsByName = new HashMap<>();
 	}
 	
-	public void setWorld(ServerLevel world) {
-		if (this.world == null) {
-			this.world = world;
-		}
+	public String getName() {
+		return DATA_NAME;
+	}
+	
+	/**
+	 * Load data from world storage
+	 */
+	public static VillageCraftData load(ServerLevel level) {
+		// TODO: 1.20.2 computeIfAbsent signature changed - using createIfAbsent pattern
+		// return level.getDataStorage().computeIfAbsent(
+		// 	TYPE, DATA_NAME
+		// );
+		// For now, use a static instance
+		return new VillageCraftData();
 	}
 	
 	public void initialize() {
@@ -39,52 +50,83 @@ public class VillageCraftData extends SavedData {
 		this.setDirty();
 	}
 	
-	public String getName() {
-		return DATA_NAME;
+	/**
+	 * Gets all villages in the world
+	 */
+	public Iterable<VillageCraftVillage> getAllVillages() {
+		return this.villagesById.values();
 	}
 	
-	public VillageCraftNation getNation(String nation) {
-		// TODO: Filter implementation
-		return null;
+	/**
+	 * Gets village by ID
+	 */
+	public VillageCraftVillage getVillage(int id) {
+		return this.villagesById.get(id);
 	}
 	
-	protected VillageCraftNation loadNation(String nation) {
-		// TODO: Implement with new SavedData API
-		return new VillageCraftNation(nation);
-	}
-	
-	public VillageCraftVillage getVillage(String village) {
-		// TODO: Filter implementation
-		return null;
-	}
-	
-	protected VillageCraftVillage loadVillage(String village) {
-		// TODO: Implement with new SavedData API
-		return new VillageCraftVillage(village);
+	/**
+	 * Adds a new village
+	 */
+	public void addVillage(VillageCraftVillage village) {
+		this.villagesById.put(this.nextVillageId++, village);
+		this.setDirty();
 	}
 	
 	/**
 	 * Generates and returns the next village id.
 	 */
-	public int getNextVillageId() { 
-		VillageCraftVillage village = new VillageCraftVillage("<no name>");
-		this.villages.add(village);
+	public int getNextVillageId() {
+		int id = this.nextVillageId;
+		this.nextVillageId++;
 		this.setDirty();
-		return this.villages.size();
+		return id;
 	}
 	
 	@Override
 	public CompoundTag save(CompoundTag compound) {
-		// 1.20.2: save() instead of write()
-		compound.putString("initialized_test", "true");
+		compound.putBoolean("initialized", this.initialized);
+		compound.putInt("nextVillageId", this.nextVillageId);
+		
+		// Save villages
+		CompoundTag villagesTag = new CompoundTag();
+		for (Map.Entry<Integer, VillageCraftVillage> entry : this.villagesById.entrySet()) {
+			villagesTag.put(String.valueOf(entry.getKey()), entry.getValue().save(new CompoundTag()));
+		}
+		compound.put("villages", villagesTag);
+		
 		return compound;
 	}
 	
-	// TODO: Implement static load() factory method for 1.20.2
+	/**
+	 * Load from NBT
+	 */
 	public static VillageCraftData load(CompoundTag tag) {
 		VillageCraftData data = new VillageCraftData();
-		// Read nation data from tag
+		data.initialized = tag.getBoolean("initialized");
+		data.nextVillageId = tag.getInt("nextVillageId");
+		
+		// Load villages
+		if (tag.contains("villages")) {
+			CompoundTag villagesTag = tag.getCompound("villages");
+			for (String key : villagesTag.getAllKeys()) {
+				int id = Integer.parseInt(key);
+				VillageCraftVillage village = VillageCraftVillage.load(villagesTag.getCompound(key));
+				data.villagesById.put(id, village);
+			}
+		}
+		
 		return data;
+	}
+	
+	// Nation methods - TODO: Full implementation
+	
+	public VillageCraftNation getNation(String name) {
+		return this.nationsByName.get(name);
+	}
+	
+	public void addNation(VillageCraftNation nation) {
+		this.nationsByName.put(nation.getName(), nation);
+		this.setDirty();
 	}
 	
 }
