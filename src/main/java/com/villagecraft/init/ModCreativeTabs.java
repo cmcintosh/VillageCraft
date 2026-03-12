@@ -1,6 +1,8 @@
 package com.villagecraft.init;
 
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -12,32 +14,33 @@ public class ModCreativeTabs {
     @SubscribeEvent
     public static void buildContents(BuildCreativeModeTabContentsEvent event) {
         // Register items to their appropriate creative tabs
-        // TabKeys are now ResourceLocations, not constants
+        // event.getTabKey() returns ResourceKey<CreativeModeTab>
+        // Compare using getTab() against the tab objects
         
         // Building Blocks tab
         if (event.getTab() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(ModItems.VILLAGE_CENTER);
-            event.accept(ModItems.TITLE_OFFICE);
-            event.accept(ModItems.TOWN_HALL);
-            event.accept(ModItems.EMBASSY);
-            event.accept(ModItems.INN);
-            event.accept(ModItems.PYROTECHNIC);
-            event.accept(ModItems.AUCTION_HOUSE);
-            event.accept(ModItems.GUITAR_STAND);
-            event.accept(ModItems.MICROPHONE_STAND);
-            event.accept(ModItems.DRUMS);
-            event.accept(ModItems.POTTER_WHEEL);
-            event.accept(ModItems.BAR);
-            event.accept(ModItems.VILLAGE_MANAGER);
-            event.accept(ModItems.INN_BLOCK);
-            event.accept(ModItems.INN_ITEM);
-            event.accept(ModItems.EMSSY_BLOCK);
-            event.accept(ModItems.EMBASSY_ITEM);
-            event.accept(ModItems.TOWN_HALL_BLOCK);
-            event.accept(ModItems.TOWN_HALL_ITEM);
-            event.accept(ModItems.CARAVAN_STOP);
-            event.accept(ModItems.AUCTION_HOUSE_ITEM);
-            event.accept(ModItems.AUCTION_HOUSE_BLOCK);
+            event.accept(ModItems.VILLAGE_CENTER.get());
+            event.accept(ModItems.TITLE_OFFICE.get());
+            event.accept(ModItems.TOWN_HALL.get());
+            event.accept(ModItems.EMBASSY.get());
+            event.accept(ModItems.INN.get());
+            event.accept(ModItems.PYROTECHNIC.get());
+            event.accept(ModItems.AUCTION_HOUSE.get());
+            event.accept(ModItems.GUITAR_STAND.get());
+            event.accept(ModItems.MICROPHONE_STAND.get());
+            event.accept(ModItems.DRUMS.get());
+            event.accept(ModItems.POTTER_WHEEL.get());
+            event.accept(ModItems.BAR.get());
+            event.accept(ModItems.VILLAGE_MANAGER.get());
+            event.accept(ModItems.INN_BLOCK.get());
+            event.accept(ModItems.INN_ITEM.get());
+            event.accept(ModItems.EMSSY_BLOCK.get());
+            event.accept(ModItems.EMBASSY_ITEM.get());
+            event.accept(ModItems.TOWN_HALL_BLOCK.get());
+            event.accept(ModItems.TOWN_HALL_ITEM.get());
+            event.accept(ModItems.CARAVAN_STOP.get());
+            event.accept(ModItems.AUCTION_HOUSE_ITEM.get());
+            event.accept(ModItems.AUCTION_HOUSE_BLOCK.get());
         }
         
         // Functional Blocks tab (Decorations)
@@ -52,12 +55,12 @@ public class ModCreativeTabs {
         
         // Food tab
         if (event.getTab() == CreativeModeTabs.FOOD_AND_DRINKS) {
-            event.accept(ModItems.BEER_BUCKET);
+            event.accept(ModItems.BEER_BUCKET.get());
         }
         
         // Ingredients tab
         if (event.getTab() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.WORT);
+            event.accept(ModItems.WORT.get());
         }
         
         // Spawn Eggs tab
