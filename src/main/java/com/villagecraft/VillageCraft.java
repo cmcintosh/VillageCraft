@@ -38,9 +38,8 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
-// TODO: Import when AI goals are fixed
-// import com.villagecraft.entity.goal.VillagerGoalBase;
-// import com.villagecraft.entity.goal.VillagerHungerGoal;
+import com.villagecraft.entity.goal.VillagerGoalBase;
+import com.villagecraft.entity.goal.VillagerHungerGoal;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -158,9 +157,9 @@ public class VillageCraft {
 					VillageCraft.data.initialize();
 				}
 				
-				// TODO: Reimplement AI goals for 1.20.2
-				// villager.goalSelector.addGoal(1, new VillagerGoalBase(villager));
-				// villager.goalSelector.addGoal(1, new VillagerHungerGoal(villager));
+				// NeoForge 1.20.2: Add AI goals to villagers
+				villager.goalSelector.addGoal(1, new VillagerHungerGoal(villager));
+				villager.goalSelector.addGoal(2, new VillagerGoalBase(villager));
 			}
 		}
 	}
