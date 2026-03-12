@@ -23,7 +23,7 @@ import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 public class LandlordProfession extends VillagerCraftBaseProfession {
 	
 	public static final ImmutableSet<Item> PROFESSION_ITEM = ImmutableSet.of(
-			Items.OAK_DOOR, Items.BED, Items.CHEST);
+			Items.OAK_DOOR, Items.WHITE_BED, Items.CHEST);
 	public static final ImmutableSet<Block> PROFESSION_BLOCK = ImmutableSet.of();
 	public static final SoundEvent SOUND = SoundEvents.VILLAGER_WORK_LIBRARIAN;
 	
@@ -45,7 +45,7 @@ public class LandlordProfession extends VillagerCraftBaseProfession {
 			
 			trades.get(1).add((entity, random) -> new MerchantOffer(
 					new ItemStack(Items.EMERALD, 3), 
-					new ItemStack(Items.BED, 1), 
+					new ItemStack(Items.WHITE_BED, 1), 
 					12, 2, 0.05f));
 			
 			trades.get(2).add((entity, random) -> new MerchantOffer(
