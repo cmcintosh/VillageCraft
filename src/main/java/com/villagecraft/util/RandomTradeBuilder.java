@@ -175,7 +175,7 @@ public class RandomTradeBuilder
     
     public ItemListing build()
     {
-        return (entity, random) -> !this.canBuild() ? null : new MerchantOffer(this.price.apply(random), this.price2.apply(random), this.forSale.apply(random), this.maxTrades, this.xp, this.priceMult);
+        return (entity, randomSource) -> !this.canBuild() ? null : new MerchantOffer(this.price.apply(randomSource), this.price2.apply(randomSource), this.forSale.apply(randomSource), this.maxTrades, this.xp, this.priceMult);
     }
     
     public static Function<RandomSource, ItemStack> createFunction(Item item, int min, int max)

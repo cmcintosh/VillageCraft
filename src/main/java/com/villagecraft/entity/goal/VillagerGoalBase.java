@@ -119,11 +119,11 @@ public class VillagerGoalBase extends Goal {
 	}
 	
 	/**
-	 * Tick the goal
+	 * Run the goal logic
 	 * 
 	 * @return boolean - whether the goal finished successfully or not
 	 */
-	public boolean tick() {
+	public boolean runGoal() {
 		
 		// Increment the count of how many times the villager has
 		// run the goal, this is used to determine if the villager
@@ -138,7 +138,7 @@ public class VillagerGoalBase extends Goal {
 	
 	@Override
 	public void tick() {
-		tick();
+		runGoal();
 	}
 	
 	

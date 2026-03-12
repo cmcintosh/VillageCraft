@@ -75,8 +75,8 @@ public abstract class BlockScanner {
 	public BlockPos requestBlock() {
 		while (!this.scannedBlocks.isEmpty()) {
 			BlockPos bp = this.scannedBlocks.poll();
-			World world = Minecraft.getInstance().world;
-			if (world.getBlockState(this.center).equals(world.getBlockState(bp))) {
+			Level level = Minecraft.getInstance().level;
+			if (level.getBlockState(this.center).equals(level.getBlockState(bp))) {
 				this.claimedBlocks.put(bp, Long.valueOf(this.tickCount));
 				return bp;
 			}
