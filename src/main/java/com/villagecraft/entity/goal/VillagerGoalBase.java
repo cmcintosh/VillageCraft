@@ -1,38 +1,39 @@
 package com.villagecraft.entity.goal;
 
+import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import com.villagecraft.VillageCraft;
-import com.villagecraft.capabilities.CapabilityVillagerAttribute;
-import com.villagecraft.capabilities.IVillagerAttribute;
-import com.villagecraft.capabilities.IVillagerHonor;
-import com.villagecraft.capabilities.IVillagerHunger;
-import com.villagecraft.capabilities.VillagerHungerAttribute;
 import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.item.profession_tokens.ItemProfessionToken;
 
 import net.minecraft.world.level.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.item.Item;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 
+/**
+ * Base goal class for VillageCraft villagers.
+ * Updated for NeoForge 1.20.2 compatibility.
+ */
 public class VillagerGoalBase extends Goal {
+	
+	/** Flag set for controlling mob movement - MOBility (bit 0) */ 
+	protected static final int FLAG_MOVE = 1;
+	/** Flag set for controling mob movement - LOOK (bit 1) */
+	protected static final int FLAG_LOOK = 2;
+	/** Flag set for controling mob movement - JUMP (bit 2) */
+	protected static final int FLAG_JUMP = 3;
+	/** Targeting conditions for finding entities */
+	protected static final TargetingConditions CLOSEST_ENTITY_CONDITIONS = TargetingConditions.forNonCombat().range(10.0D).selector((entity) -> !entity.isSpectator() && ((LivingEntity)entity).isPickable());
 	
 	protected Villager villager;
 	
@@ -56,9 +57,12 @@ public class VillagerGoalBase extends Goal {
 	/**
 	 * Main Entry point for running goals.  It runs the code relevant to this entity and allows
 	 * for running sub-entity logic.
+	 * Updated for NeoForge 1.20.2
 	 */
 	public VillagerGoalBase(Villager villager) {
 		this.villager = villager;
+		// In 1.20.2, we need to set flags using EnumSet of Goal.Flag
+		this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
 	}
 	
 	public Villager getVillager() {
@@ -80,9 +84,8 @@ public class VillagerGoalBase extends Goal {
 	}
 	
 	public CompoundTag getVillagerNBT() {
-		CompoundTag villagerData = new CompoundTag();
-		this.villager.saveWithoutId(villagerData);
-		return villagerData;
+		// 1.20.2: saveWithoutId() signature changed
+		return this.villager.saveWithoutId(new CompoundTag());
 	}
 	
 	public void checkVillagerForProfession() {
