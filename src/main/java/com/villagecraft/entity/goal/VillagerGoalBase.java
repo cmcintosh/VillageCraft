@@ -18,26 +18,23 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.brain.Brain;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.passive.GolemEntity;
+import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.item.Item;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Hand;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.core.BlockPos;
-import net.minecraft.village.PointOfInterestManager;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.server.level.ServerLevel;
-import net.neoforged.neoforge.common.util.LazyOptional;
 
 public class VillagerGoalBase extends Goal {
 	
-	protected VillagerEntity villager;
-	protected PointOfInterestManager poiManager;
+	protected Villager villager;
 	
 	// Related to tick/cooldowns
 	protected int ticksToNextRun = 0;
@@ -48,189 +45,170 @@ public class VillagerGoalBase extends Goal {
 	
 	// Protected variables related to tasks
 	protected LivingEntity targetLivingEntity;
-	protected Block targetBlockType;
-	protected BlockPos targetPosition;
 	
-	protected CompoundTag extraVillagerData;
-	protected ItemProfessionToken token;
-	
-	protected IVillagerHunger hunger;
-	protected IVillagerHonor honor;
-	
-	public VillagerGoalBase(VillagerEntity entity) { 
-		super();
-		villager = entity;
-		ServerWorld world = (ServerWorld) entity.getEntityWorld();
-		poiManager = world.getPointOfInterestManager();
-		extraVillagerData = new CompoundTag();
-	
-	}
-	
-	
-	
-	protected boolean hasProfessionToken() { 
-		
-//		this.villager.getVillagerInventory().
-		return false;
-	}
-	
+	protected boolean hasFoundTarget = false;
+	protected boolean hasReachedTarget = false;
 
-	@Override
-	public boolean shouldExecute() {
-		// TODO Auto-generated method stub
-		return true;
+	protected GlobalPos poiTarget;
+	protected PoiType targetPoiType = null;
+	
+	
+	/**
+	 * Main Entry point for running goals.  It runs the code relevant to this entity and allows
+	 * for running sub-entity logic.
+	 */
+	public VillagerGoalBase(Villager villager) {
+		this.villager = villager;
 	}
 	
-	protected BlockPos getVillagerBlockPos() { 
-		if (this.villager != null) {
-			return new BlockPos(this.villager.getPosX(), this.villager.getPosY(), this.villager.getPosZ());
-		}
+	public Villager getVillager() {
+		return this.villager;
+	}
+	
+	public Villager setVillager(Villager villager) {
+		return this.villager = villager;
+	}
+	
+	public VillagerGoalBase getProfessionGoal() {
+		VillagerData villagerData = this.villager.getVillagerData();
+		
 		return null;
 	}
 	
-	/**
-	 * Tick here
-	 */
-	public void tick() { 
-			
+	public VillagerData getVillagerData() {
+		return this.villager.getVillagerData();
 	}
 	
+	public CompoundTag getVillagerNBT() {
+		CompoundTag villagerData = new CompoundTag();
+		this.villager.saveWithoutId(villagerData);
+		return villagerData;
+	}
 	
-	/**
-	 * return a block position object for a entity.
-	 */
-	protected BlockPos getEntityBlockPos(Entity entity) {
-		return new BlockPos(entity.getPosX(),entity.getPosY(), entity.getPosZ());
+	public void checkVillagerForProfession() {
+		List<Item> items = getVillagerInventoryList();
+		
+		if (items.contains(ItemProfessionToken.properties)) {
+			// TODO: Implement profession checking
+		}
+	}
+	
+	public List<Item> getVillagerInventoryList() {
+		return null;
+	}
+	
+	public boolean villagerIsInProfession() {
+		return false;
+	}
+	
+	public PoiType getVillagerPOI() {
+		// TODO: Implement POI lookup for 1.20.2
+		return this.targetPoiType;
+	}
+	
+
+	protected boolean start = true;
+	boolean active = false;
+	String profession = "base";
+	protected int professionCoolDown = 0;
+	
+	
+	@Override
+	public boolean canUse() {
+		return false;
 	}
 	
 	/**
-	 * return a block position object for a entity.
+	 * Tick the goal
+	 * 
+	 * @return boolean - whether the goal finished successfully or not
 	 */
-	protected BlockPos getEntityPrevBlockPos(Entity entity) {
-		return new BlockPos(entity.prevPosX, entity.prevPosY, entity.prevPosZ);
-	}
-	
-	
-	/**
-	 * Heal target living entity
-	 */
-	protected void healTargetLivingEntity(float amount) { 
-		this.targetLivingEntity.heal(amount);
-	}
-	
-	/**
-	 * Attack target living entity
-	 */
-	protected void attackTargetLivingEntity(LivingEntity targetEntity) { 
-		this.villager.setAttackTarget(targetEntity);
-		this.villager.attackEntityAsMob(targetEntity);
-	}
-	
-	/**
-	 * Follow target living entity
-	 */
-	protected double targetLivingEntityRange;
-	protected double maxFollowRange = 10;
-	protected void followTargetLivingEntity(LivingEntity targetEntity) {
-		targetLivingEntityRange = this.getBlockPosDistance(this.getVillagerBlockPos(), this.getEntityBlockPos(targetEntity));
-		if (targetLivingEntityRange > maxFollowRange) {
-			villager.getNavigator().tryMoveToEntityLiving(targetEntity, villager.getAIMoveSpeed());	
+	public boolean tick() {
+		
+		// Increment the count of how many times the villager has
+		// run the goal, this is used to determine if the villager
+		// should start looking for a new target.
+		
+		if (this.shouldStartRunning()) {
+			// TODO: Implement goal execution
 		}
 		
+		return true;
 	}
 	
-	/**
-	 * Goto target living entity
-	 */
-	protected void gotoTargetLivingEntity(LivingEntity targetEntity) { 
-		villager.getNavigator().tryMoveToEntityLiving(targetEntity, villager.getAIMoveSpeed());
-	}
-	
-	/**
-	 * In Melee range of target living entity
-	 */
-	protected boolean inMeleeRangeTargetLivingEntity(Entity targetEntity) { 
-		double range = this.getBlockPosDistance(this.getVillagerBlockPos(), this.getEntityBlockPos(targetEntity));
-		return (range < 3);
-	}
-	
-	/**
-	 * Locate a entity of type
-	 */
-	protected List findLivingEntitiesWithinAABB(Class entityType) { 
-		List<GolemEntity> list = this.villager.world
-				.getEntitiesWithinAABB(entityType, 
-						this.villager.getBoundingBox().grow(maxScanRange)
-				);
-		return list;
-	}
-	
-	/**
-	 * @Section Block Related
-	 */
-	
-	// Returns the distances to a block, given two block pos;
-	protected double getBlockPosDistance(BlockPos a, BlockPos b) {
-		return a.distanceSq(b.getX(), b.getY(), b.getZ(), true);
-	}
-	
-	// Return all blocks of a Poi type, and meet our block filters.
-	protected Stream<BlockPos> findAllBlocks(PoiType poi, PointOfInterestManager.Status status) {
-		return poiManager.findAll(poi.getPredicate(), new BlockFilter(), this.getVillagerBlockPos(), (int) this.maxScanRange, status);	
-	}
-	
-	// Return the closest block of a Poi type.
-	protected BlockPos closestTargetPos;
-	protected double lastClosest;
-	protected BlockPos findClosestBlock(PoiType poi, PointOfInterestManager.Status status, BlockPos center) { 
-		Stream<BlockPos> blocks = this.findAllBlocks(poi, status);
-		BlockPos min = null;
-		blocks.forEach(b -> {
-			double thisDistance = this.getBlockPosDistance(center, b);
-			if (closestTargetPos == null) {
-				closestTargetPos = b;
-				lastClosest = thisDistance;
-			}
-			else if (thisDistance < lastClosest) {
-				closestTargetPos = b;
-				lastClosest = thisDistance;
-			}
-		});
-		min = closestTargetPos;
-		closestTargetPos = null;
-		lastClosest = 0;
-		return min;
+	@Override
+	public void tick() {
+		tick();
 	}
 	
 	
-	public class BlockFilter implements Predicate<BlockPos> { 
-		public boolean test(BlockPos t) {
+	private int scanCount = 0;
+	protected int maxScanCount = 40;
+	protected boolean searchStarted = false;
+	
+	protected boolean shouldStartRunning() {
+		
+		this.scanCount++;
+		
+		if (scanCount < maxScanCount) {
+			this.scanCount = 0;
 			return true;
-		} 
+		} else {
+			return false;
+		}
 	}
 	
-	/**
-	 * Returns the Hunger capability for a villager.
-	 * @return
-	 */
-	public LazyOptional<IVillagerHunger> getHunger() {
-		return this.villager.getCapability(CapabilityVillagerAttribute.VILLAGER_HUNGER);
+	
+	protected boolean shouldReachTarget(BlockPos target) {
+		return false;
 	}
 	
-	/**
-	 * Returns the Honor capability for a villager.
-	 */
-	public LazyOptional<IVillagerHonor> getHonor() { 
-		return this.villager.getCapability(CapabilityVillagerAttribute.VILLAGER_HONOR); 
+	public int getCooldownTicks() {
+		return this.cooldownTicks;
+	}
+
+	
+	protected double getMaxScanRange() {
+		
+		return this.maxScanRange;
 	}
 	
-	public void attackVillagerEntity(VillagerEntity entity, int amount) { 
-		entity.setShakeHeadTicks(5);
-		entity.performHurtAnimation();
-		ResourceLocation location = new ResourceLocation("vcm", "villager_grunt");
-		SoundEvent event = new SoundEvent(location);
-		entity.playSound(event, 100, 1);
-		entity.setHealth((float) (entity.getHealth() - amount));
+	protected int getNumberOfNearbyVillagers() {
+		int count = 0;
+		
+		// TODO: Implement nearby villager counting for 1.20.2
+		
+		return count;
+	}
+	
+	protected int getNumberOfNearbyGolems() {
+		int count = 0;
+		
+		// TODO: Implement nearby golem counting for 1.20.2
+		
+		return count;
+	}
+	
+	protected boolean checkItemHasRoom(Item item) {
+		return false;
+	}
+	
+	protected int checkItemCount(Item item) {
+		return 0;
+	}
+	
+	protected void addItemToInventory(LivingEntity entity, Item item) {
 		
 	}
+	
+	
+	public InteractionHand getInteractionTargetHand(LivingEntity entity) {
+		InteractionHand hand = null;
+		
+		if (entity.getItemInHand(InteractionHand.MAIN_HAND) != null) 
+			hand = InteractionHand.MAIN_HAND;
+		
+		return hand;
+	}
+
 }
