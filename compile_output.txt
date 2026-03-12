@@ -1,0 +1,535 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+[Incubating] Problems report is available at: file:///Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Could not determine the dependencies of task ':compileJava'.
+> Could not resolve all dependencies for configuration ':compileClasspath'.
+   > Failed to calculate the value of task ':compileJava' property 'javaCompiler'.
+      > Cannot find a Java installation on your machine (Mac OS X 15.3.1 aarch64) matching: {languageVersion=17, vendor=any vendor, implementation=vendor-specific}. Toolchain download repositories have not been configured.
+
+* Try:
+> Learn more about toolchain auto-detection and auto-provisioning at https://docs.gradle.org/8.13/userguide/toolchains.html#sec:auto_detection.
+> Learn more about toolchain repositories at https://docs.gradle.org/8.13/userguide/toolchains.html#sub:download_repositories.
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.13/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 3s
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+[Incubating] Problems report is available at: file:///Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Settings file '/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/settings.gradle' line: 5
+
+* What went wrong:
+Could not compile settings file '/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/settings.gradle'.
+> startup failed:
+  settings file '/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/settings.gradle': 5: The pluginManagement {} block must appear before any other statements in the script.
+  
+  For more information on the pluginManagement {} block, please refer to https://docs.gradle.org/8.13/userguide/plugins.html#sec:plugin_management in the Gradle documentation.
+  
+   @ line 5, column 1.
+     pluginManagement {
+     ^
+  
+  1 error
+
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 2s
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :cacheVersionManifest1.20.2 UP-TO-DATE
+> Task :cacheVersionExecutableClient1.20.2 UP-TO-DATE
+> Task :cacheVersionExecutableServer1.20.2 UP-TO-DATE
+> Task :cacheVersionMappingsClient1.20.2 UP-TO-DATE
+> Task :cacheVersionMappingsServer1.20.2 UP-TO-DATE
+> Task :neoFormListLibraries
+> Task :neoFormStripClient UP-TO-DATE
+> Task :neoFormExtractServer UP-TO-DATE
+> Task :neoFormStripServer UP-TO-DATE
+> Task :neoFormMerge UP-TO-DATE
+> Task :neoFormMergeMappings UP-TO-DATE
+> Task :neoFormRename UP-TO-DATE
+> Task :neoFormDecompile UP-TO-DATE
+> Task :neoFormApplyForgesAccessTransformer UP-TO-DATE
+> Task :neoFormInject UP-TO-DATE
+> Task :neoFormPatch UP-TO-DATE
+> Task :neoFormPatchUserDev UP-TO-DATE
+> Task :neoFormApplyOfficialMappings
+> Task :neoFormUnzipSources
+> Task :create1.20.2ClientExtraJar UP-TO-DATE
+> Task :selectRawArtifactNg_dummy_ng.net.minecraft_client_1.20.2_client-extra
+> Task :neoFormRecompile UP-TO-DATE
+> Task :neoFormPackRecomp
+> Task :supplyRawJarForneoFormJoined1.20.2-20231019.002635
+> Task :selectRawArtifactNg_dummy_ng.net.neoforged_neoforge_20.2.88
+
+> Task :compileJava FAILED
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/init/ModContainer.java:11: error: cannot find symbol
+import net.neoforged.neoforge.common.extensions.IForgeMenuType;
+                                               ^
+  symbol:   class IForgeMenuType
+  location: package net.neoforged.neoforge.common.extensions
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/VillageCraftVillager.java:9: error: cannot find symbol
+import net.minecraft.world.entity.ai.memory.MemoryModuleStatus;
+                                           ^
+  symbol:   class MemoryModuleStatus
+  location: package net.minecraft.world.entity.ai.memory
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerGoalBase.java:140: error: method tick() is already defined in class VillagerGoalBase
+	public void tick() {
+	            ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/HealGolemGoal.java:12: error: package net.minecraft.world.entity.passive does not exist
+import net.minecraft.world.entity.passive.GolemEntity;
+                                         ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/HealGolemGoal.java:16: error: cannot find symbol
+import net.minecraft.util.Hand;
+                         ^
+  symbol:   class Hand
+  location: package net.minecraft.util
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/HealGolemGoal.java:22: error: cannot find symbol
+	public GolemEntity golem;
+	       ^
+  symbol:   class GolemEntity
+  location: class HealGolemGoal
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/HealGolemGoal.java:24: error: cannot find symbol
+	public HealGolemGoal(VillagerEntity entity) {
+	                     ^
+  symbol:   class VillagerEntity
+  location: class HealGolemGoal
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerGoalDeliverToStorage.java:18: error: cannot find symbol
+import net.minecraft.world.phys.Vector3i;
+                               ^
+  symbol:   class Vector3i
+  location: package net.minecraft.world.phys
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerGoalGoToBlock.java:7: error: package net.minecraft.pathfinding does not exist
+import net.minecraft.pathfinding.PathNavigator;
+                                ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerGoalGoToBlock.java:10: error: cannot find symbol
+import net.minecraft.world.phys.Vector3i;
+                               ^
+  symbol:   class Vector3i
+  location: package net.minecraft.world.phys
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerGoalGoToBlock.java:11: error: package net.minecraft.village does not exist
+import net.minecraft.village.PointOfInterestManager;
+                            ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerGoalGoToBlock.java:21: error: cannot find symbol
+	public VillagerGoalGoToBlock(VillagerEntity entity, Block block, boolean StayInRange, double targetRange) {
+	                             ^
+  symbol:   class VillagerEntity
+  location: class VillagerGoalGoToBlock
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerGoalGotoVillageCenter.java:17: error: cannot find symbol
+import net.minecraft.world.phys.Vector3i;
+                               ^
+  symbol:   class Vector3i
+  location: package net.minecraft.world.phys
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerGoalGotoVillageCenter.java:18: error: package net.minecraft.village does not exist
+import net.minecraft.village.PointOfInterestManager;
+                            ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerGoalGotoVillageCenter.java:25: error: cannot find symbol
+	public VillagerGoalGotoVillageCenter(VillagerEntity entity) {
+	                                     ^
+  symbol:   class VillagerEntity
+  location: class VillagerGoalGotoVillageCenter
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/WanderBardPerformGoal.java:8: error: package net.minecraft.world.entity.passive does not exist
+import net.minecraft.world.entity.passive.GolemEntity;
+                                         ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/WanderBardPerformGoal.java:14: error: cannot find symbol
+	protected VillagerEntity entity;
+	          ^
+  symbol:   class VillagerEntity
+  location: class WanderBardPerformGoal
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/WanderBardPerformGoal.java:17: error: cannot find symbol
+	public WanderBardPerformGoal(VillagerEntity entity) {
+	                             ^
+  symbol:   class VillagerEntity
+  location: class WanderBardPerformGoal
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/init/ModContainer.java:25: error: cannot find symbol
+			() -> IForgeMenuType.create(VillageCenterContainer::new));
+			      ^
+  symbol:   variable IForgeMenuType
+  location: class ModContainer
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/container/VillageCenterContainer.java:56: error: incompatible types: TileBasicVillageBlock cannot be converted to Container
+				this.addSlot(new Slot(this.tile, ( (row * 3) + column), 
+				                          ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/container/VillageCenterContainer.java:56: error: cannot find symbol
+				this.addSlot(new Slot(this.tile, ( (row * 3) + column), 
+				             ^
+  symbol: constructor (TileBasicVillageBlock,int,int,int)
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/init/ModVillagerProfessions.java:36: error: cannot find symbol
+					VILLAGE_CENTER.getHolder().get(),
+					              ^
+  symbol:   method getHolder()
+  location: variable VILLAGE_CENTER of type DeferredHolder<PoiType,PoiType>
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/init/ModItems.java:91: error: cannot find symbol
+    public static final DeferredHolder<Item, Item> POTTER_WHEEL = ITEMS.register("potter_wheel", () -> ( (new BlockItem(  ModBlocks.POTTER_WHEEL.get(), new Item.Properties()))) );
+                                                                                                                                   ^
+  symbol:   variable POTTER_WHEEL
+  location: class ModBlocks
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/vanilla/IronGolem.java:39: error: method does not override or implement a method from a supertype
+	@Override
+	^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/tile/TileEntityVillageCenter.java:79: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/tile/TileEntityVillageCenter.java:84: error: method saveWithoutMetadata in class BlockEntity cannot be applied to given types;
+        return super.saveWithoutMetadata(compound);
+                    ^
+  required: no arguments
+  found:    CompoundTag
+  reason: actual and formal argument lists differ in length
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/init/ModFoods.java:21: error: cannot find symbol
+					.saturationModifier(1.2f).effect(new MobEffectInstance(MobEffects.CONFUSION, 3000, 5), 0.7f).build())));
+					^
+  symbol:   method saturationModifier(float)
+  location: class Builder
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/init/ModBlocks.java:90: error: cannot find symbol
+		ImmutableList states = block.getStateContainer().getValidStates();
+		                            ^
+  symbol:   method getStateContainer()
+  location: variable block of type Block
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockAlchemistTable.java:23: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockDraftingTable.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockDraftingTable.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockChair.java:38: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.SCAFFOLDING).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockBardStand.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockBardStand.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockOreBox.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockOreBox.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/TradesmanHelmet.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/TradesmanHelmet.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockBrawlerEquipment.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockBrawlerEquipment.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockBar.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockBar.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockDrums.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CHAIN).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockGuitarStand.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CHAIN).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockMicrophoneStand.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CHAIN).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockAuctionHouse.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockAuctionHouse.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockPyrotechnicTable.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockPyrotechnicTable.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockCaravanStop.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockCaravanStop.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockEmbassy.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockEmbassy.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockVillageManager.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockVillageManager.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockTownHall.java:24: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockTownHall.java:24: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockInn.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockInn.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockTitleOffice.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockTitleOffice.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockPotterWheel.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockPotterWheel.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockBuildersChest.java:25: error: cannot find symbol
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                                                                   ^
+  symbol:   variable CLOTH
+  location: class SoundType
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/block/BlockBuildersChest.java:25: error: package BlockBehaviour does not exist
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	                                                    ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/capabilities/HungerProvider.java:28: error: cannot find symbol
+            return (CompoundTag) CapabilityVillagerAttribute.VILLAGER_HUNGER.writeNBT(attribute, null);
+                                                                            ^
+  symbol:   method writeNBT(VillagerHungerAttribute,<null>)
+  location: variable VILLAGER_HUNGER of type Capability<IVillagerHunger>
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/capabilities/HungerProvider.java:35: error: cannot find symbol
+			CapabilityVillagerAttribute.VILLAGER_HUNGER.readNBT(this.attribute, null, nbt);
+			                                           ^
+  symbol:   method readNBT(VillagerHungerAttribute,<null>,CompoundTag)
+  location: variable VILLAGER_HUNGER of type Capability<IVillagerHunger>
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/capabilities/ThirstProvider.java:28: error: cannot find symbol
+            return (CompoundTag) CapabilityVillagerAttribute.VILLAGER_THIRST.writeNBT(attribute, null);
+                                                                            ^
+  symbol:   method writeNBT(DefaultVillagerAttribute,<null>)
+  location: variable VILLAGER_THIRST of type Capability<IVillagerAttribute>
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/capabilities/ThirstProvider.java:35: error: cannot find symbol
+			CapabilityVillagerAttribute.VILLAGER_THIRST.readNBT(this.attribute, null, nbt);
+			                                           ^
+  symbol:   method readNBT(DefaultVillagerAttribute,<null>,CompoundTag)
+  location: variable VILLAGER_THIRST of type Capability<IVillagerAttribute>
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/capabilities/CapabilityVillagerAttribute.java:17: error: cannot find symbol
+	public static Capability<IVillagerHonor> VILLAGER_HONOR = CapabilityManager.get(new Capability.Token<>());
+	                                                                                              ^
+  symbol:   class Token
+  location: class Capability
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/capabilities/CapabilityVillagerAttribute.java:18: error: cannot find symbol
+	public static Capability<IVillagerHunger> VILLAGER_HUNGER = CapabilityManager.get(new Capability.Token<>());
+	                                                                                                ^
+  symbol:   class Token
+  location: class Capability
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/capabilities/CapabilityVillagerAttribute.java:19: error: cannot find symbol
+	public static Capability<IVillagerAttribute> VILLAGER_THIRST = CapabilityManager.get(new Capability.Token<>());
+	                                                                                                   ^
+  symbol:   class Token
+  location: class Capability
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/capabilities/CapabilityVillagerAttribute.java:20: error: cannot find symbol
+	public static Capability<IVillagerAttribute> VILLAGER_DESIRE = CapabilityManager.get(new Capability.Token<>());
+	                                                                                                   ^
+  symbol:   class Token
+  location: class Capability
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/capabilities/HonorProvider.java:28: error: cannot find symbol
+            return (CompoundTag) CapabilityVillagerAttribute.VILLAGER_HONOR.writeNBT(attribute, null);
+                                                                           ^
+  symbol:   method writeNBT(VillagerHonorAttribute,<null>)
+  location: variable VILLAGER_HONOR of type Capability<IVillagerHonor>
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/capabilities/HonorProvider.java:35: error: cannot find symbol
+			CapabilityVillagerAttribute.VILLAGER_HONOR.readNBT(this.attribute, null, nbt);
+			                                          ^
+  symbol:   method readNBT(VillagerHonorAttribute,<null>,CompoundTag)
+  location: variable VILLAGER_HONOR of type Capability<IVillagerHonor>
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/VillageCraft.java:99: error: incompatible types: Factory is not a functional interface
+					world.getDataStorage().computeIfAbsent(() -> {
+					                      ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/data/VillageCraftNation.java:14: error: VillageCraftNation is not abstract and does not override abstract method save(CompoundTag) in SavedData
+public class VillageCraftNation extends SavedData implements Serializable {
+       ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/data/VillageCraftNation.java:23: error: constructor SavedData in class SavedData cannot be applied to given types;
+		super(name + "_nation");
+		^
+  required: no arguments
+  found:    String
+  reason: actual and formal argument lists differ in length
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/data/VillageCraftNation.java:158: error: method does not override or implement a method from a supertype
+	@Override
+	^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/data/VillageCraftNation.java:164: error: method does not override or implement a method from a supertype
+	@Override
+	^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/data/VillageCraftVillage.java:11: error: VillageCraftVillage is not abstract and does not override abstract method save(CompoundTag) in SavedData
+public class VillageCraftVillage extends SavedData implements Serializable {
+       ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/data/VillageCraftVillage.java:14: error: constructor SavedData in class SavedData cannot be applied to given types;
+		super(name + "_village");
+		^
+  required: no arguments
+  found:    String
+  reason: actual and formal argument lists differ in length
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/data/VillageCraftVillage.java:65: error: method does not override or implement a method from a supertype
+	@Override
+	^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/data/VillageCraftVillage.java:71: error: method does not override or implement a method from a supertype
+	@Override
+	^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/util/BlockScanner.java:78: error: cannot find symbol
+			World world = Minecraft.getInstance().world;
+			^
+  symbol:   class World
+  location: class BlockScanner
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/util/BlockScanner.java:78: error: cannot find symbol
+			World world = Minecraft.getInstance().world;
+			                                     ^
+  symbol:   variable world
+  location: class Minecraft
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/util/ProfessionUtils.java:27: error: incompatible types: VillagerCraftBaseProfession cannot be converted to VillagerProfession
+	           return profession;
+	                  ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/util/RandomTradeBuilder.java:178: error: incompatible types: RandomSource cannot be converted to Random
+        return (entity, random) -> !this.canBuild() ? null : new MerchantOffer(this.price.apply(random), this.price2.apply(random), this.forSale.apply(random), this.maxTrades, this.xp, this.priceMult);
+                                                                                                ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/util/RandomTradeBuilder.java:178: error: incompatible types: RandomSource cannot be converted to Random
+        return (entity, random) -> !this.canBuild() ? null : new MerchantOffer(this.price.apply(random), this.price2.apply(random), this.forSale.apply(random), this.maxTrades, this.xp, this.priceMult);
+                                                                                                                           ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/util/RandomTradeBuilder.java:178: error: incompatible types: RandomSource cannot be converted to Random
+        return (entity, random) -> !this.canBuild() ? null : new MerchantOffer(this.price.apply(random), this.price2.apply(random), this.forSale.apply(random), this.maxTrades, this.xp, this.priceMult);
+                                                                                                                                                       ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/util/VillageCenterBlockScanner.java:37: error: cannot find symbol
+		for (BlockPos scanPos : BlockPos.getAllInBoxMutable(bp.getX() - 7, bp.getY() + 2, bp.getZ() - 7, bp.getX() + 7, bp.getY() + 2, bp.getZ() + 7))
+		                                ^
+  symbol:   method getAllInBoxMutable(int,int,int,int,int,int)
+  location: class BlockPos
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerGoalLocateEntity.java:23: error: incompatible types: possible lossy conversion from double to int
+			return new BlockPos(this.villager.getX(), this.villager.getY(), this.villager.getZ());
+			                                      ^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerGoalBase.java:126: error: tick() in VillagerGoalBase cannot override tick() in Goal
+	public boolean tick() {
+	               ^
+  return type boolean is not compatible with void
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerGoalLocateBlock.java:33: error: tick() in VillagerGoalLocateBlock cannot override tick() in VillagerGoalBase
+	public void tick()
+	            ^
+  return type void is not compatible with boolean
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerHungerGoal.java:30: error: cannot find symbol
+		if (lastHungerTicks == maxHungerTicks) {
+		    ^
+  symbol:   variable lastHungerTicks
+  location: class VillagerHungerGoal
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/VillagerHungerGoal.java:38: error: tick() in VillagerHungerGoal cannot override tick() in VillagerGoalBase
+	public void tick() { 
+	            ^
+  return type void is not compatible with boolean
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/HealGolemGoal.java:26: error: cannot find symbol
+		this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+		    ^
+  symbol: method setMutexFlags(EnumSet<Flag>)
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/HealGolemGoal.java:29: error: method does not override or implement a method from a supertype
+	@Override
+	^
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/HealGolemGoal.java:32: error: cannot find symbol
+		List<GolemEntity> list = this.villager.world.getEntitiesWithinAABB(GolemEntity.class, this.villager.getBoundingBox().grow((double)100.0D));
+		     ^
+  symbol:   class GolemEntity
+  location: class HealGolemGoal
+/Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/entity/goal/HealGolemGoal.java:32: error: cannot find symbol
+		List<GolemEntity> list = this.villager.world.getEntitiesWithinAABB(GolemEntity.class, this.villager.getBoundingBox().grow((double)100.0D));
+		                                                                   ^
+  symbol:   class GolemEntity
+  location: class HealGolemGoal
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
+
+[Incubating] Problems report is available at: file:///Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler output below.
+  /Users/chrismcintosh/.openclaw/workspace/cto/VillageCraft/src/main/java/com/villagecraft/init/ModContainer.java:11: error: cannot find symbol
+  import net.neoforged.neoforge.common.extensions.IForgeMenuType;
+                                                 ^
+    symbol:   class IForgeMenuType
+    location: package net.neoforged.neoforge.common.extensions
+  100 errors
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.13/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 1m 12s
+26 actionable tasks: 8 executed, 18 up-to-date

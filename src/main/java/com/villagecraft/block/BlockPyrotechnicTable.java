@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 // Material removed - use BlockBehaviour
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 
 public class BlockPyrotechnicTable extends Block {
 	
-	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.WOOL).noOcclusion();
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static net.minecraft.world.item.Item.Properties item_properties = new net.minecraft.world.item.Item.Properties().stacksTo(64);
 

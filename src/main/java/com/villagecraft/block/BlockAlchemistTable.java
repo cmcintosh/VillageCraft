@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 
 public class BlockAlchemistTable extends Block {
 	
-	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.CLOTH).noOcclusion();
+	public static Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.WOOL).noOcclusion();
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static net.minecraft.world.item.Item.Properties item_properties = new net.minecraft.world.item.Item.Properties().stacksTo(64);
 
