@@ -4,9 +4,7 @@ import com.villagecraft.block.BlockVillageCenter;
 import com.villagecraft.container.VillageCenterContainer;
 import com.villagecraft.util.Reference;
 
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
