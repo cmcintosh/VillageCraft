@@ -5,17 +5,13 @@ import com.villagecraft.init.ModVillagerProfessions;
 
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 
 /**
  * Profession class for Farmer villagers.
@@ -27,26 +23,23 @@ public class FarmerProfession {
 
     public static String getName() { return "farmer"; }
 
-    public static List<VillagerTrades.ItemListing> getTrades() {
-        return new ArrayList<>();
-    }
-
     @SubscribeEvent
     public static void registerTrades(VillagerTradesEvent event) {
         VillageCraft.LOGGER.debug("Registering the farmer trades");
         if (event.getType() == ModVillagerProfessions.FARMER.get()) {
-            HashMap<Integer, ArrayList<VillagerTrades.ItemListing>> trades = 
-                (HashMap<Integer, ArrayList<VillagerTrades.ItemListing>>) event.getTrades();
+            @SuppressWarnings("unchecked")
+            Int2ObjectMap<java.util.List<VillagerTrades.ItemListing>> trades = 
+                event.getTrades();
 
-            // Initialize trade tiers
-            if (trades.isEmpty()) {
-                for (int i = 1; i <= 5; i++) {
-                    trades.put(i, new ArrayList<VillagerTrades.ItemListing>());
+            // Ensure all tier lists exist
+            for (int i = 1; i <= 5; i++) {
+                if (!trades.containsKey(i)) {
+                    trades.put(i, new ArrayList<>());
                 }
             }
 
             // Tier 1 (Novice) - Wheat and seeds
-            trades.get(1).addAll(Arrays.asList(
+            trades.get(1).addAll(java.util.Arrays.asList(
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.WHEAT, 20),
                     new ItemStack(Items.EMERALD, 1),
@@ -65,7 +58,7 @@ public class FarmerProfession {
             ));
 
             // Tier 2 (Apprentice) - Vegetables
-            trades.get(2).addAll(Arrays.asList(
+            trades.get(2).addAll(java.util.Arrays.asList(
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.CARROT, 22),
                     new ItemStack(Items.EMERALD, 1),
@@ -84,7 +77,7 @@ public class FarmerProfession {
             ));
 
             // Tier 3 (Journeyman) - Fruits and berries
-            trades.get(3).addAll(Arrays.asList(
+            trades.get(3).addAll(java.util.Arrays.asList(
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.APPLE, 8),
                     new ItemStack(Items.EMERALD, 1),
@@ -103,7 +96,7 @@ public class FarmerProfession {
             ));
 
             // Tier 4 (Expert) - Processed goods
-            trades.get(4).addAll(Arrays.asList(
+            trades.get(4).addAll(java.util.Arrays.asList(
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.MELON, 4),
                     new ItemStack(Items.EMERALD, 1),
@@ -122,7 +115,7 @@ public class FarmerProfession {
             ));
 
             // Tier 5 (Master) - Rare crops
-            trades.get(5).addAll(Arrays.asList(
+            trades.get(5).addAll(java.util.Arrays.asList(
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD, 5),
                     new ItemStack(Items.GLISTERING_MELON_SLICE, 3),

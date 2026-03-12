@@ -5,17 +5,13 @@ import com.villagecraft.init.ModVillagerProfessions;
 
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 
 /**
  * Profession class for Builder villagers.
@@ -27,26 +23,23 @@ public class BuilderProfession {
 
     public static String getName() { return "builder"; }
 
-    public static List<VillagerTrades.ItemListing> getTrades() {
-        return new ArrayList<>();
-    }
-
     @SubscribeEvent
     public static void registerTrades(VillagerTradesEvent event) {
         VillageCraft.LOGGER.debug("Registering the builder trades");
         if (event.getType() == ModVillagerProfessions.BUILDER.get()) {
-            HashMap<Integer, ArrayList<VillagerTrades.ItemListing>> trades = 
-                (HashMap<Integer, ArrayList<VillagerTrades.ItemListing>>) event.getTrades();
+            @SuppressWarnings("unchecked")
+            Int2ObjectMap<java.util.List<VillagerTrades.ItemListing>> trades = 
+                event.getTrades();
 
-            // Initialize trade tiers
-            if (trades.isEmpty()) {
-                for (int i = 1; i <= 5; i++) {
-                    trades.put(i, new ArrayList<VillagerTrades.ItemListing>());
+            // Ensure all tier lists exist
+            for (int i = 1; i <= 5; i++) {
+                if (!trades.containsKey(i)) {
+                    trades.put(i, new ArrayList<>());
                 }
             }
 
             // Tier 1 (Novice) - Basic materials
-            trades.get(1).addAll(Arrays.asList(
+            trades.get(1).addAll(java.util.Arrays.asList(
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.COBBLESTONE, 32),
                     new ItemStack(Items.EMERALD, 1),
@@ -65,7 +58,7 @@ public class BuilderProfession {
             ));
 
             // Tier 2 (Apprentice) - Processed materials
-            trades.get(2).addAll(Arrays.asList(
+            trades.get(2).addAll(java.util.Arrays.asList(
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.STONE, 32),
                     new ItemStack(Items.EMERALD, 1),
@@ -84,7 +77,7 @@ public class BuilderProfession {
             ));
 
             // Tier 3 (Journeyman) - Constructed items
-            trades.get(3).addAll(Arrays.asList(
+            trades.get(3).addAll(java.util.Arrays.asList(
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.BRICKS, 16),
                     new ItemStack(Items.EMERALD, 1),
@@ -97,13 +90,13 @@ public class BuilderProfession {
                 ),
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD, 4),
-                    new ItemStack(Items.DOOR, 2),
+                    new ItemStack(Items.OAK_DOOR, 2),
                     8, 10, 0.05f
                 )
             ));
 
             // Tier 4 (Expert) - Quality builds
-            trades.get(4).addAll(Arrays.asList(
+            trades.get(4).addAll(java.util.Arrays.asList(
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.STONE_BRICKS, 32),
                     new ItemStack(Items.EMERALD, 1),
@@ -122,7 +115,7 @@ public class BuilderProfession {
             ));
 
             // Tier 5 (Master) - Blueprints and premium builds
-            trades.get(5).addAll(Arrays.asList(
+            trades.get(5).addAll(java.util.Arrays.asList(
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD, 8),
                     new ItemStack(Items.BEACON, 1),

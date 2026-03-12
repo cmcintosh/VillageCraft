@@ -70,22 +70,20 @@ public class VillageCraft {
 		ModVillagerProfessions.PROFESSIONS.register(modEventBus);
 		ModEntity.ENTITY_TYPES.register(modEventBus);
 
-		// Registering the villager trades
+		// Registering the villager trades and goals
+		// Trades registered via @SubscribeEvent in each profession class
 		NeoForge.EVENT_BUS.addListener(WorkerProfession::registerTrades);
-		NeoForge.EVENT_BUS.addListener(WorkerProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(TraderProfession::registerTrades);
-		NeoForge.EVENT_BUS.addListener(TraderProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(FarmerProfession::registerTrades);
-		NeoForge.EVENT_BUS.addListener(FarmerProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(BuilderProfession::registerTrades);
-		NeoForge.EVENT_BUS.addListener(BuilderProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(ArchitectProfession::registerTrades);
-		NeoForge.EVENT_BUS.addListener(ArchitectProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(AlchemistProfession::registerTrades);
-		NeoForge.EVENT_BUS.addListener(AlchemistProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(MinerProfession::registerTrades);
-		NeoForge.EVENT_BUS.addListener(MinerProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(MayorProfession::registerTrades);
+		
+		// Goals registered only for professions that have custom goal implementations
+		NeoForge.EVENT_BUS.addListener(WorkerProfession::registerGoals);
+		NeoForge.EVENT_BUS.addListener(AlchemistProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(MayorProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(InnkeeperProfession::registerTrades);
 		NeoForge.EVENT_BUS.addListener(InnkeeperProfession::registerGoals);

@@ -81,6 +81,8 @@ public final class ModBlocks {
 	public static final DeferredHolder<Block, BlockInn> INN =  BLOCKS.register("inn", () -> new BlockInn(BlockInn.properties));
 	public static final DeferredHolder<Block, BlockTitleOffice> TITLE_OFFICE =  BLOCKS.register("title_office", () -> new BlockTitleOffice(BlockTitleOffice.properties));
 	public static final DeferredHolder<Block, BlockPotterWheel> POTTERS_WHEEL =  BLOCKS.register("potters_wheel", () -> new BlockPotterWheel(BlockPotterWheel.properties));
+	public static final DeferredHolder<Block, BlockBeeKeepersHive> BEE_KEEPERS_HIVE = BLOCKS.register("bee_keepers_hive", () -> new BlockBeeKeepersHive(BlockBeeKeepersHive.properties));
+
 	public static final DeferredHolder<Block, BlockBuildersChest> BUILDERS_CHEST =  BLOCKS.register("builders_chest", () -> new BlockBuildersChest(BlockBuildersChest.properties));
 	public static final DeferredHolder<Block, BlockVillageCenter> BLOCK_VILLAGE_CENTER =  BLOCKS.register("village_center", () -> new BlockVillageCenter(BlockVillageCenter.properties));
 	
