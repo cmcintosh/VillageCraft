@@ -18,7 +18,9 @@ public class ModContainer {
 	
 	public static final DeferredRegister<MenuType<?>> CONTAINER_TYPE = DeferredRegister.create(Registries.MENU, Reference.MODID);
 	
-	public static final DeferredHolder<MenuType<?>, MenuType<VillageCenterContainer>> VILLAGE_CENTER_CONTAINER = CONTAINER_TYPE.register("village_center", 
-			() -> new MenuType<>(VillageCenterContainer::new));
+	// TODO: Reimplement for 1.20.2 - MenuType creation changed
+	public static final DeferredHolder<MenuType<?>, MenuType<VillageCenterContainer>> VILLAGE_CENTER_CONTAINER = null;
+	//	CONTAINER_TYPE.register("village_center", 
+	//		() -> new MenuType<>(VillageCenterContainer::new));
 
 }

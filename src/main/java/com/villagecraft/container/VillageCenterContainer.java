@@ -1,5 +1,6 @@
 package com.villagecraft.container;
 
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -11,5 +12,10 @@ public class VillageCenterContainer extends AbstractContainerMenu {
 	public VillageCenterContainer(int id, Inventory inv, final BlockEntity tile) {
 		super(null, id); // MenuType is null - needs registration
 		// TODO: Reimplement container slots
+	}
+	
+	@Override
+	public boolean stillValid(Player player) {
+		return true;
 	}
 }
