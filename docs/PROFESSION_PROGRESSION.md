@@ -30,13 +30,13 @@ Give an **unemployed villager** a **Merchant Ledger** to create a Merchant.
 
 ### Progression Chain
 ```
-Merchant (Level 1) → Trader (Level 3 + Emerald Block) → [Advanced Economic Roles]
+Merchant (Level 1) → Trader (Level 3 + Gold Ingot) → [Advanced Economic Roles]
 ```
 
 | Profession | Workstation | Unlocks | Created By |
 |------------|-------------|---------|------------|
 | **Merchant** | Auction House | Basic buy/sell<br>Entry-level trades | Merchant Ledger |
-| **Trader** | Auction House | Better prices<br>Auction access<br>Advanced goods | Level 3 Merchant + Emerald Block |
+| **Trader** | Auction House | Better prices<br>Auction access<br>Advanced goods | Level 3 Merchant + Gold Ingot |
 | **Caravaneer** | Caravan Station | Inter-village trade routes<br>Llama taming | [Promotion Item] |
 | **Diplomat** | Embassy | Inter-village relations<br>War declaration<br>Tribute management | Level 3 Caravaneer + Diamond Block |
 

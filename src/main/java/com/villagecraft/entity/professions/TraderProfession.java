@@ -21,10 +21,10 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
  * than the Merchant. They are the second tier in the economic progression.
  *
  * How to Create:
- * Promote a Level 3 Merchant by giving them an Emerald Block.
+ * Promote a Level 3 Merchant by giving them a Gold Ingot.
  *
  * Economic Progression Chain:
- * - Merchant (Level 3) + Emerald Block → Trader
+ * - Merchant (Level 3) + Gold Ingot → Trader
  *
  * The Trader sells valuable goods and materials not available from
  * the basic Merchant. They also enable access to the Auction House.

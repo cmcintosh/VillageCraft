@@ -25,7 +25,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
  * Give an unemployed villager a crafted Merchant Ledger.
  *
  * Economic Progression Chain:
- * - Merchant (Level 3) + Emerald Block → Trader
+ * - Merchant (Level 3) + Gold Ingot → Trader
  *
  * The Merchant gives fair prices for basic resources. Level them up
  * quickly to access better trades as a Trader.
