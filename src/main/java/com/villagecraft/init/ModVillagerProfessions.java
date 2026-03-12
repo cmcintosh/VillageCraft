@@ -68,8 +68,20 @@ public class ModVillagerProfessions {
 	public static final DeferredHolder<PoiType, PoiType> PYROTECHNIC_POI = POINTS_OF_INTEREST.register("pyrotechnic_workstation",
 			() -> new PoiType(getAllStates(ModBlocks.PYROTECHNIC_TABLE.get()), 1, 1));
 
+	public static final DeferredHolder<PoiType, PoiType> MERCHANT_POI = POINTS_OF_INTEREST.register("merchant_workstation",
+			() -> new PoiType(getAllStates(ModBlocks.AUCTION_HOUSE.get()), 1, 1));
+	
 	public static final DeferredHolder<PoiType, PoiType> TRADER_POI = POINTS_OF_INTEREST.register("trader_workstation",
-			() -> new PoiType(ImmutableSet.of(), 1, 1));
+			() -> new PoiType(getAllStates(ModBlocks.AUCTION_HOUSE.get()), 1, 1));
+	
+	public static final DeferredHolder<PoiType, PoiType> DIPLOMAT_POI = POINTS_OF_INTEREST.register("diplomat_workstation",
+			() -> new PoiType(getAllStates(ModBlocks.EMBASSY.get()), 1, 1));
+	
+	public static final DeferredHolder<PoiType, PoiType> MANAGER_POI = POINTS_OF_INTEREST.register("manager_workstation",
+			() -> new PoiType(getAllStates(ModBlocks.VILLAGE_MANAGER.get()), 1, 1));
+	
+	public static final DeferredHolder<PoiType, PoiType> OUTPOST_LIASON_POI = POINTS_OF_INTEREST.register("outpost_liaison_workstation",
+			() -> new PoiType(getAllStates(ModBlocks.VILLAGE_MANAGER.get()), 1, 1));
 
 	public static final DeferredHolder<PoiType, PoiType> WORKER_POI = POINTS_OF_INTEREST.register("worker_workstation",
 			() -> new PoiType(ImmutableSet.of(), 1, 1));
@@ -251,11 +263,51 @@ public class ModVillagerProfessions {
 					null
 			));
 
+	public static final DeferredHolder<VillagerProfession, VillagerProfession> MERCHANT = PROFESSIONS.register("merchant",
+			() -> new VillagerProfession(
+					"merchant",
+					(holder) -> holder.value() == MERCHANT_POI.get(),
+					(holder) -> holder.value() == MERCHANT_POI.get(),
+					ImmutableSet.of(),
+					ImmutableSet.of(),
+					null
+			));
+
 	public static final DeferredHolder<VillagerProfession, VillagerProfession> TRADER = PROFESSIONS.register("trader",
 			() -> new VillagerProfession(
 					"trader",
 					(holder) -> holder.value() == TRADER_POI.get(),
 					(holder) -> holder.value() == TRADER_POI.get(),
+					ImmutableSet.of(),
+					ImmutableSet.of(),
+					null
+			));
+
+	public static final DeferredHolder<VillagerProfession, VillagerProfession> DIPLOMAT = PROFESSIONS.register("diplomat",
+			() -> new VillagerProfession(
+					"diplomat",
+					(holder) -> holder.value() == DIPLOMAT_POI.get(),
+					(holder) -> holder.value() == DIPLOMAT_POI.get(),
+					ImmutableSet.of(),
+					ImmutableSet.of(),
+					null
+			));
+
+	public static final DeferredHolder<VillagerProfession, VillagerProfession> MANAGER = PROFESSIONS.register("manager",
+			() -> new VillagerProfession(
+					"manager",
+					(holder) -> holder.value() == MANAGER_POI.get(),
+					(holder) -> holder.value() == MANAGER_POI.get(),
+					ImmutableSet.of(),
+					ImmutableSet.of(),
+					null
+			));
+
+	public static final DeferredHolder<VillagerProfession, VillagerProfession> OUTPOST_LIASON = PROFESSIONS.register("outpost_liaison",
+			() -> new VillagerProfession(
+					"outpost_liaison",
+					(holder) -> holder.value() == OUTPOST_LIASON_POI.get(),
+					(holder) -> holder.value() == OUTPOST_LIASON_POI.get(),
 					ImmutableSet.of(),
 					ImmutableSet.of(),
 					null

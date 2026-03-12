@@ -2,7 +2,6 @@ package com.villagecraft.entity.professions;
 
 import com.villagecraft.VillageCraft;
 import com.villagecraft.init.ModVillagerProfessions;
-import com.villagecraft.init.ModItems;
 
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
@@ -16,26 +15,17 @@ import java.util.Arrays;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 
 /**
- * Profession class for Trader (Tradesman) villagers.
+ * Profession class for Trader villagers.
  *
- * The Trader is the gateway to village economic activity.
- * They sell Profession Tokens/Spawn Eggs which enable villagers to select
- * professions from available workstations. Without a token, villagers
- * remain unemployed and will not select a profession.
+ * The Trader unlocks the Auction House block and provides better trade prices
+ * than the Merchant. They are the second tier in the economic progression.
  *
- * Token System:
- * - Villagers spawn as "Unemployed" (NONE profession)
- * - They will not select a profession until given a token
- * - Once given a token/spawn egg, they can claim matching workstations
+ * Economic Progression:
+ * - Merchant (Level 3) + Manager Notebook → Manager
+ * - Manager (Level 3) + Suppliers Manual → Outpost Liaison
  *
- * Tier System:
- * - Tier 1 (Novice): Basic worker tokens (Worker, Trader, Farmer)
- * - Tier 2 (Apprentice): Gathering professions (Miner, Alchemist, Beekeeper)
- * - Tier 3 (Journeyman): Service professions (Innkeeper, Caravaneer, Fisherman)
- * - Tier 4 (Expert): Leadership roles (Mayor, Landlord, Manager)
- * - Tier 5 (Master): Rare specialists (Brawler, Potter, etc.)
- *
- * Future: Village Manager will auto-purchase and assign tokens
+ * The Trader sells profession tokens and advanced economic goods.
+ * Higher tier traders offer better deals and rarer items.
  */
 public class TraderProfession {
 
@@ -58,124 +48,128 @@ public class TraderProfession {
                 }
             }
 
-            // Tier 1 (Novice) - Basic worker tokens
+            // Tier 1 (Novice) - Basic economic goods
+            // Raw resources and common items for early village needs
             trades.get(1).addAll(Arrays.asList(
-                // Worker Token - Basic labor
+                // Sell wheat (village food supply)
                 (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 8),
-                    new ItemStack(ModItems.WORKER_SPAWNER.get(), 1),
+                    new ItemStack(Items.EMERALD, 2),
+                    new ItemStack(Items.WHEAT, 8),
+                    16, 2, 0.05f
+                ),
+                // Buy logs (village building materials)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.OAK_LOG, 16),
+                    new ItemStack(Items.EMERALD, 1),
                     12, 2, 0.05f
                 ),
-                // Trader Token - Economic role
+                // Sell bread (prepared food)
                 (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 10),
-                    new ItemStack(ModItems.TRADER_TOKEN.get(), 1),
-                    10, 2, 0.05f
-                ),
-                // Beekeeper Token - Animal husbandry
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 6),
-                    new ItemStack(ModItems.BEEKEEPER_SPAWN_EGG.get(), 1),
-                    14, 2, 0.05f
+                    new ItemStack(Items.EMERALD, 3),
+                    new ItemStack(Items.BREAD, 4),
+                    8, 2, 0.05f
                 )
             ));
 
-            // Tier 2 (Apprentice) - Gathering professions
+            // Tier 2 (Apprentice) - Refined goods
+            // Better prices than Merchant, processed materials
             trades.get(2).addAll(Arrays.asList(
-                // Miner Token - Resource gathering
+                // Buy stone (building material)
                 (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 12),
-                    new ItemStack(ModItems.PROSPECTOR_PICKAXE.get(), 1),
-                    8, 5, 0.05f
+                    new ItemStack(Items.STONE, 32),
+                    new ItemStack(Items.EMERALD, 2),
+                    10, 5, 0.05f
                 ),
-                // Caravaneer Token - Trade expeditions
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 14),
-                    new ItemStack(ModItems.CARAVANEER_COMPASS.get(), 1),
-                    6, 5, 0.05f
-                ),
-                // Fisherman Token - Food gathering
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 10),
-                    new ItemStack(ModItems.FISHERMAN_NET.get(), 1),
-                    8, 5, 0.05f
-                )
-            ));
-
-            // Tier 3 (Journeyman) - Service professions
-            trades.get(3).addAll(Arrays.asList(
-                // Innkeeper Token - Hospitality
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 14),
-                    new ItemStack(ModItems.INNKEEPER_SPAWN_EGG.get(), 1),
-                    8, 10, 0.05f
-                ),
-                // Mayor Token - Village leadership
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 20),
-                    new ItemStack(ModItems.MAYOR_BOOK.get(), 1),
-                    4, 10, 0.05f
-                ),
-                // Landlord Token - Housing management
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 16),
-                    new ItemStack(ModItems.LANDLORD_SPAWN_EGG.get(), 1),
-                    6, 10, 0.05f
-                )
-            ));
-
-            // Tier 4 (Expert) - Management roles
-            trades.get(4).addAll(Arrays.asList(
-                // Manager Token - Village administration
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 24),
-                    new ItemStack(ModItems.MANAGER_EGG.get(), 1),
-                    3, 15, 0.05f
-                ),
-                // Pyrotechnic Token - Rare specialist
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 18),
-                    new ItemStack(ModItems.PYROTECHNIC_CHARGE.get(), 1),
-                    4, 15, 0.05f
-                ),
-                // Alchemist Token - Brewing profession
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 16),
-                    new ItemStack(ModItems.ALCHEMIST_PHIAL.get(), 1),
-                    6, 15, 0.05f
-                )
-            ));
-
-            // Tier 5 (Master) - Rare specialists using Paper as placeholders
-            // These professions don't have custom items yet
-            trades.get(5).addAll(Arrays.asList(
-                // Builder Token - Construction (placeholder)
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 12),
-                    new ItemStack(Items.PAPER, 1),
-                    6, 30, 0.05f
-                ),
-                // Architect Token - Design (placeholder)
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 16),
-                    new ItemStack(Items.PAPER, 1),
-                    4, 30, 0.05f
-                ),
-                // Bard Token - Entertainment (placeholder)
-                (e, r) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 14),
-                    new ItemStack(Items.PAPER, 1),
-                    4, 30, 0.05f
-                ),
-                // Farmer Token - Agriculture (placeholder)
+                // Sell iron ingots (critical resource)
                 (e, r) -> new MerchantOffer(
                     new ItemStack(Items.EMERALD, 8),
-                    new ItemStack(Items.PAPER, 1),
-                    8, 30, 0.05f
+                    new ItemStack(Items.IRON_INGOT, 2),
+                    6, 5, 0.05f
+                ),
+                // Buy coal (fuel)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.COAL, 16),
+                    new ItemStack(Items.EMERALD, 2),
+                    8, 5, 0.05f
                 )
             ));
 
-            VillageCraft.LOGGER.debug("Trader trades registered with 5 tiers of profession tokens");
+            // Tier 3 (Journeyman) - Advanced goods
+            // Tools, books, and specialty items
+            trades.get(3).addAll(Arrays.asList(
+                // Sell name tags (useful for organization)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 12),
+                    new ItemStack(Items.NAME_TAG, 1),
+                    4, 10, 0.05f
+                ),
+                // Sell bookshelves (enchantment support)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 6),
+                    new ItemStack(Items.BOOKSHELF, 1),
+                    4, 10, 0.05f
+                ),
+                // Buy gold ingots (premium material)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.GOLD_INGOT, 4),
+                    new ItemStack(Items.EMERALD, 4),
+                    4, 10, 0.05f
+                )
+            ));
+
+            // Tier 4 (Expert) - High-value items
+            // Rare materials and powerful tools
+            trades.get(4).addAll(Arrays.asList(
+                // Sell diamonds
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 24),
+                    new ItemStack(Items.DIAMOND, 1),
+                    2, 15, 0.05f
+                ),
+                // Sell anvil (tool repair)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 18),
+                    new ItemStack(Items.ANVIL, 1),
+                    2, 15, 0.05f
+                ),
+                // Buy emeralds (currency exchange)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.DIAMOND, 1),
+                    new ItemStack(Items.EMERALD, 8),
+                    4, 15, 0.05f
+                )
+            ));
+
+            // Tier 5 (Master) - Exceptional trades
+            // Rare and powerful items, auction house access
+            trades.get(5).addAll(Arrays.asList(
+                // Sell enchanted golden apples
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 48),
+                    new ItemStack(Items.ENCHANTED_GOLDEN_APPLE, 1),
+                    1, 30, 0.05f
+                ),
+                // Sell netherite scraps
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 32),
+                    new ItemStack(Items.NETHERITE_SCRAP, 1),
+                    1, 30, 0.05f
+                ),
+                // Sell dragon breath (rare brewing ingredient)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 36),
+                    new ItemStack(Items.DRAGON_BREATH, 1),
+                    2, 30, 0.05f
+                ),
+                // Sell enchanted books (knowledge)
+                (e, r) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 20),
+                    new ItemStack(Items.ENCHANTED_BOOK, 1),
+                    2, 30, 0.05f
+                )
+            ));
+
+            VillageCraft.LOGGER.debug("Trader trades registered with 5 tiers");
         }
     }
 }
