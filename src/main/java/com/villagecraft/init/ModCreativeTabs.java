@@ -2,7 +2,7 @@ package com.villagecraft.init;
 
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -13,12 +13,11 @@ public class ModCreativeTabs {
 
     @SubscribeEvent
     public static void buildContents(BuildCreativeModeTabContentsEvent event) {
-        // Register items to their appropriate creative tabs
-        // event.getTabKey() returns ResourceKey<CreativeModeTab>
-        // Compare using getTab() against the tab objects
+        // Use getTabKey() which returns ResourceKey<CreativeModeTab>
+        ResourceKey<CreativeModeTab> tabKey = event.getTabKey();
         
         // Building Blocks tab
-        if (event.getTab() == CreativeModeTabs.BUILDING_BLOCKS) {
+        if (tabKey == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(ModItems.VILLAGE_CENTER.get());
             event.accept(ModItems.TITLE_OFFICE.get());
             event.accept(ModItems.TOWN_HALL.get());
@@ -44,27 +43,27 @@ public class ModCreativeTabs {
         }
         
         // Functional Blocks tab (Decorations)
-        if (event.getTab() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+        if (tabKey == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             // Add functional blocks here if needed
         }
         
         // Combat/Weapons tab
-        if (event.getTab() == CreativeModeTabs.COMBAT) {
+        if (tabKey == CreativeModeTabs.COMBAT) {
             // Add combat items here if needed
         }
         
         // Food tab
-        if (event.getTab() == CreativeModeTabs.FOOD_AND_DRINKS) {
+        if (tabKey == CreativeModeTabs.FOOD_AND_DRINKS) {
             event.accept(ModItems.BEER_BUCKET.get());
         }
         
         // Ingredients tab
-        if (event.getTab() == CreativeModeTabs.INGREDIENTS) {
+        if (tabKey == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.WORT.get());
         }
         
         // Spawn Eggs tab
-        if (event.getTab() == CreativeModeTabs.SPAWN_EGGS) {
+        if (tabKey == CreativeModeTabs.SPAWN_EGGS) {
             // Add spawn eggs here if needed
         }
     }
