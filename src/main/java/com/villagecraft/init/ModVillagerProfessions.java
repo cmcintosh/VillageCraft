@@ -43,6 +43,28 @@ public class ModVillagerProfessions {
 					null
 			));
 	
+	// TRADER profession - referenced by TraderProfession.java
+	public static final DeferredHolder<VillagerProfession, VillagerProfession> TRADER = PROFESSIONS.register("trader",
+			() -> new VillagerProfession(
+					"trader",
+					(holder) -> holder.value() == VILLAGE_CENTER.get(),
+					(holder) -> holder.value() == VILLAGE_CENTER.get(),
+					ImmutableSet.of(),
+					ImmutableSet.of(),
+					null
+			));
+	
+	// ARCHITECT profession - referenced by TradesmanProfession.java
+	public static final DeferredHolder<VillagerProfession, VillagerProfession> ARCHITECT = PROFESSIONS.register("architect",
+			() -> new VillagerProfession(
+					"architect",
+					(holder) -> holder.value() == VILLAGE_CENTER.get(),
+					(holder) -> holder.value() == VILLAGE_CENTER.get(),
+					ImmutableSet.of(),
+					ImmutableSet.of(),
+					null
+			));
+	
 	// Helper method
 	public static Set<BlockState> getAllStates(Block block) {
 		return ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates());
