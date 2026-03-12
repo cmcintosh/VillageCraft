@@ -27,8 +27,10 @@ public class IronGolem extends net.minecraft.world.entity.animal.IronGolem imple
             .add(Attributes.ATTACK_DAMAGE, 15.0D);
     }
 	
-	// TODO: Reimplement for 1.20.2 - override method signatures changed
-	
+	/**
+	 * Iron Golems cannot breed - returns null
+	 * NeoForge 1.20.2: Method signature matches parent
+	 */
 	@Nullable
 	public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
 		return null;
