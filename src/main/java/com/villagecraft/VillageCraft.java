@@ -14,15 +14,16 @@ import com.villagecraft.capabilities.HonorProvider;
 import com.villagecraft.capabilities.HungerProvider;
 import com.villagecraft.container.VillageCenterContainer;
 import com.villagecraft.data.VillageCraftData;
-import com.villagecraft.entity.goal.HealGolemGoal;
-import com.villagecraft.entity.goal.VillagerGoalBase;
-import com.villagecraft.entity.goal.VillagerGoalGotoVillageCenter;
-import com.villagecraft.entity.goal.VillagerHungerGoal;
-import com.villagecraft.entity.professions.BardProfession;
-import com.villagecraft.entity.professions.MerchantProfession;
-import com.villagecraft.entity.professions.TradesmanProfession;
-import com.villagecraft.entity.professions.WorkerProfession;
-import com.villagecraft.entity.vanilla.IronGolem;
+// TODO: Fix AI goal imports for 1.20.2
+// import com.villagecraft.entity.goal.HealGolemGoal;
+// import com.villagecraft.entity.goal.VillagerGoalBase;
+// import com.villagecraft.entity.goal.VillagerGoalGotoVillageCenter;
+// import com.villagecraft.entity.goal.VillagerHungerGoal;
+// import com.villagecraft.entity.professions.BardProfession;
+// import com.villagecraft.entity.professions.MerchantProfession;
+// import com.villagecraft.entity.professions.TradesmanProfession;
+// import com.villagecraft.entity.professions.WorkerProfession;
+import com.villagecraft.entity.vanilla.Golem;
 import com.villagecraft.gui.RenderVillageCenter;
 import com.villagecraft.gui.VillageCenterScreen;
 import com.villagecraft.init.ModBlocks;
@@ -52,7 +53,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
+// import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 // TODO: MenuType import;
@@ -95,8 +96,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.core.registries.BuiltInRegistries;
+// Registries changed in NeoForge 1.20.2 - using DeferredRegister pattern
 
 @Mod.EventBusSubscriber(modid = Reference.MODID)
 @Mod(Reference.MODID)
@@ -192,8 +192,9 @@ public class VillageCraft {
 	 * Register all trades for wanderer.
 	 * @param event
 	 */
-    public void wandererTrades(WandererTradesEvent event)
+    // public void wandererTrades(WandererTradesEvent event)
     {
+/*
         List<ITrade> genericList = event.getGenericTrades();
         RandomTradeBuilder.forEachWanderer((tradeBuild) -> genericList.add(tradeBuild.build()));
 
@@ -203,7 +204,8 @@ public class VillageCraft {
 
 
     @SubscribeEvent
-    public void entityJoinWorldEvent(EntityJoinLevelEvent event) {
+    public void entityJoinWorldEvent(EntityJoinLevelEvent event) \{
+/*
   	  Entity entity = event.getEntity();
   	  	if (entity instanceof IronGolem) {
   	  		// Iron golem spawn logic
@@ -229,6 +231,7 @@ public class VillageCraft {
         	BardProfession.RegisterVillagerGoals(event);
 
       	  }
+*/
         }
     }
 
