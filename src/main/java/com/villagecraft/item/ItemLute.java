@@ -1,17 +1,17 @@
 package com.villagecraft.item;
 
-import net.minecraft.world.item.IItemTier;
-import net.minecraft.world.item.ItemGroup;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tier;
 
 public class ItemLute extends SwordItem {
-	public static Properties properties = new Properties().group(ItemGroup.TOOLS).maxStackSize(1);
+	public static Properties properties = new Properties().stacksTo(1);
 	public static float attackSpeed = 0.3f;
 	public static int damage = 10;
 	
 	
-	public ItemLute(IItemTier tier, int attackDamageIn, float attackSpeedIn, Properties p_i48460_4_) {
-		super(tier, attackDamageIn, attackSpeedIn, p_i48460_4_);
+	public ItemLute(Tier tier, int attackDamageIn, float attackSpeedIn, Properties prop) {
+		super(tier, attackDamageIn, attackSpeedIn, prop);
 	}
 }
