@@ -1,12 +1,12 @@
 package com.villagecraft.material;
 
-// Material removed - use BlockBehaviour
-
-
+// TODO: Material API removed in 1.20.2
+// Use BlockBehaviour.Properties instead
 public class MaterialBeer {
 	
+	// TODO: Reimplement for 1.20.2
 	public MaterialBeer() { 
-		Material water = net.minecraft.block.material.Material.WATER;
+		// Material water = Materials.WATER; - API removed
 	}
 
 }

@@ -75,14 +75,14 @@ public class TileEntityVillageCenter extends TileBasicVillageBlock {
         enabled = compound.getBoolean(ENABLED_TAG);
     }
 
-    @Nonnull
-    @Override
-    public CompoundTag saveWithoutMetadata(@Nonnull CompoundTag compound)
-    {
-        compound.putUUID(UUID_TAG, ownerId);
-        compound.putBoolean(ENABLED_TAG, enabled);
-        return super.saveWithoutMetadata(compound);
-    }
+    // TODO: Reimplement for 1.20.2 - saveWithoutMetadata signature changed
+    // @Nonnull
+    // @Override
+    // public CompoundTag saveWithoutMetadata(@Nonnull CompoundTag compound) {
+    //     compound.putUUID(UUID_TAG, ownerId);
+    //     compound.putBoolean(ENABLED_TAG, enabled);
+    //     return super.saveWithoutMetadata(compound);
+    // }
     
 
 	@Override
