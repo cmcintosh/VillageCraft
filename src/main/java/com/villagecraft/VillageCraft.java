@@ -15,7 +15,7 @@ import com.villagecraft.init.ModItems;
 import com.villagecraft.init.ModTiles;
 import com.villagecraft.init.ModVillagerProfessions;
 import com.villagecraft.util.Reference;
-
+import com.villagecraft.entity.professions.WorkerProfession;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.npc.Villager;
@@ -59,9 +59,8 @@ public class VillageCraft {
 		ModEntity.ENTITY_TYPES.register(modEventBus);
 
 		// Registering the villager trades
-		// TODO: Reimplement when trades are ready
-		// NeoForge.EVENT_BUS.addListener(this::villagerTrades);
-		// NeoForge.EVENT_BUS.addListener(this::wandererTrades);
+		NeoForge.EVENT_BUS.addListener(WorkerProfession::registerTrades);
+		NeoForge.EVENT_BUS.addListener(WorkerProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(this::entityJoinWorldEvent);
 		NeoForge.EVENT_BUS.addListener(this::onAttachCapabilitiesEvent);
 
