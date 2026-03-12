@@ -1,23 +1,17 @@
 package com.villagecraft.fluid;
 
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.fluid.Fluid;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.IBlockDisplayReader;
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.FluidAttributes.Water;
+import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 
-public class FluidBeer extends Water {
-
-	protected FluidBeer(Builder builder, Fluid fluid) {
-		super(builder, fluid);
-		
-		
-	}
+// TODO: Implement proper Fluid for 1.20.2 - FluidAttributes removed
+public class FluidBeer {
 	
-	public boolean doesVaporize(IBlockDisplayReader reader, BlockPos pos, FluidStack fluidStack)
-    {
-     return false;
-    }
-
+	// Temporarily commented - BaseFlowingFluid needs complete reimplementation for 1.20.2
+	
+	public static class Properties {
+		// Fluid properties should be in FluidType now
+		public Properties() {}
+	}
 }
