@@ -265,11 +265,16 @@ public class WanderBardPerformGoal extends VillagerGoalBase {
 	
 	/**
 	 * Apply health buffs to nearby audience
+	 * Enhanced with Musical Ensemble Synergy system
 	 */
 	private void applyPerformanceBuffs() {
 		if (villager.level().isClientSide()) {
 			return;
 		}
+		
+		// Calculate synergy multiplier
+		int musicianCount = countNearbyMusicians();
+		float synergyMultiplier = calculateSynergyMultiplier(musicianCount);
 		
 		// Heal villagers
 		List<Villager> villagers = villager.level().getEntitiesOfClass(
@@ -279,9 +284,14 @@ public class WanderBardPerformGoal extends VillagerGoalBase {
 		);
 		
 		for (Villager audience : villagers) {
-			// Health bonus: 1-2 hearts depending on song
-			float healAmount = currentSong.healBonus;
+			// Health bonus with synergy multiplier
+			float healAmount = currentSong.healBonus * synergyMultiplier;
 			audience.heal(healAmount);
+			
+			// Ensemble bonus: minor health regen boost for villagers when 2+ musicians
+			if (musicianCount >= 2) {
+				audience.heal(0.5f * synergyMultiplier); // Extra healing as mood boost
+			}
 			
 			// Show happy particles on successful heal
 			if (audience.getRandom().nextFloat() < 0.3) {
@@ -297,15 +307,77 @@ public class WanderBardPerformGoal extends VillagerGoalBase {
 		);
 		
 		for (Player player : players) {
-			// Smaller heal for players (0.5 - 1 heart)
-			float playerHeal = currentSong.healBonus * 0.5f;
+			// Smaller heal for players with synergy
+			float playerHeal = currentSong.healBonus * 0.5f * synergyMultiplier;
 			player.heal(playerHeal);
 			
-			// Show hearts when healed
-			if (playerHeal >= 0.5f && player instanceof ServerPlayer) {
-				((ServerPlayer)player).getFoodData().eat(1, 0.1f); // Small saturation bonus too
+			// Ensemble bonus: XP for players when 2+ musicians
+			if (musicianCount >= 2) {
+				player.giveExperiencePoints(1);
+			}
+			
+			// Synergy notification
+			if (player.getRandom().nextFloat() < 0.05f * musicianCount) {
+				String tierName = getEnsembleTierName(musicianCount);
+				String adj = musicianCount >= 4 ? "incredible" : 
+				             musicianCount >= 3 ? "great" : "extra";
+				player.sendSystemMessage(Component.literal(
+					"\u00a76\u266a The " + tierName + " fills you with " + adj + " energy! \u266a"
+				));
+			}
+			
+			// Full ensemble finale
+			if (musicianCount >= 4 && villager.getRandom().nextFloat() < 0.1f) {
+				player.sendSystemMessage(Component.literal(
+					"\u00a76\u2726 The full ensemble brings magnificent harmony! \u2726"
+				));
 			}
 		}
+	}
+	
+	/**
+	 * Count nearby musician villagers (Bard, Singer, Drummer, Bassist)
+	 */
+	private int countNearbyMusicians() {
+		if (villager.level().isClientSide()) {
+			return 0;
+		}
+		
+		// Check 32 block range for other musicians
+		int count = 1; // Start with self
+		
+		List<Villager> nearby = villager.level().getEntitiesOfClass(
+			Villager.class,
+			villager.getBoundingBox().inflate(32.0),
+			v -> {
+				if (v == villager) return false;
+				String profName = v.getVillagerData().getProfession().toString().toLowerCase();
+				return profName.contains("bard") || profName.contains("singer") || 
+				       profName.contains("drummer") || profName.contains("bassist");
+			}
+		);
+		
+		return count + nearby.size();
+	}
+	
+	/**
+	 * Calculate synergy multiplier
+	 */
+	private float calculateSynergyMultiplier(int count) {
+		if (count >= 4) return 2.0f;      // Ensemble: 2x
+		if (count >= 3) return 1.5f;      // Trio: 1.5x
+		if (count >= 2) return 1.25f;     // Duet: 1.25x
+		return 1.0f;                       // Solo: 1x
+	}
+	
+	/**
+	 * Get ensemble tier name
+	 */
+	private String getEnsembleTierName(int count) {
+		if (count >= 4) return "ensemble";
+		if (count >= 3) return "trio";
+		if (count >= 2) return "duet";
+		return "solo";
 	}
 	
 	/**

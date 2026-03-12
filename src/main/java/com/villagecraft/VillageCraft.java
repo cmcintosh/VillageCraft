@@ -29,6 +29,10 @@ import com.villagecraft.entity.professions.MinerProfession;
 import com.villagecraft.entity.professions.MayorProfession;
 import com.villagecraft.entity.professions.InnkeeperProfession;
 import com.villagecraft.entity.professions.LandlordProfession;
+import com.villagecraft.entity.professions.BardProfession;
+import com.villagecraft.entity.professions.SingerProfession;
+import com.villagecraft.entity.professions.DrummerProfession;
+import com.villagecraft.entity.professions.BassistProfession;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.npc.Villager;
@@ -89,6 +93,16 @@ public class VillageCraft {
 		NeoForge.EVENT_BUS.addListener(InnkeeperProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(LandlordProfession::registerTrades);
 		NeoForge.EVENT_BUS.addListener(LandlordProfession::registerGoals);
+		
+		// Musical Ensemble professions
+		NeoForge.EVENT_BUS.addListener(BardProfession::registerTrades);
+		NeoForge.EVENT_BUS.addListener(SingerProfession::registerTrades);
+		NeoForge.EVENT_BUS.addListener(SingerProfession::registerGoals);
+		NeoForge.EVENT_BUS.addListener(DrummerProfession::registerTrades);
+		NeoForge.EVENT_BUS.addListener(DrummerProfession::registerGoals);
+		NeoForge.EVENT_BUS.addListener(BassistProfession::registerTrades);
+		NeoForge.EVENT_BUS.addListener(BassistProfession::registerGoals);
+		
 		NeoForge.EVENT_BUS.addListener(this::entityJoinWorldEvent);
 		NeoForge.EVENT_BUS.addListener(this::onAttachCapabilitiesEvent);
 		NeoForge.EVENT_BUS.addListener(this::onVillagerTick);

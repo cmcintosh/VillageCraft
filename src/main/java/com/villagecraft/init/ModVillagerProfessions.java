@@ -38,6 +38,9 @@ public class ModVillagerProfessions {
 	public static final DeferredHolder<PoiType, PoiType> BEEKEEPER_POI = POINTS_OF_INTEREST.register("beekeeper_workstation",
 			() -> new PoiType(getAllStates(ModBlocks.BEE_KEEPERS_HIVE.get()), 1, 1));
 
+	public static final DeferredHolder<PoiType, PoiType> FARMER_POI = POINTS_OF_INTEREST.register("farmer_workstation",
+			() -> new PoiType(ImmutableSet.of(), 1, 1)); // Using generic workplace
+
 	public static final DeferredHolder<PoiType, PoiType> BRAWLER_POI = POINTS_OF_INTEREST.register("brawler_workstation",
 			() -> new PoiType(getAllStates(ModBlocks.BRAWLER_BOX.get()), 1, 1));
 
@@ -103,6 +106,46 @@ public class ModVillagerProfessions {
 					"bard",
 					(holder) -> holder.value() == BARD_POI.get(),
 					(holder) -> holder.value() == BARD_POI.get(),
+					ImmutableSet.of(),
+					ImmutableSet.of(),
+					null
+			));
+
+	public static final DeferredHolder<VillagerProfession, VillagerProfession> SINGER = PROFESSIONS.register("singer",
+			() -> new VillagerProfession(
+					"singer",
+					(holder) -> holder.value() == BARD_POI.get(), // Share bard POI
+					(holder) -> holder.value() == BARD_POI.get(),
+					ImmutableSet.of(),
+					ImmutableSet.of(),
+					null
+			));
+
+	public static final DeferredHolder<VillagerProfession, VillagerProfession> DRUMMER = PROFESSIONS.register("drummer",
+			() -> new VillagerProfession(
+					"drummer",
+					(holder) -> holder.value() == BARD_POI.get(), // Share bard POI
+					(holder) -> holder.value() == BARD_POI.get(),
+					ImmutableSet.of(),
+					ImmutableSet.of(),
+					null
+			));
+
+	public static final DeferredHolder<VillagerProfession, VillagerProfession> BASSIST = PROFESSIONS.register("bassist",
+			() -> new VillagerProfession(
+					"bassist",
+					(holder) -> holder.value() == BARD_POI.get(), // Share bard POI
+					(holder) -> holder.value() == BARD_POI.get(),
+					ImmutableSet.of(),
+					ImmutableSet.of(),
+					null
+			));
+
+	public static final DeferredHolder<VillagerProfession, VillagerProfession> FARMER = PROFESSIONS.register("farmer",
+			() -> new VillagerProfession(
+					"farmer",
+					(holder) -> holder.value() == FARMER_POI.get(),
+					(holder) -> holder.value() == FARMER_POI.get(),
 					ImmutableSet.of(),
 					ImmutableSet.of(),
 					null
