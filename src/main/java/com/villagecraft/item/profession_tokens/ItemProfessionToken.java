@@ -10,8 +10,14 @@ import net.minecraft.world.item.Item;
 public class ItemProfessionToken extends Item {
 	public static Item.Properties properties = new Item.Properties().stacksTo(64);
 	private static final Logger LOGGER = LogManager.getLogger(Reference.MODID + " Client Mod Event Subscriber");
+	private final String professionName;
 	
-	public ItemProfessionToken(Item.Properties properties) {
+	public ItemProfessionToken(Item.Properties properties, String professionName) {
 		super(properties);
+		this.professionName = professionName;
+	}
+	
+	public String getProfessionName() {
+		return professionName;
 	}
 }
