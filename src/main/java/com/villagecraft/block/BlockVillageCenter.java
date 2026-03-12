@@ -50,7 +50,7 @@ public class BlockVillageCenter extends BaseEntityBlock {
 	
 	public static BlockBehaviour.Properties properties = BlockBehaviour.Properties.of().strength(3.5F).sound(SoundType.WOOD).noOcclusion();
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-	public static net.minecraft.world.item.Item.Properties item_properties = new net.minecraft.world.item.Item.Properties().tab(net.minecraft.world.item.CreativeModeTabs.BUILDING_BLOCKS).stacksTo(64);
+	public static net.minecraft.world.item.Item.Properties item_properties = new net.minecraft.world.item.Item.Properties().stacksTo(64);
 	private static final VoxelShape AABB = Block.box(0, 0, 0, 16, 18, 16);
 	
 	public BlockVillageCenter(BlockBehaviour.Properties properties) {
