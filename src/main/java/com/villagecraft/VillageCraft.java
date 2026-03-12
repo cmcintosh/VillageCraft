@@ -22,7 +22,7 @@ import com.villagecraft.entity.professions.BardProfession;
 import com.villagecraft.entity.professions.MerchantProfession;
 import com.villagecraft.entity.professions.TradesmanProfession;
 import com.villagecraft.entity.professions.WorkerProfession;
-import com.villagecraft.entity.vanilla.Golem;
+import com.villagecraft.entity.vanilla.IronGolem;
 import com.villagecraft.gui.RenderVillageCenter;
 import com.villagecraft.gui.VillageCenterScreen;
 import com.villagecraft.init.ModBlocks;
@@ -95,7 +95,8 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.registries.DeferredRegister;
-// Registries changed in NeoForge 1.20.2 - using DeferredRegister pattern
+import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 @Mod.EventBusSubscriber(modid = Reference.MODID)
 @Mod(Reference.MODID)
