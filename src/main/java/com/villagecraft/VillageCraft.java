@@ -18,6 +18,7 @@ import com.villagecraft.util.Reference;
 import com.villagecraft.entity.professions.WorkerProfession;
 import com.villagecraft.entity.professions.TraderProfession;
 import com.villagecraft.entity.professions.FarmerProfession;
+import com.villagecraft.entity.professions.BuilderProfession;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.npc.Villager;
@@ -67,6 +68,8 @@ public class VillageCraft {
 		NeoForge.EVENT_BUS.addListener(TraderProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(FarmerProfession::registerTrades);
 		NeoForge.EVENT_BUS.addListener(FarmerProfession::registerGoals);
+		NeoForge.EVENT_BUS.addListener(BuilderProfession::registerTrades);
+		NeoForge.EVENT_BUS.addListener(BuilderProfession::registerGoals);
 		NeoForge.EVENT_BUS.addListener(this::entityJoinWorldEvent);
 		NeoForge.EVENT_BUS.addListener(this::onAttachCapabilitiesEvent);
 

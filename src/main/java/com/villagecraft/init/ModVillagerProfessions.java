@@ -77,7 +77,7 @@ public class ModVillagerProfessions {
 			));
 	
 	// BUILDER profession - referenced by BuilderProfession.java
-	public static final DeferredHolder\<VillagerProfession, VillagerProfession\> BUILDER = PROFESSIONS.register("builder",
+	public static final DeferredHolder<VillagerProfession, VillagerProfession> BUILDER = PROFESSIONS.register("builder",
 			() -> new VillagerProfession(
 					"builder",
 					(holder) -> holder.value() == VILLAGE_CENTER.get(),
